@@ -31,12 +31,12 @@ class Customer extends Acl {
             $arr = Customers::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -51,7 +51,7 @@ class Customer extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $create_info=Customers::create(syn_sql($input,'customer'));
                     Hook::listen('create_customer',$create_info);//客户新增行为
-                    push_log('新增客户信息[ '.$create_info['name'].' ]');//日志
+                    push_log('新しい顧客情報[ '.$create_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -63,14 +63,14 @@ class Customer extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $update_info=Customers::update(syn_sql($input,'customer'));
                     Hook::listen('update_customer',$update_info);//客户更新行为
-                    push_log('更新客户信息[ '.$update_info['name'].' ]');//日志
+                    push_log('顧客情報を更新します[ '.$update_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -80,7 +80,7 @@ class Customer extends Acl {
         if(isset_full($input,'id')){
             $resule=Customers::where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -102,20 +102,20 @@ class Customer extends Acl {
             if(!$exist){
                 $info=db('customer')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
                 foreach ($info as $info_vo) {
-                    push_log('删除客户信息[ '.$info_vo['name'].' ]');//日志
+                    push_log('顧客情報を削除します[ '.$info_vo['name'].' ]');//日志
                     Hook::listen('del_customer',$info_vo['id']);//客户删除行为
                 }
                 Customers::where(['id'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+                $resule=['state'=>'error','info'=>'データ相関,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
-    //导出客户信息
+    //顧客データを出力する信息
     public function export_customer(){
         $input=input('get.');
         $sql=get_sql($input,[
@@ -132,7 +132,7 @@ class Customer extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'客户列表']);
+        array_push($excel,['type'=>'title','info'=>'顧客リスト']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -156,14 +156,14 @@ class Customer extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出客户信息');//日志
-        export_excel('客户列表',$excel);
+        push_log('顧客データを出力する信息');//日志
+        export_excel('顧客リスト',$excel);
     }
     //导入客户信息
     public function import_customer(Request $request){
 		$file=$request->file('file');//获取表单上传文件
 		if (empty($file)){
-		    $resule=['state'=>'error','info'=>'传入数据不完整!'];
+		    $resule=['state'=>'error','info'=>'渡されたデータが不完全です!'];
 		}else{
 		    $nod=$file->validate (['ext'=>'xlsx'])->rule ('uniqid')->move (ROOT_PATH.'skin'.DS.'upload'.DS.'xlsx');//验证且重命名并移动文件
 		    if($nod){
@@ -189,11 +189,11 @@ class Customer extends Acl {
 		            $vali = $this->validate($sql,'Customer');
 		            if($vali===true){
 		                $sql['birthday']=strtotime($vo['F']);
-		                push_log('导入客户信息[ '.$sql['name'].' ]');//日志
+		                push_log('顧客情報をインポートします[ '.$sql['name'].' ]');//日志
 		                array_push($create_sql,$sql);//加入SQL
 		            }else{
 		                //返回错误信息
-		                return json(['state'=>'error','info'=>'模板文件第[ '.$key.' ]行'.$vali]);
+		                return json(['state'=>'error','info'=>'テンプレートファイル第[ '.$key.' ]行'.$vali]);
 		            }
 		        }
 		        $insert_count=db('customer')->insertAll($create_sql);
@@ -227,12 +227,12 @@ class Customer extends Acl {
             $arr = Integral::with('typedata,userinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -242,7 +242,7 @@ class Customer extends Acl {
         if(isset($input['id'])){
             $info=db('customer')->where(['id'=>$input['id']])->find();//获取客户信息
             if(empty($info)){
-                $resule=['state'=>'error','info'=>'客户不存在!'];
+                $resule=['state'=>'error','info'=>'顧客は存在しません!'];
             }else{
                 $sql['pid']=$input['id'];
                 $sql['set']=$input['set']=='inc'?1:0;
@@ -255,16 +255,16 @@ class Customer extends Acl {
         	    $create_info=Integral::create($sql);
         	    if(empty($sql['set'])){
         	        Customers::where (['id'=>$input['id']])->setDec ('integral',$sql['integral']);//减少积分
-        	        push_log('减少客户[ '.$info['name'].' ]积分[ '.$sql['integral'].' ]');//日志
+        	        push_log('顧客を削減します[ '.$info['name'].' ]積分[ '.$sql['integral'].' ]');//日志
         	    }else{
         	        Customers::where (['id'=>$input['id']])->setInc ('integral',$sql['integral']);//增加积分
-        	        push_log('增加客户[ '.$info['name'].' ]积分[ '.$sql['integral'].' ]');//日志
+        	        push_log('顧客を増やします[ '.$info['name'].' ]積分[ '.$sql['integral'].' ]');//日志
         	    }
         	    Hook::listen('set_integral',$create_info);//设置积分行为
                 $resule=['state'=>'success'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -287,7 +287,7 @@ class Customer extends Acl {
             //开始构造导出数据
             $excel=[];//初始化导出数据
             //1.填充标题数据
-            array_push($excel,['type'=>'title','info'=>'客户['.$info['name'].']积分信息']);
+            array_push($excel,['type'=>'title','info'=>'クライアント['.$info['name'].']ポイント情報']);
             //2.构造表格数据
             $table_cell=[];//初始化表头数据
             //构造表头数据
@@ -311,12 +311,12 @@ class Customer extends Acl {
             }
             array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
             //3.构造文本数据
-            array_push($excel,['type'=>'node','info'=>['剩余积分:',$info['integral']]]);
+            array_push($excel,['type'=>'node','info'=>['残りのポイント:',$info['integral']]]);
             //4.导出execl
-            push_log('导出客户['.$info['name'].']积分信息');//日志
-            export_excel('客户['.$info['name'].']积分信息',$excel);
+            push_log('顧客データを出力する['.$info['name'].']ポイント情報');//日志
+            export_excel('クライアント['.$info['name'].']ポイント情報',$excel);
         }else{
-            return json(['state'=>'error','info'=>'传入参数不完整!']);
+            return json(['state'=>'error','info'=>'入力されたパラメーターが不完全です!']);
         }
     }
 }

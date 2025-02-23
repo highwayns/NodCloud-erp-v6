@@ -30,7 +30,7 @@ class Index extends Controller{
                 cookie('Nod_User_Token',$token);
                 Session('is_user_id',$user['id']);
                 Session('is_merchant_id',$user['merchant']);
-                push_log('登录系统成功');//日志
+                push_log('ログインシステムの成功');//日志
                 Hook::listen('login_success',$user);//登录成功行为
                 //通用操作-开始
                 del_time_file ('skin/upload/xlsx/');//删除超时文件
@@ -40,10 +40,10 @@ class Index extends Controller{
             }else{
                 $hookinfo=['user'=>$input['user'],'pwd'=>$input['pwd']];//钩子信息
                 Hook::listen('login_error',$hookinfo);//登录失败行为
-                return json(['state'=>'error','info'=>'账号或密码错误,请核实!']);
+                return json(['state'=>'error','info'=>'アカウントまたはパスワードエラー、確認してください!']);
             }
         }else{
-            return json(['state'=>'error','info'=>'传入参数不完整!']);
+            return json(['state'=>'error','info'=>'入力されたパラメーターが不完全です!']);
         }
     }
     //退出登录

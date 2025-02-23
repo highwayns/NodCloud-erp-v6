@@ -6,25 +6,25 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商品名称</label>
+                        <label class="layui-form-label">製品名</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|name" placeholder="请输入商品名称" value="{$Think.get.name}">
+                            <input type="text" class="layui-input" id="s|name" placeholder="请输入商製品名を入力してください品名称" value="{$Think.get.name}">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">开始日期</label>
+                        <label class="layui-form-label">開始日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|start_time" placeholder="请选择开始日期" value="{php}echo date('Y-m-01', strtotime(date('Y-m-d')));{/php}">
+                            <input type="text" class="layui-input" id="s|start_time" placeholder="開始日を選択してください" value="{php}echo date('Y-m-01', strtotime(date('Y-m-d')));{/php}">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">结束日期</label>
+                        <label class="layui-form-label">終了日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|end_time" placeholder="请选择结束日期" value="{php}echo date('Y-m-d', time());{/php}">
+                            <input type="text" class="layui-input" id="s|end_time" placeholder="終了日を選択してください" value="{php}echo date('Y-m-d', time());{/php}">
                         </div>
                     </div>
                 </div>
@@ -36,25 +36,25 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">条形码</label>
+                        <label class="layui-form-label">バーコード</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|code" placeholder="请输入条形码" value="{$Think.get.code}">
+                            <input type="text" class="layui-input" id="s|code" placeholder="バーコードを入力してください" value="{$Think.get.code}">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">规格型号</label>
+                        <label class="layui-form-label">規格型番</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|spec" placeholder="请输入规格型号">
+                            <input type="text" class="layui-input" id="s|spec" placeholder="仕様モデルを入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商品编号</label>
+                        <label class="layui-form-label">商品番号</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|number" placeholder="请输入商品编号">
+                            <input type="text" class="layui-input" id="s|number" placeholder="製品番号を入力してください">
                         </div>
                     </div>
                 </div>
@@ -62,9 +62,9 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商品分类</label>
+                        <label class="layui-form-label">商品分類</label>
                         <div class="layui-input-block">
-                            <input type="text" id="s|class" placeholder="请选择商品分类" class="layui-input" onclick="show_ztree(this);" nod="">
+                            <input type="text" id="s|class" placeholder="製品分類を選択してください" class="layui-input" onclick="show_ztree(this);" nod="">
             				<div class="ztree_box">
             					<ul id="s_goodsclass" class="ztree layui-anim layui-anim-upbit"></ul>
             				</div>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">所属仓库</label>
+                        <label class="layui-form-label">倉庫に属します</label>
                         <div class="layui-input-block">
                             <div id="s_warehouse" class="selectpage"></div>
                         </div>
@@ -81,7 +81,7 @@
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商品品牌</label>
+                        <label class="layui-form-label">コモディティブランド</label>
                         <div class="layui-input-block">
                             <div id="s_brand" class="selectpage"></div>
                         </div>
@@ -92,24 +92,24 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商品批次</label>
+                        <label class="layui-form-label">コモディティバッチ</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|batch" placeholder="请输入商品批次">
+                            <input type="text" class="layui-input" id="s|batch" placeholder="製品バッチを入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs6">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">备注信息</label>
+                        <label class="layui-form-label">備考情報</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|data" placeholder="请输入备注信息">
+                            <input type="text" class="layui-input" id="s|data" placeholder="備考情報を入力してください">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
-            <button class="layui-btn layui-btn-primary" onclick="exports();">导出</button>
+            <button class="layui-btn layui-btn-primary" onclick="exports();">輸出</button>
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>

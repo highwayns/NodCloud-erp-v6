@@ -5,15 +5,15 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">操作内容</label>
+                        <label class="layui-form-label">操作コンテンツ</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|text" placeholder="请输入操作内容">
+                            <input type="text" class="layui-input" id="s|text" placeholder="操作コンテンツを入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">操作用户</label>
+                        <label class="layui-form-label">オペレーティングユーザー</label>
                         <div class="layui-input-block">
                             <div id="userpage" class="selectpage"></div>
                         </div>
@@ -27,17 +27,17 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">开始日期</label>
+                        <label class="layui-form-label">開始日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|start_time" placeholder="请选择开始日期" >
+                            <input type="text" class="layui-input" id="s|start_time" placeholder="開始日を選択してください" >
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">结束日期</label>
+                        <label class="layui-form-label">終了日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|end_time" placeholder="请选择结束日期" >
+                            <input type="text" class="layui-input" id="s|end_time" placeholder="終了日を選択してください" >
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
             {if condition="(get_root('senior_del'))"}
-                <button class="layui-btn layui-btn-primary" onclick="empty();">清空</button>
+                <button class="layui-btn layui-btn-primary" onclick="empty();">空の</button>
             {/if}
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>

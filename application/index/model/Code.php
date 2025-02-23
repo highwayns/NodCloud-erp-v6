@@ -9,7 +9,7 @@ class Code extends Model{
     
     //条码类型_读取器
 	protected function  getTypeAttr ($val,$data){
-        $arr=['0'=>'条形码','1'=>'二维码'];
+        $arr=['0'=>'バーコード','1'=>'QRコード'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

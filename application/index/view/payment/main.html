@@ -8,25 +8,25 @@
                 <div class="layui-row layui-col-space3">
                     <div class="layui-col-xs4">
                         <div class="layui-form-item remove_margin reset_item">
-                            <label class="layui-form-label">供应商</label>
+                            <label class="layui-form-label">サプライヤー</label>
                             <div class="layui-input-block">
-                                <div id="nod_supplier" class="selectpage" nod="supplier" tip="请选择供应商" url="/index/service/supplier_list"></div>
+                                <div id="nod_supplier" class="selectpage" nod="supplier" tip="サプライヤーを選択してください" url="/index/service/supplier_list"></div>
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-xs4">
                         <div class="layui-form-item remove_margin reset_item">
-                            <label class="layui-form-label">单据日期</label>
+                            <label class="layui-form-label">ドキュメント日</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" id="time" placeholder="请输入单据日期" value="{$class.time|default=date('Y-m-d',time())}" />
+                                <input type="text" class="layui-input" id="time" placeholder="ドキュメントの日付を入力してください" value="{$class.time|default=date('Y-m-d',time())}" />
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-xs4">
                         <div class="layui-form-item remove_margin reset_item">
-                            <label class="layui-form-label">单据编号</label>
+                            <label class="layui-form-label">ドキュメント番号</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" id="number" placeholder="请输入单据编号" value="{$class.number|default=get_number('FKD')}" />
+                                <input type="text" class="layui-input" id="number" placeholder="ドキュメント番号を入力してください" value="{$class.number|default=get_number('FKD')}" />
                             </div>
                         </div>
                     </div>
@@ -34,22 +34,22 @@
             </div>
             <div class="set_btn">
                 {empty name="Think.get.id"}
-                    <button class="layui-btn layui-btn-normal" onclick="save('0');">新增单据</button>
+                    <button class="layui-btn layui-btn-normal" onclick="save('0');">新しいドキュメント</button>
                 {else/}
                     {empty name="class.type.nod"}
                         {if condition="(get_root('payment_edit'))"}
-                            <button class="layui-btn layui-btn-normal" onclick="save({$class.id??'0'});">保存单据</button>
+                            <button class="layui-btn layui-btn-normal" onclick="save({$class.id??'0'});">ドキュメントを保存します</button>
                         {/if}
                         {if condition="(get_root('payment_auditing'))"}
-                            <button class="layui-btn layui-btn-primary" onclick="auditing({$class.id??'0'},true);">审核单据</button>
+                            <button class="layui-btn layui-btn-primary" onclick="auditing({$class.id??'0'},true);">ドキュメントを確認します</button>
                         {/if}
                     {else/}
                         {if condition="(get_root('payment_auditing'))"}
-                            <button class="layui-btn layui-btn-primary" onclick="auditing({$class.id},false);">反审核单据</button>
+                            <button class="layui-btn layui-btn-primary" onclick="auditing({$class.id},false);">反レビュードキュメント</button>
                         {/if}
                     {/empty}
                 {/empty}
-                <button class="layui-btn" onclick="replace();">重新载入</button>
+                <button class="layui-btn" onclick="replace();">再読み込み</button>
             </div>
         </div>
     </div>
@@ -62,25 +62,25 @@
         <div class="layui-row layui-col-space12 top_12">
             <div class="layui-col-xs4">
                 <div class="layui-form-item remove_margin ">
-                    <label class="layui-form-label">制单人</label>
+                    <label class="layui-form-label">シングルハンドの人</label>
                     <div class="layui-input-block">
-                        <div id="nod_user" class="selectpage" nod="user" tip="请选择制单人" url="/index/service/user_list"></div>
+                        <div id="nod_user" class="selectpage" nod="user" tip="一人を選んでください" url="/index/service/user_list"></div>
                     </div>
                 </div>
             </div>
             <div class="layui-col-xs4">
                 <div class="layui-form-item remove_margin ">
-                    <label class="layui-form-label" id="upload_region">单据附件</label>
+                    <label class="layui-form-label" id="upload_region">ドキュメント添付ファイル</label>
                     <div class="layui-input-block" onclick="look_file(this);">
-                        <input type="text" id="file" class="layui-input" placeholder="点击左侧区域上传" disabled nod="{$class.file|default=''}" value="{notempty name='class.file'}[ 已上传 | 点击查看 ]{/notempty}" />
+                        <input type="text" id="file" class="layui-input" placeholder="左の領域のアップロードをクリックします" disabled nod="{$class.file|default=''}" value="{notempty name='class.file'}[ 已上传 | 点击查看 ]{/notempty}" />
                     </div>
                 </div>
             </div>
             <div class="layui-col-xs4">
                 <div class="layui-form-item remove_margin ">
-                    <label class="layui-form-label">备注信息</label>
+                    <label class="layui-form-label">備考情報</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input" id="data" placeholder="请输入备注信息" value="{$class.data??''}" />
+                        <input type="text" class="layui-input" id="data" placeholder="備考情報を入力してください" value="{$class.data??''}" />
                     </div>
                 </div>
             </div>

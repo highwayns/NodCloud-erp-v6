@@ -15,11 +15,11 @@ class Acl extends Controller{
                 if($input['apitime'] + 60 > time()){
                     //验证秘钥
                     if(get_plug_key($input['apitime'])!=$input['apikey']){
-                        echo json_encode(['state'=>'error','info'=>'秘钥错误,拒绝访问!']);
+                        echo json_encode(['state'=>'error','info'=>'資本口座,アクセスが拒否されました!']);
                         exit;
                     }
                 }else{
-                    echo json_encode(['state'=>'error','info'=>'秘钥有效期超时!']);
+                    echo json_encode(['state'=>'error','info'=>'秘密の時間は、タイムアウトに有効です!']);
                     exit;
                 }
             }else{

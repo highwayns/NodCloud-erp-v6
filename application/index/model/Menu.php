@@ -16,7 +16,7 @@ class Menu extends Model{
     
     //菜单类型_读取器
 	protected function  getTypeAttr ($val,$data){
-        $arr=['0'=>'独立菜单','1'=>'附属菜单'];
+        $arr=['0'=>'独立メニュー','1'=>'アクセサリーメニュー'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;
@@ -24,7 +24,7 @@ class Menu extends Model{
 	
 	//跳转类型_读取器
 	protected function  getJumpAttr ($val,$data){
-        $arr=['0'=>'iframe模式','1'=>'独立窗口'];
+        $arr=['0'=>'iframeモデル','1'=>'独立したウィンドウ'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

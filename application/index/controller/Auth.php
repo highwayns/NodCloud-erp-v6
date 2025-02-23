@@ -27,12 +27,12 @@ class Auth extends Acl {
             $arr = User::with('merchantinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全ですs!'];
         }
         return json($resule);
     }
@@ -47,7 +47,7 @@ class Auth extends Acl {
             }
             $resule=$info;
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -75,10 +75,10 @@ class Auth extends Acl {
                 //处理权限数据-结束
                 Auths::create($sql);
             }
-            push_log('设置数据授权[ '.$user_info['name'].' ]');//日志
+            push_log('データ認証を設定します[ '.$user_info['name'].' ]');//日志
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

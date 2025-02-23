@@ -26,19 +26,19 @@ class Log extends Acl {
             $arr = Logs::with('merchantinfo,userinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
     //清空操作日志信息
     public function empty_log(){
         Logs::where(['id'=>['gt',0]])->delete();
-        push_log('清空操作日志');//日志
+        push_log('操作ログをクリアします');//日志
         $resule=['state'=>'success'];
         return json($resule);
     }

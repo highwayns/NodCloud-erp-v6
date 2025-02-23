@@ -8,16 +8,16 @@
     <div class="layui-row">
         <div class="layui-col-xs3 goods_list">
             <div class="layui-card">
-                <div class="layui-card-header">商品信息</div>
+                <div class="layui-card-header">製品情報</div>
                 <div class="layui-card-body">
                     <div class="list_top">
                         <table class="layui-table" lay-skin="line">
                             <thead>
                                 <tr>
-                                    <th>商品名称</th>
-                                    <th>数量</th>
+                                    <th>製品名</th>
+                                    <th>量</th>
                                     <th>金额</th>
-                                    <th>操作</th>
+                                    <th>動作します</th>
                                 </tr> 
                             </thead>
                             <tbody id="goods_main"></tbody>
@@ -26,10 +26,10 @@
                     <div class="list_bom">
                         <div class="layui-row">
                             <div class="layui-col-xs6">
-                                <p class="count">合计<span id="goods_count">0</span>项</p>
+                                <p class="count">合計<span id="goods_count">0</span>项</p>
                             </div>
                             <div class="layui-col-xs6">
-                                <p class="money">总金额：<span id="goods_money">0</span></p>
+                                <p class="money">合計金額：<span id="goods_money">0</span></p>
                             </div>
                         </div>
                     </div>
@@ -41,12 +41,12 @@
                 <div class="layui-card-header">
                     <div class="layui-row">
                         <div class="layui-col-xs7">
-                            <span>商品列表</span>
+                            <span>製品リスト</span>
                         </div>
                         <div class="layui-col-xs5 so_group">
                             <div class="layui-row">
                                 <div class="layui-col-xs10">
-                                    <input class="layui-input" id="so_info" type="text" placeholder="商品名称 / 首拼字母 / 条形码" />
+                                    <input class="layui-input" id="so_info" type="text" placeholder="製品名 / 最初の戦い / バーコード" />
                                 </div>
                                 <div class="layui-col-xs2">
                                     <button class="layui-btn layui-btn-primary" onclick="so_goods();">
@@ -67,7 +67,7 @@
             <div class="layui-card">
                 <div class="layui-card-header" onclick="hide_goods_info();">
                     <div class="layui-row">
-                        <span>商品详情</span>
+                        <span>製品の詳細</span>
                         <i class="layui-icon layui-icon-close-fill" style="font-size: 26px;top: 32%;"></i>
                     </div>
                 </div>
@@ -87,49 +87,49 @@
                 <div class="layui-card-body">
                     <div class="layui-form layui-form-pane">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">购买客户</label>
+                            <label class="layui-form-label">顧客を購入します</label>
                             <div class="layui-input-block">
-                                <div id="nod_customer" class="selectpage" nod="customer" tip="请选择客户" url="/index/service/customer_list"></div>
+                                <div id="nod_customer" class="selectpage" nod="customer" tip="顧客を選択してください" url="/index/service/customer_list"></div>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">单据金额</label>
+                            <label class="layui-form-label">ドキュメント量</label>
                             <div class="layui-input-block">
                                 <input type="text" id="total" class="layui-input" disabled="disabled">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">实际金额</label>
+                            <label class="layui-form-label">実際の金額</label>
                             <div class="layui-input-block">
-                                <input type="text" id="actual" class="layui-input" placeholder="请输入实际金额">
+                                <input type="text" id="actual" class="layui-input" placeholder="実際の金額を入力してください">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">客户付款</label>
+                            <label class="layui-form-label">顧客支払い</label>
                             <div class="layui-input-block">
-                                <input type="text" id="money" class="layui-input" placeholder="请输入客户付款">
+                                <input type="text" id="money" class="layui-input" placeholder="お客様の支払いを入力してください">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">找零金额</label>
+                            <label class="layui-form-label">ゼロ量を見つけます</label>
                             <div class="layui-input-block">
                                 <input type="text" id="oddchange" class="layui-input" value="0" disabled="disabled">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">赠送积分</label>
+                            <label class="layui-form-label">ポイントをプレゼント</label>
                             <div class="layui-input-block">
-                                <input type="text" id="integral" class="layui-input" placeholder="请输入赠送积分">
+                                <input type="text" id="integral" class="layui-input" placeholder="ギフトポイントを入力してください">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">结算账户</label>
+                            <label class="layui-form-label">決済口座</label>
                             <div class="layui-input-block">
-                                <div id="nod_account" class="selectpage" nod="account" tip="请选择结算账户" url="/index/service/account_list"></div>
+                                <div id="nod_account" class="selectpage" nod="account" tip="決済アカウントを選択してください" url="/index/service/account_list"></div>
                             </div>
                         </div>
                         <div class="layui-form-item" pane>
-                            <label class="layui-form-label">组合支付</label>
+                            <label class="layui-form-label">ポート支払い</label>
                             <div class="layui-input-block">
                                 <input type="checkbox" id="paymemu" lay-skin="switch" lay-text="开|关" lay-filter="paymemu">
                             </div>
@@ -137,17 +137,17 @@
                         <table class="layui-table" id="pay_tab" style="display:none;">
                             <thead>
                                 <tr>
-                                    <th>结算账户</th>
-                                    <th>结算金额</th>
-                                    <th onclick="add_pay();">相关操作<i class="layui-icon layui-icon-add-circle"></i></th>
+                                    <th>決済口座</th>
+                                    <th>決済額</th>
+                                    <th onclick="add_pay();">関連操作<i class="layui-icon layui-icon-add-circle"></i></th>
                                 </tr>
                             </thead>
                             <tbody id="pay_tbody"></tbody>
                         </table>
                 		<div class="layui-form-item">
-                            <label class="layui-form-label">备注信息</label>
+                            <label class="layui-form-label">備考情報</label>
                             <div class="layui-input-block">
-                                <input type="text" id="data" class="layui-input" placeholder="请输入备注信息">
+                                <input type="text" id="data" class="layui-input" placeholder="備考情報を入力してください">
                             </div>
                         </div>
                         <more></more>
@@ -158,8 +158,8 @@
     </div>
 </div>
 <div class="main_bom">
-    <button class="layui-btn layui-btn-primary" onclick="replace();">重新载入</button>
-    <button class="layui-btn settle" onclick="settle();">结账</button>
+    <button class="layui-btn layui-btn-primary" onclick="replace();">再読み込み</button>
+    <button class="layui-btn settle" onclick="settle();">会計</button>
 </div>
 <script type="text/html" id="more_html">{php}hook_listen('formmore');{/php}</script>
 <script type="text/javascript" charset="utf-8">

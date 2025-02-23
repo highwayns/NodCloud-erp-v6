@@ -11,7 +11,7 @@ class kindeditor extends Acl {
         if (isset_full($input,'dir')) {
             $file=$request->file('imgFile');//获取表单上传文件
             if (empty($file)){
-                $resule=['state'=>'error','info'=>'传入数据不完整!'];
+                $resule=['state'=>'error','info'=>'渡されたデータが不完全です!'];
             }else{
                 if ($input['dir'] == 'image') {
                     //图像
@@ -55,11 +55,11 @@ class kindeditor extends Acl {
                     }
                 }else{
                     //文件
-                    $resule=['state'=>'error','info'=>'未指定的数据类型!'];//返回错误信息
+                    $resule=['state'=>'error','info'=>'不特定のデータ型!'];//返回错误信息
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

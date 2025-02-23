@@ -4,11 +4,11 @@ use think\Validate;
 class User extends Validate{
     //默认创建规则
     protected $rule = [
-        ['user', 'require|RepeatUser:create', '职员账号不可为空!|字段数据重复'],
-        ['pwd', 'require', '职员密码不可为空!'],
-        ['merchant', 'require', '所属商户不可为空!'],
-        ['name', 'require', '职员名称不可为空!'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['user', 'require|RepeatUser:create', 'スタッフアカウントは空にできません！|フィールドデータが重複しています！'],
+        ['pwd', 'require', 'スタッフパスワードは空にできません！'],
+        ['merchant', 'require', '所属する商人は空にできません！'],
+        ['name', 'require', 'スタッフ名は空にできません！'],
+        ['more', 'array', '拡張情報の形式が正しくありません！']
     ];
     //场景规则
     protected $scene = [
@@ -24,6 +24,6 @@ class User extends Validate{
         $sql['user']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('user')->where($sql)->find();
-        return empty($nod)?true:'职员账号[ '.$val.' ]已存在!';
+        return empty($nod)?true:'従業員アカウント[ '.$val.' ]存在する!';
     }
 }

@@ -29,16 +29,16 @@ class Warehouse extends Acl {
             $arr = Warehouses::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
-    //新增|更新仓库信息
+    //新增|倉庫情報を更新する
     public function set_warehouse(){
         $input=input('post.');
         if(isset($input['id'])){
@@ -49,7 +49,7 @@ class Warehouse extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $create_info=Warehouses::create(syn_sql($input,'warehouse'));
                     Hook::listen('create_warehouse',$create_info);//仓库新增行为
-                    push_log('新增仓库信息[ '.$create_info['name'].' ]');//日志
+                    push_log('倉庫情報を新規追加する[ '.$create_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -61,14 +61,14 @@ class Warehouse extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $update_info=Warehouses::update(syn_sql($input,'warehouse'));
                     Hook::listen('update_warehouse',$update_info);//仓库更新行为
-                    push_log('更新仓库信息[ '.$update_info['name'].' ]');//日志
+                    push_log('倉庫情報を更新する[ '.$update_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -78,7 +78,7 @@ class Warehouse extends Acl {
         if(isset_full($input,'id')){
             $resule=Warehouses::where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -106,16 +106,16 @@ class Warehouse extends Acl {
             if(!$exist){
             	 $info=db('warehouse')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
                 foreach ($info as $info_vo) {
-                    push_log('删除仓库信息[ '.$info_vo['name'].' ]');//日志
+                    push_log('倉庫情報を削除します[ '.$info_vo['name'].' ]');//日志
                     Hook::listen('del_warehouse',$info_vo['id']);//仓库删除行为
                 }
                 Warehouses::where(['id'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-            	$resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+            	$resule=['state'=>'error','info'=>'データ相関,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -136,7 +136,7 @@ class Warehouse extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'仓库列表']);
+        array_push($excel,['type'=>'title','info'=>'倉庫リスト']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -160,7 +160,7 @@ class Warehouse extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出仓库信息');//日志
-        export_excel('仓库列表',$excel);
+        push_log('倉庫情報の輸出');//日志
+        export_excel('倉庫リスト',$excel);
     }
 }

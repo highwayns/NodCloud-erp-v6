@@ -5,23 +5,23 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">职员账号</label>
+                        <label class="layui-form-label">従業員アカウント</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|user" placeholder="请输入职员账号">
+                            <input type="text" class="layui-input" id="s|user" placeholder="従業員アカウントを入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">职员名称</label>
+                        <label class="layui-form-label">従業員名</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|name" placeholder="请输入职员名称">
+                            <input type="text" class="layui-input" id="s|name" placeholder="従業員名を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">所属商户</label>
+                        <label class="layui-form-label">所属店舗</label>
                         <div class="layui-input-block">
                             <div id="merchantpage" class="selectpage"></div>
                         </div>
@@ -34,7 +34,7 @@
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
             {if condition="(get_root('senior_add'))"}
-                <button class="layui-btn layui-btn-primary" onclick="detail(0);">新增</button>
+                <button class="layui-btn layui-btn-primary" onclick="detail(0);">新規追加</button>
             {/if}
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
@@ -49,16 +49,16 @@
 <script type="text/html" id="bar_info">
     <div class="layui-btn-group">
         {if condition="(get_root('senior_edit'))"}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit">修改</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit">編集</button>
         {/if}
         {if condition="(get_root('senior_del'))"}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">删除</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">削除</button>
         {/if}
     </div>
 </script>
 <script type="text/html" id="batch_html">
     {if condition="(get_root('senior_del'))"}
-        <button class="layui-btn" onclick="delect('batch');" batch>删除</button>
+        <button class="layui-btn" onclick="delect('batch');" batch>削除</button>
     {/if}
 </script>
 <script type="text/html" id="more_html">{php}hook_listen('formmore');{/php}</script>

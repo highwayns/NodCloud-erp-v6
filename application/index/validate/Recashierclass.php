@@ -4,17 +4,17 @@ use think\Validate;
 class Recashierclass extends Validate{
     //默认创建规则
     protected $rule = [
-        ['merchant', 'require|integer', '所属商户不可为空!|所属商户数据不正确!'],
-        ['customer', 'require|integer', '客户不可为空!|客户数据不正确!'],
-        ['time', 'require|date', '单据时间不可为空|单据时间不正确!'],
-        ['number', 'require|RepeatNumber:create', '单据编号不可为空!|字段数据重复'],
-        ['total', 'require|number', '单据金额不可为空!|单据金额数据不正确!'],
-        ['actual', 'require|number', '实际金额不可为空!|实际金额数据不正确!'],
-        ['money', 'require|number', '实付金额不可为空!|实付金额数据不正确!'],
-        ['user', 'require|integer', '制单人不可为空!|制单人数据不正确!'],
-        ['account', 'require|integer', '结算账户不可为空!|结算账户数据不正确!'],
-        ['integral', 'number', '赠送积分数据不正确!'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['merchant', 'require|integer', '所属商店データは空にできません！|所属商店データが正しくありません！'],
+        ['customer', 'require|integer', '顧客データは空にできません！|顧客データが正しくありません！'],
+        ['time', 'require|date', '書類の日付は空にできません！|書類の日付が正しくありません！'],
+        ['number', 'require|RepeatNumber:create', '書類番号は空にできません！|フィールドデータが重複しています！'],
+        ['total', 'require|number', '書類金額は空にできません！|書類金額が正しくありません！'],
+        ['actual', 'require|number', '実際の金額は空にできません！|実際の金額が正しくありません！'],
+        ['money', 'require|number', '支払金額は空にできません！|支払金額が正しくありません！'],
+        ['user', 'require|integer', '作成者データは空にできません！|作成者データが正しくありません！'],
+        ['account', 'require|integer', '決済口座データは空にできません！|決済口座データが正しくありません！'],
+        ['integral', 'number', 'ポイントデータが正しくありません！'],
+        ['more', 'array', '拡張情報の形式が正しくありません！']
     ];
     //场景规则
     protected $scene = [
@@ -36,6 +36,6 @@ class Recashierclass extends Validate{
         $sql['number']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('recashierclass')->where($sql)->find();
-        return empty($nod)?true:'单据编号[ '.$val.' ]已存在!';
+        return empty($nod)?true:'ドキュメント番号[ '.$val.' ]存在する!';
     }
 }

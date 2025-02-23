@@ -5,28 +5,28 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商品名称</label>
+                        <label class="layui-form-label">製品名</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|name" placeholder="请输入商品名称">
+                            <input type="text" class="layui-input" id="s|name" placeholder="製品名を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">串码</label>
+                        <label class="layui-form-label">文字列コード</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|code" placeholder="请输入串码">
+                            <input type="text" class="layui-input" id="s|code" placeholder="文字列コードを入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">串码状态</label>
+                        <label class="layui-form-label">コーディングステータス</label>
                         <div class="layui-input-block">
                             <select id="s|type">
-                                <option value="0">全部状态</option>
-                                <option value="1">未销售</option>
-                                <option value="2">已销售</option>
+                                <option value="0">すべての州</option>
+                                <option value="1">詰まっていない</option>
+                                <option value="2">売れた</option>
                             </select>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
-            <button class="layui-btn layui-btn-primary" onclick="exports();">导出</button>
+            <button class="layui-btn layui-btn-primary" onclick="exports();">輸出</button>
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>
@@ -50,7 +50,7 @@
 </div>
 <script type="text/html" id="bar_info">
     <div>
-        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="info">详情</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="info">詳細</button>
     </div>
 </script>
 <script type="text/html" id="more_html">{php}hook_listen('formmore');{/php}</script>

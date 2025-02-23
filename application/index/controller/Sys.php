@@ -19,10 +19,10 @@ class Sys extends Acl {
                 Syss::where(['name'=>$key])->update(['info'=>$input_vo]);
             }
             Hook::listen('save_sys',$input);//修改系统设置行为
-            push_log('修改系统设置');//日志
+            push_log('システム設定を変更します');//日志
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

@@ -22,12 +22,12 @@ class Payment extends Acl {
                 foreach ($input['tab'] as $tab_key=>$tab_vo) {
                     $tab_vali = $this->validate($tab_vo,'Paymentinfo');//详情验证
                     if($tab_vali!==true){
-                        return json(['state'=>'error','info'=>'[ 数据表格 ]第'.($tab_key+1).'行'.$tab_vali]);
+                        return json(['state'=>'error','info'=>'[ データフォーム ]第'.($tab_key+1).'行'.$tab_vali]);
                         exit;
                     }
                 }
             }else{
-                return json(['state'=>'error','info'=>'数据表格不可为空!']);
+                return json(['state'=>'error','info'=>'データテーブルを空にすることはできません!']);
                 exit;
             }
             //验证操作类型
@@ -38,7 +38,7 @@ class Payment extends Acl {
                 if($vali===true){
                     $create_info=Paymentclass::create(syn_sql($input,'paymentclass'));
                     Hook::listen('create_payment',$create_info);//付款单新增行为
-                    push_log('新增付款单[ '.$create_info['number'].' ]');//日志
+                    push_log('新しい支払いリスト[ '.$create_info['number'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -49,7 +49,7 @@ class Payment extends Acl {
                 if($vali===true){
                     $update_info=Paymentclass::update(syn_sql($input,'paymentclass'));
                     Hook::listen('update_payment',$update_info);//付款单更新行为
-                    push_log('更新付款单[ '.$update_info['number'].' ]');//日志
+                    push_log('支払いリストを更新します[ '.$update_info['number'].' ]');//日志
                     Paymentinfo::where(['pid'=>$update_info['id']])->delete();
                     $resule=['state'=>'success'];
                 }else{
@@ -65,7 +65,7 @@ class Payment extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         //兼容自动审核[新增操作]
         if($resule['state']=='success'&&empty($input['id'])){
@@ -102,12 +102,12 @@ class Payment extends Acl {
             $arr = Paymentclass::with('merchantinfo,supplierinfo,userinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'成功する',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -122,7 +122,7 @@ class Payment extends Acl {
             $this->assign('info',$info);
             return $this->fetch('main');
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -130,7 +130,7 @@ class Payment extends Acl {
     public function auditing($arr=[],$auto=false){
         (empty($arr))&&($arr=input('post.arr'));//兼容多态审核
         if(empty($arr)){
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }else{
             $class_data=[];//初始化CLASS数据
             $info_data=[];//初始化INFO数据
@@ -153,7 +153,7 @@ class Payment extends Acl {
                         Accountinfo::create (['pid'=>$info_vo['account'],'set'=>0,'money'=>$info_vo['total'],'type'=>6,'time'=>time(),'user'=>Session('is_user_id'),'class'=>$arr_vo]);//新增资金详情
                     }
                     Paymentclass::update(['id'=>$arr_vo,'type'=>1,'auditinguser'=>Session('is_user_id'),'auditingtime'=>time()]);//更新CLASS数据
-                    push_log(($auto?'自动':'').'审核付款单[ '.$class['number'].' ]');
+                    push_log(($auto?'自動':'').'支払いフォームを確認します[ '.$class['number'].' ]');
                 }else{
                     //反审核操作
                     foreach ($info as $info_vo){
@@ -161,7 +161,7 @@ class Payment extends Acl {
                     }
                     Accountinfo::where(['type'=>6,'class'=>$arr_vo])->delete();//删除资金账户详情
                     Paymentclass::update(['id'=>$arr_vo,'type'=>0,'auditinguser'=>0,'auditingtime'=>0]);//更新CLASS数据
-                    push_log ('反审核付款单[ '.$class['number'].' ]');
+                    push_log ('反レビュー支払いリスト[ '.$class['number'].' ]');
                 }
             }
             $resule=['state'=>'success'];
@@ -177,17 +177,17 @@ class Payment extends Acl {
             //数据检验
             if(empty($data)){
                 foreach ($class as $class_vo) {
-                    push_log('删除付款单[ '.$class_vo['number'].' ]');//日志
+                    push_log('支払いリストを削除します[ '.$class_vo['number'].' ]');//日志
                     Hook::listen('del_payment',$class_vo['id']);//付款单删除行为
                 }
                 Paymentclass::where(['id'=>['in',$input['arr']]])->delete();
                 Paymentinfo::where(['pid'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'error','info'=>'付款单[ '.$data[0]['number'].' ]已审核,不可删除!'];
+                $resule=['state'=>'error','info'=>'支払いシート[ '.$data[0]['number'].' ]レビュー、削除できません!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -195,7 +195,7 @@ class Payment extends Acl {
     public function exports(){
         $input=input('get.');
         if(isset($input['mode'])){
-            push_log('导出付款单数据');//日志
+            push_log('支払いリストデータをエクスポートします');//日志
             $sql=get_sql($input,[
                 'number'=>'full_like',
                 'supplier'=>'full_division_in',
@@ -220,7 +220,7 @@ class Payment extends Acl {
                 //开始构造导出数据
                 $excel=[];//初始化导出数据
                 //1.填充标题数据
-                array_push($excel,['type'=>'title','info'=>'付款单列表']);
+                array_push($excel,['type'=>'title','info'=>'支払いリストのリスト']);
                 //2.构造表格数据
                 $table_cell=[];//初始化表头数据
                 //构造表头数据
@@ -244,7 +244,7 @@ class Payment extends Acl {
                 }
                 array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
                 //3.导出execl
-                export_excel('付款单列表',$excel);
+                export_excel('支払いリストのリスト',$excel);
             }else{
                 //详细报表
                 $files=[];//初始化文件列表
@@ -253,14 +253,14 @@ class Payment extends Acl {
                 foreach ($arr as $arr_vo) {
                     $excel=[];//初始化导出数据
                     //1.填充标题数据
-                    array_push($excel,['type'=>'title','info'=>'付款单']);
+                    array_push($excel,['type'=>'title','info'=>'支払いシート']);
                     //2.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '供应商:'.$arr_vo['supplierinfo']['name'],
+                        'サプライヤー:'.$arr_vo['supplierinfo']['name'],
                         '',
-                        '单据日期:'.$arr_vo['time'],
+                        'ドキュメント日:'.$arr_vo['time'],
                         '',
-                        '单据编号:'.$arr_vo['number'],
+                        'ドキュメント番号:'.$arr_vo['number'],
                     ]]);
                     //3.构造表格数据
                     $info=Paymentinfo::where(['pid'=>$arr_vo['id']])->select();
@@ -287,17 +287,17 @@ class Payment extends Acl {
                     array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
                     //4.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '制单人:'.$arr_vo['userinfo']['name'],
+                        'シングルハンドの人:'.$arr_vo['userinfo']['name'],
                         '',
-                        '备注信息:'.$arr_vo['data'],
+                        '備考情報:'.$arr_vo['data'],
                     ]]);
                     $path=export_excel($arr_vo['number'],$excel,false);//生成文件
                     array_push($files,$path);//添加文件路径数据
                 }
-                file_to_zip('付款单明细',$files);//打包输出数据
+                file_to_zip('支払い単一の詳細',$files);//打包输出数据
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -324,7 +324,7 @@ class Payment extends Acl {
             $this->assign('print_text',$print_text);
             return $this->fetch();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

@@ -5,20 +5,20 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">插件名称</label>
+                        <label class="layui-form-label">プラグイン名</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|name" placeholder="请输入插件名称">
+                            <input type="text" class="layui-input" id="s|name" placeholder="プラグイン名を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">插件状态</label>
+                        <label class="layui-form-label">プラグインステータス</label>
                         <div class="layui-input-block">
                             <select id="s|state">
-                                <option value="0">全部状态</option>
-                                <option value="1">禁用</option>
-                                <option value="2">启用</option>
+                                <option value="0">すべての州</option>
+                                <option value="1">無効にします</option>
+                                <option value="2">開いてください</option>
                             </select>
                         </div>
                     </div>
@@ -38,16 +38,16 @@
 <script type="text/html" id="bar_info">
     <div class="layui-btn-group">
         {{#  if(d.state.nod==-1){ }}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="install">安装</button>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">删除</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="install">インストール</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">消去</button>
         {{#  } else if(d.state.nod==0) { }}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="enable">启用</button>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="uninstall">卸载</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="enable">開いてください</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="uninstall">アンインストール</button>
         {{#  } else if(d.state.nod==1) { }}
             {{#  layui.each(d.set, function(index, set_vo){ }}
                 <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="view" parameter="{{set_vo.parameter}}">{{set_vo.title}}</button>
             {{#  }); }}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="discont">停用</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="discont">停止</button>
         {{#  } }}
     </div>
 </script>

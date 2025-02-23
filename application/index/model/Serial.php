@@ -16,7 +16,7 @@ class Serial extends Model{
 	
 	//条码类型_读取器
 	protected function  getTypeAttr ($val,$data){
-        $arr=['0'=>'未销售','1'=>'已销售','2'=>'不在库'];
+        $arr=['0'=>'未販売','1'=>'販売済み','2'=>'在庫なし'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

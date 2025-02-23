@@ -4,12 +4,12 @@ use think\Validate;
 class Paymentclass extends Validate{
     //默认创建规则
     protected $rule = [
-        ['merchant', 'require|integer', '所属商户不可为空!|所属商户数据不正确!'],
-        ['supplier', 'require|integer', '供应商不可为空!|供应商数据不正确!'],
-        ['time', 'require|date', '单据时间不可为空|单据时间不正确!'],
-        ['number', 'require|RepeatNumber:create', '单据编号不可为空!|字段数据重复'],
-        ['user', 'require|integer', '制单人不可为空!|制单人数据不正确!'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['merchant', 'require|integer', '所属商店は空にできません！|商店データが正しくありません！'],
+        ['supplier', 'require|integer', '供給者は空にできません！|供給者データが正しくありません！'],
+        ['time', 'require|date', '書類の日付は空にできません！|書類の日付が正しくありません！'],
+        ['number', 'require|RepeatNumber:create', '書類番号は空にできません！|フィールドデータが重複しています！'],
+        ['user', 'require|integer', '作成者は空にできません！|作成者データが正しくありません！'],
+        ['more', 'array', '拡張情報の形式が正しくありません！']
     ];
     //场景规则
     protected $scene = [
@@ -26,6 +26,6 @@ class Paymentclass extends Validate{
         $sql['number']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('paymentclass')->where($sql)->find();
-        return empty($nod)?true:'单据编号[ '.$val.' ]已存在!';
+        return empty($nod)?true:'ドキュメント番号[ '.$val.' ]存在する!';
     }
 }

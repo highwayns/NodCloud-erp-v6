@@ -28,12 +28,12 @@ class Recashier extends Acl {
                 foreach ($input['tab'] as $tab_key=>$tab_vo) {
                     $tab_vali = $this->validate($tab_vo,'Recashierinfo');//详情验证
                     if($tab_vali!==true){
-                        return json(['state'=>'error','info'=>'[ 数据表格 ]第'.($tab_key+1).'行'.$tab_vali]);
+                        return json(['state'=>'error','info'=>'[ データフォーム ]第'.($tab_key+1).'行'.$tab_vali]);
                         exit;
                     }
                 }
             }else{
-                return json(['state'=>'error','info'=>'数据表格不可为空!']);
+                return json(['state'=>'error','info'=>'データテーブルを空にすることはできません!']);
                 exit;
             }
             //验证操作类型
@@ -44,7 +44,7 @@ class Recashier extends Acl {
                 if($vali===true){
                     $create_info=Recashierclass::create(syn_sql($input,'recashierclass'));
                     Hook::listen('create_recashier',$create_info);//零售退货单新增行为
-                    push_log('新增零售退货单[ '.$create_info['number'].' ]');//日志
+                    push_log('小売返品請求書を追加しました[ '.$create_info['number'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -55,7 +55,7 @@ class Recashier extends Acl {
                 if($vali===true){
                     $update_info=Recashierclass::update(syn_sql($input,'recashierclass'));
                     Hook::listen('update_recashier',$update_info);//零售退货单更新行为
-                    push_log('更新零售退货单[ '.$update_info['number'].' ]');//日志
+                    push_log('小売リターンを更新します[ '.$update_info['number'].' ]');//日志
                     Recashierinfo::where(['pid'=>$update_info['id']])->delete();
                     $resule=['state'=>'success'];
                 }else{
@@ -72,7 +72,7 @@ class Recashier extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         //兼容自动审核[新增操作]
         if($resule['state']=='success'&&empty($input['id'])){
@@ -122,12 +122,12 @@ class Recashier extends Acl {
             $arr = Recashierclass::with('merchantinfo,customerinfo,userinfo,accountinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -146,7 +146,7 @@ class Recashier extends Acl {
             $this->assign('info',$info);
             return $this->fetch('main');
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -154,7 +154,7 @@ class Recashier extends Acl {
     public function auditing($arr=[],$auto=false){
         (empty($arr))&&($arr=input('post.arr'));//兼容多态审核
         if(empty($arr)){
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }else{
             $class_data=[];//初始化CLASS数据
             $info_data=[];//初始化INFO数据
@@ -170,8 +170,8 @@ class Recashier extends Acl {
                             $serial_sql=['code'=>['in',explode(',',$info_vo['serial'])],'type'=>['neq',1]];
                             $serial=Serial::where($serial_sql)->find();//查找串码状态为非未销售
                             if(!empty($serial)){
-                                $auto&&(push_log('自动审核零售退货单[ '.$class['number'].' ]失败,原因:第'.($info_key+1).'行串码状态不正确!'));//日志
-                                return json(['state'=>'error','info'=>'审核-零售退货单[ '.$class['number'].' ]失败,原因:第'.($info_key+1).'行串码状态不正确!']);
+                                $auto&&(push_log('小売返品リストを自動的に確認します[ '.$class['number'].' ]失敗,理由:第'.($info_key+1).'文字列コードのステータスが正しくありません!'));//日志
+                                return json(['state'=>'error','info'=>'レビュー-小売返品リスト[ '.$class['number'].' ]失敗,理由:第'.($info_key+1).'文字列コードのステータスが正しくありません!']);
                                 exit;
                             }
                         }
@@ -183,7 +183,7 @@ class Recashier extends Acl {
                             $serial_sql=['code'=>['in',explode(',',$info_vo['serial'])],'type'=>['neq',0]];
                             $serial=Serial::where($serial_sql)->find();//查找串码状态为非已销售
                             if(!empty($serial)){
-                                return json(['state'=>'error','info'=>'反审核-零售退货单[ '.$class['number'].' ]第'.($info_key+1).'行串码状态不正确!']);
+                                return json(['state'=>'error','info'=>'反レビュー-小売返品リスト[ '.$class['number'].' ]第'.($info_key+1).'文字列コードのステータスが正しくありません!']);
                                 exit;
                             }
                         }
@@ -231,7 +231,7 @@ class Recashier extends Acl {
                     }
                     Recashierclass::update(['id'=>$arr_vo,'type'=>1,'auditinguser'=>Session('is_user_id'),'auditingtime'=>time()]);//更新CLASS数据
                     set_summary('recashier',$arr_vo,true);//更新统计表
-                    push_log(($auto?'自动':'').'审核零售退货单[ '.$class['number'].' ]');
+                    push_log(($auto?'自動':'').'小売返品リストを確認します[ '.$class['number'].' ]');
                 }else{
                     //反审核操作
                     foreach ($info as $info_vo){
@@ -256,7 +256,7 @@ class Recashier extends Acl {
                     }
                     Recashierclass::update(['id'=>$arr_vo,'type'=>0,'auditinguser'=>0,'auditingtime'=>0]);//更新CLASS数据
                     set_summary('recashier',$arr_vo,false);//更新统计表
-                    push_log ('反审核零售退货单[ '.$class['number'].' ]');
+                    push_log ('反レビュー小売返品リスト[ '.$class['number'].' ]');
                 }
             }
             $resule=['state'=>'success'];
@@ -272,17 +272,17 @@ class Recashier extends Acl {
             //数据检验
             if(empty($data)){
                 foreach ($class as $class_vo) {
-                    push_log('删除零售退货单[ '.$class_vo['number'].' ]');//日志
+                    push_log('小売返品リストを削除します[ '.$class_vo['number'].' ]');//日志
                     Hook::listen('del_recashier',$class_vo['id']);//零售退货单删除行为
                 }
                 Recashierclass::where(['id'=>['in',$input['arr']]])->delete();
                 Recashierinfo::where(['pid'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'error','info'=>'零售退货单[ '.$data[0]['number'].' ]已审核,不可删除!'];
+                $resule=['state'=>'error','info'=>'小売返品リスト[ '.$data[0]['number'].' ]レビュー、削除できません!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -290,7 +290,7 @@ class Recashier extends Acl {
     public function exports(){
         $input=input('get.');
         if(isset($input['mode'])){
-            push_log('导出零售退货单数据');//日志
+            push_log('小売返品リストデータをエクスポートします');//日志
             $sql=get_sql($input,[
                 'name'=>'continue',
                 'number'=>'full_like',
@@ -328,7 +328,7 @@ class Recashier extends Acl {
                 //开始构造导出数据
                 $excel=[];//初始化导出数据
                 //1.填充标题数据
-                array_push($excel,['type'=>'title','info'=>'零售退货单列表']);
+                array_push($excel,['type'=>'title','info'=>'小売返品リストのリスト']);
                 //2.构造表格数据
                 $table_cell=[];//初始化表头数据
                 //构造表头数据
@@ -354,12 +354,12 @@ class Recashier extends Acl {
                 //3.添加汇总信息
                 $sum_arr=get_sums($table_data,['total','actual','money']);
                 array_push($excel,['type'=>'node','info'=>[
-                    '单据总金额:'.$sum_arr['total'],
-                    '实际总金额:'.$sum_arr['actual'],
-                    '实付总金额:'.$sum_arr['money'],
+                    'ドキュメントの総量:'.$sum_arr['total'],
+                    '実際の総額:'.$sum_arr['actual'],
+                    '実際の支払いの総額:'.$sum_arr['money'],
                 ]]);//填充汇总信息
                 //4.导出execl
-                export_excel('零售退货单列表',$excel);
+                export_excel('小売返品リストのリスト',$excel);
             }else{
                 //详细报表
                 $files=[];//初始化文件列表
@@ -372,14 +372,14 @@ class Recashier extends Acl {
                 foreach ($arr as $arr_vo) {
                     $excel=[];//初始化导出数据
                     //1.填充标题数据
-                    array_push($excel,['type'=>'title','info'=>'零售退货单']);
+                    array_push($excel,['type'=>'title','info'=>'小売返品リスト']);
                     //2.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '客户:'.$arr_vo['customerinfo']['name'],
+                        'クライアント:'.$arr_vo['customerinfo']['name'],
                         '',
-                        '单据日期:'.$arr_vo['time'],
+                        'ドキュメント日:'.$arr_vo['time'],
                         '',
-                        '单据编号:'.$arr_vo['number'],
+                        'ドキュメント番号:'.$arr_vo['number'],
                     ]]);
                     //3.构造表格数据
                     $info=Recashierinfo::where(['pid'=>$arr_vo['id']])->select();
@@ -406,31 +406,31 @@ class Recashier extends Acl {
                     array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
                     //4.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '单据金额:'.$arr_vo['total'],
+                        'ドキュメント量:'.$arr_vo['total'],
                         '',
-                        '实际金额:'.$arr_vo['actual'],
+                        '実際の金額:'.$arr_vo['actual'],
                         '',
-                        '实付金额:'.$arr_vo['money'],
+                        '実際の支払い額:'.$arr_vo['money'],
                     ]]);
                     //5.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '制单人:'.$arr_vo['userinfo']['name'],
+                        'シングルハンドの人:'.$arr_vo['userinfo']['name'],
                         '',
-                        '结算账户:'.$arr_vo['accountinfo']['name'],
+                        '決済口座:'.$arr_vo['accountinfo']['name'],
                         '',
-                        '扣除积分:'.$arr_vo['integral'],
+                        'ポイントを差し引く:'.$arr_vo['integral'],
                     ]]);
                     //6.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '备注信息:'.$arr_vo['data'],
+                        '備考情報:'.$arr_vo['data'],
                     ]]);
                     $path=export_excel($arr_vo['number'],$excel,false);//生成文件
                     array_push($files,$path);//添加文件路径数据
                 }
-                file_to_zip('零售退货单明细',$files);//打包输出数据
+                file_to_zip('小売返品注文の詳細',$files);//打包输出数据
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -460,7 +460,7 @@ class Recashier extends Acl {
             $this->assign('print_text',$print_text);
             return $this->fetch();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

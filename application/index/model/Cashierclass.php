@@ -42,7 +42,7 @@ class Cashierclass extends Model{
     
     //审核状态_读取器
 	protected function getTypeAttr ($val,$data){
-        $arr=['0'=>'未审核','1'=>'已审核'];
+        $arr=['0'=>'未承認','1'=>'承認済み'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;
@@ -50,7 +50,7 @@ class Cashierclass extends Model{
 	
 	//付款类型_读取器
 	protected function getPaytypeAttr ($val,$data){
-        $arr=['0'=>'单独付款','1'=>'组合付款'];
+        $arr=['0'=>'個別の支払い','1'=>'ポートフォリオ'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

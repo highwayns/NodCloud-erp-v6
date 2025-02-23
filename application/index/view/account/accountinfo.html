@@ -5,7 +5,7 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3" style="display:none">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">客户标识</label>
+                        <label class="layui-form-label">顧客ロゴ</label>
                         <div class="layui-input-block">
                             <input type="text" class="layui-input" id="s|pid" value="{$Think.get.id}">
                         </div>
@@ -13,43 +13,44 @@
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">单据类型</label>
+                        <label class="layui-form-label">ドキュメントタイプ</label>
                         <div class="layui-input-block">
                             <select id="s|type" lay-filter="aihao">
-                                <option value="0">全部类型</option>
-                                <option value="1">购货核销单</option>
-                                <option value="2">销货核销单</option>
-                                <option value="3">购货退货核销单</option>
-                                <option value="4">销货退货核销单</option>
-                                <option value="5">收款单</option>
-                                <option value="6">付款单</option>
-                                <option value="7">其他收入单</option>
-                                <option value="8">其他支出单</option>
-                                <option value="9">零售单收款</option>
-                                <option value="10">零售退货核销单</option>
-                                <option value="11">采购入库单</option>
-                                <option value="12">服务核销单</option>
-                                <option value="13">资金调拨单-出</option>
-                                <option value="14">资金调拨单-入</option>
+                                <option value="0">すべての種類</option>
+                                <option value="1">仕入れ消込伝票</option>
+                                <option value="2">販売消込伝票</option>
+                                <option value="3">仕入れ返品消込伝票</option>
+                                <option value="4">販売返品消込伝票</option>
+                                <option value="5">入金伝票</option>
+                                <option value="6">支払伝票</option>
+                                <option value="7">その他収入伝票</option>
+                                <option value="8">その他支出伝票</option>
+                                <option value="9">小売伝票入金</option>
+                                <option value="10">小売返品消込伝票</option>
+                                <option value="11">仕入れ入庫伝票</option>
+                                <option value="12">サービス消込伝票</option>
+                                <option value="13">資金振替伝票-出</option>
+                                <option value="14">資金振替伝票-入</option>
+
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">资金操作</label>
+                        <label class="layui-form-label">資金操作</label>
                         <div class="layui-input-block">
                             <select id="s|set">
-                                <option value="0">全部操作</option>
-                                <option value="1">资金减少</option>
-                                <option value="2">资金增加</option>
+                                <option value="0">すべての操作</option>
+                                <option value="1">資金減少</option>
+                                <option value="2">資金増加</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">制单人</label>
+                        <label class="layui-form-label">帳票作成者</label>
                         <div class="layui-input-block">
                             <div id="userpage" class="selectpage"></div>
                         </div>
@@ -63,32 +64,32 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">开始日期</label>
+                        <label class="layui-form-label">開始日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|start_time" placeholder="请选择开始日期">
+                            <input type="text" class="layui-input" id="s|start_time" placeholder="開始日を選択してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">结束日期</label>
+                        <label class="layui-form-label">終了日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|end_time" placeholder="请选择结束日期">
+                            <input type="text" class="layui-input" id="s|end_time" placeholder="終了日を選択してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">备注信息</label>
+                        <label class="layui-form-label">備考情報</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|data" placeholder="请输入备注信息">
+                            <input type="text" class="layui-input" id="s|data" placeholder="備考情報を入力してください">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
-            <button class="layui-btn layui-btn-primary" onclick="exports();">导出</button>
+            <button class="layui-btn layui-btn-primary" onclick="exports();">エクスポート</button>
             <button class="layui-btn layui-btn-primary" onclick="replace();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>

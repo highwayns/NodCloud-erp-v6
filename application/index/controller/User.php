@@ -29,12 +29,12 @@ class User extends Acl {
             $arr = Users::with('merchantinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -49,7 +49,7 @@ class User extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $create_info=Users::create(syn_sql($input,'user'));
                     Hook::listen('create_user',$create_info);//职员新增行为
-                    push_log('新增职员信息[ '.$create_info['user'].' ]');//日志
+                    push_log('新しいスタッフ情報[ '.$create_info['user'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -64,14 +64,14 @@ class User extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $update_info=Users::update(syn_sql($input,'user'));
                     Hook::listen('update_user',$update_info);//职员更新行为
-                    push_log('更新职员信息[ '.$update_info['user'].' ]');//日志
+                    push_log('スタッフ情報を更新します[ '.$update_info['user'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -81,7 +81,7 @@ class User extends Acl {
         if(isset_full($input,'id')){
             $resule=Users::with('merchantinfo')->where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -122,17 +122,17 @@ class User extends Acl {
             if(!$exist){
             	$info=db('user')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
                 foreach ($info as $info_vo) {
-                    push_log('删除职员信息[ '.$info_vo['name'].' ]');//日志
+                    push_log('スタッフ情報を削除します[ '.$info_vo['name'].' ]');//日志
                     Hook::listen('del_user',$info_vo['id']);//职员删除行为
                 }
                 Users::where(['id'=>['in',$input['arr']]])->delete();
                 Log::where(['user'=>['in',$input['arr']]])->delete();//删除日志
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+                $resule=['state'=>'error','info'=>'データ相関,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -140,7 +140,7 @@ class User extends Acl {
     public function upload_img(Request $request){
 		$file=$request->file('file');//获取表单上传文件
 		if (empty($file)){
-		    $resule=['state'=>'error','info'=>'传入数据不完整!'];
+		    $resule=['state'=>'error','info'=>'渡されたデータが不完全です!'];
 		}else{
             //单文件限制2MB
             $nod=$file->validate (['size'=>2097152,'ext'=>'png,gif,jpg,jpeg,bmp'])->rule ('uniqid')->move (ROOT_PATH .'skin'.DS .'upload'.DS .'user');

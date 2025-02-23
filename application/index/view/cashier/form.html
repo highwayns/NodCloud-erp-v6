@@ -5,25 +5,25 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商品名称</label>
+                        <label class="layui-form-label">製品名</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|name" placeholder="请输入商品名称">
+                            <input type="text" class="layui-input" id="s|name" placeholder="製品名を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">单据编号</label>
+                        <label class="layui-form-label">ドキュメント番号</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|number" placeholder="请输入单据编号">
+                            <input type="text" class="layui-input" id="s|number" placeholder="ドキュメント番号を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">客户</label>
+                        <label class="layui-form-label">クライアント</label>
                         <div class="layui-input-block">
-                            <div id="nod_customer" class="selectpage" nod="s|customer" tip="全部客户" url="/index/service/customer_list" checkbox></div>
+                            <div id="nod_customer" class="selectpage" nod="s|customer" tip="すべての顧客" url="/index/service/customer_list" checkbox></div>
                         </div>
                     </div>
                 </div>
@@ -35,28 +35,28 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">开始日期</label>
+                        <label class="layui-form-label">開始日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|start_time" placeholder="请选择开始日期" >
+                            <input type="text" class="layui-input" id="s|start_time" placeholder="開始日を選択してください" >
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">结束日期</label>
+                        <label class="layui-form-label">終了日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|end_time" placeholder="请选择结束日期" >
+                            <input type="text" class="layui-input" id="s|end_time" placeholder="終了日を選択してください" >
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">审核状态</label>
+                        <label class="layui-form-label">ステータスを確認します</label>
                         <div class="layui-input-block">
                             <select id="s|type">
-                                <option value="0">全部状态</option>
-                                <option value="1">未审核</option>
-                                <option value="2">已审核</option>
+                                <option value="0">すべての状態</option>
+                                <option value="1">レビューされていません</option>
+                                <option value="2">レビュー</option>
                             </select>
                         </div>
                     </div>
@@ -65,25 +65,25 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">所出仓库</label>
+                        <label class="layui-form-label">出庫倉庫</label>
                         <div class="layui-input-block">
-                            <div id="nod_warehouse" class="selectpage" nod="s|warehouse" tip="全部仓库" url="/index/service/warehouse_list" checkbox></div>
+                            <div id="nod_warehouse" class="selectpage" nod="s|warehouse" tip="すべての倉庫" url="/index/service/warehouse_list" checkbox></div>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">制单人</label>
+                        <label class="layui-form-label">作成者</label>
                         <div class="layui-input-block">
-                            <div id="nod_user" class="selectpage" nod="s|user" tip="全部制单人" url="/index/service/user_list" checkbox></div>
+                            <div id="nod_user" class="selectpage" nod="s|user" tip="すべての独身者" url="/index/service/user_list" checkbox></div>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">备注信息</label>
+                        <label class="layui-form-label">備考情報</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|data" placeholder="请输入备注信息">
+                            <input type="text" class="layui-input" id="s|data" placeholder="備考情報を入力してください">
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
         </div>
         
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
-            <button class="layui-btn layui-btn-primary" onclick="export_type();">导出</button>
+            <button class="layui-btn layui-btn-primary" onclick="export_type();">輸出</button>
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>
@@ -104,20 +104,20 @@
 </div>
 <script type="text/html" id="bar_info">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="min_prints">小票</button>
-        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="prints">打印</button>
-        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="info">详情</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="min_prints">レシート</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="prints">印刷</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="info">詳細</button>
         {if condition="(get_root('cashier_del'))"}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">删除</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">消去</button>
         {/if}
     </div>
 </script>
 <script type="text/html" id="batch_html">
     {if condition="(get_root('cashier_auditing'))"}
-        <button class="layui-btn" onclick="auditing();" batch>审核</button>
+        <button class="layui-btn" onclick="auditing();" batch>レビュー</button>
     {/if}
     {if condition="(get_root('cashier_del'))"}
-        <button class="layui-btn" onclick="delect('batch');" batch>删除</button>
+        <button class="layui-btn" onclick="delect('batch');" batch>消去</button>
     {/if}
 </script>
 <script type="text/javascript" charset="utf-8">

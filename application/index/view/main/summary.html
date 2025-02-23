@@ -2,29 +2,29 @@
 <link rel="stylesheet" href="/skin/css/main/summary.css" type="text/css" media="all" />
 <div class="fun_info">
     <fieldset class="layui-elem-field">
-        <legend>功能须知</legend>
+        <legend>機能的な通知</legend>
         <div class="layui-field-box">
             <ul>
-                <li>1.统计初始化将重新统计商品数据的单据数据。</li>
-                <li>2.初始化操作很耗费系统资源，建议闲暇时执行。</li>
-                <li>3.初始化过程中禁止对系统其他模块进行操作。</li>
-                <li>4.操作过程中须保持互联网通讯，请勿手动终止。</li>
-                <li>5.如操作过程中断，需重新执行初始化操作。</li>
-                <li>6.如果在使用过程中遇到问题，请联系客服解决。</li>
+                <li>1.統計の初期化は、製品データの統計学的ドキュメントデータを再統計します。</li>
+                <li>2.初期化操作は非常に系統的なリソースを消費しており、余暇に実装することをお勧めします。</li>
+                <li>3.初期化プロセス中、システムの他のモジュールは禁止されています。</li>
+                <li>4.操作中は、インターネット通信を維持する必要があります。手動で終了しないでください。</li>
+                <li>5.操作プロセスが中断されている場合、初期化操作を再実行する必要があります。</li>
+                <li>6.使用中に問題が発生した場合は、カスタマーサービスに連絡して解決してください。</li>
             </ul>
-            <button class="layui-btn" onclick="run();">开始初始化</button>
+            <button class="layui-btn" onclick="run();">初期化を開始します</button>
         </div>
     </fieldset>
 </div>
 <div class="fun_box layui-form layui-form-pane">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>统计初始化中</legend>
+        <legend>統計初期化</legend>
     </fieldset>
     <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="nod">
         <div class="layui-progress-bar layui-bg-green" lay-percent="0%"></div>
     </div>
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">反馈信息：</label>
+        <label class="layui-form-label">フィードバック情報：</label>
         <div class="layui-input-block">
             <textarea class="layui-textarea" id="run_info" disabled="disabled"></textarea>
         </div>

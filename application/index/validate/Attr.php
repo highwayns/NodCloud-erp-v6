@@ -9,11 +9,11 @@ class Attr extends Validate{
     }
     //默认创建规则
     protected $rule = [
-        ['name', 'require', '属性名称不可为空!'],
-        ['buy', 'require|regex:plus', '购货价格不可为空!|购货价格不正确!'],
-        ['sell', 'require|regex:plus', '销货价格不可为空!|销货价格不正确!'],
-        ['retail', 'require|regex:plus', '零售价格不可为空!|零售价格不正确!'],
-        ['code', 'alphaDash', '条形码不正确!'],
-        ['enable', 'require|in:0,1', '属性启用状态不正确!'],
+        ['name', 'require', '属性名は空にできません！'],
+        ['buy', 'require|regex:plus', '購入価格は空にできません！|購入価格が正しくありません！'],
+        ['sell', 'require|regex:plus', '販売価格は空にできません！|販売価格が正しくありません！'],
+        ['retail', 'require|regex:plus', '小売価格は空にできません！|小売価格が正しくありません！'],
+        ['code', 'alphaDash', 'バーコードが正しくありません！'],
+        ['enable', 'require|in:0,1', '属性の有効状態が正しくありません！']
     ];
 }

@@ -5,29 +5,29 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">单据类型</label>
+                        <label class="layui-form-label">ドキュメントタイプ</label>
                         <div class="layui-input-block">
                             <select id="s|type">
-                                <option value="0">全部单据</option>
-                                <option value="1">销货单据</option>
-                                <option value="2">零售单据</option>
+                                <option value="0">すべてのドキュメント</option>
+                                <option value="1">販売文書</option>
+                                <option value="2">小売文書</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">客户</label>
+                        <label class="layui-form-label">クライアント</label>
                         <div class="layui-input-block">
-                            <div id="nod_customer" class="selectpage" nod="s|customer" tip="请选择客户" url="/index/service/customer_list"></div>
+                            <div id="nod_customer" class="selectpage" nod="s|customer" tip="顧客を選択してください" url="/index/service/customer_list"></div>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">制单人</label>
+                        <label class="layui-form-label">シングルハンドの人</label>
                         <div class="layui-input-block">
-                            <div id="nod_user" class="selectpage" nod="s|user" tip="请选择制单人" url="/index/service/user_list"></div>
+                            <div id="nod_user" class="selectpage" nod="s|user" tip="一人を選んでください" url="/index/service/user_list"></div>
                         </div>
                     </div>
                 </div>
@@ -39,32 +39,32 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">开始日期</label>
+                        <label class="layui-form-label">開始日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|start_time" placeholder="请选择开始日期" value="{php}echo date('Y-m-01', strtotime(date('Y-m-d')));{/php}">
+                            <input type="text" class="layui-input" id="s|start_time" placeholder="開始日を選択してください" value="{php}echo date('Y-m-01', strtotime(date('Y-m-d')));{/php}">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">结束日期</label>
+                        <label class="layui-form-label">終了日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|end_time" placeholder="请选择结束日期" value="{php}echo date('Y-m-d', time());{/php}">
+                            <input type="text" class="layui-input" id="s|end_time" placeholder="終了日を選択してください" value="{php}echo date('Y-m-d', time());{/php}">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">单据编号</label>
+                        <label class="layui-form-label">ドキュメント番号</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|number" placeholder="请输入单据编号">
+                            <input type="text" class="layui-input" id="s|number" placeholder="ドキュメント番号を入力してください">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
-            <button class="layui-btn layui-btn-primary" onclick="exports();">导出</button>
+            <button class="layui-btn layui-btn-primary" onclick="exports();">輸出</button>
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>

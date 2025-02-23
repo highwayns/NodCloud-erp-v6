@@ -1,0 +1,214 @@
+---------------------------------------------------------------
+[ 2025-01-21T12:23:51+08:00 ] 0.0.0.0 GET localhost:81/NodCloud-erp-v6/
+[ error ] [2054]SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client
+---------------------------------------------------------------
+[ 2025-01-21T12:25:56+08:00 ] 0.0.0.0 GET localhost:81/NodCloud-erp-v6/
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001287s ] mysql:host=127.0.0.1;port=3406;dbname=stock;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `is_action` [ RunTime:0.015119s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `pid` <> 0  AND `state` = 1 [ RunTime:0.000942s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `id` IN (1) [ RunTime:0.000209s ]
+[ error ] [2]file_get_contents(C:/xampp/htdocs\application\index\ver): failed to open stream: No such file or directory
+---------------------------------------------------------------
+[ 2025-01-21T12:26:45+08:00 ] 0.0.0.0 GET localhost:8443/NodCloud-erp-v6/
+[ sql ] [ DB ] CONNECT:[ UseTime:0.022738s ] mysql:host=127.0.0.1;port=3406;dbname=stock;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `is_action` [ RunTime:0.010918s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `pid` <> 0  AND `state` = 1 [ RunTime:0.000319s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `id` IN (1) [ RunTime:0.000169s ]
+[ error ] [2]file_get_contents(C:/xampp/htdocs\application\index\ver): failed to open stream: No such file or directory
+---------------------------------------------------------------
+[ 2025-01-21T12:26:50+08:00 ] 0.0.0.0 GET localhost:81/NodCloud-erp-v6/
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000731s ] mysql:host=127.0.0.1;port=3406;dbname=stock;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `is_action` [ RunTime:0.010685s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `pid` <> 0  AND `state` = 1 [ RunTime:0.000268s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `id` IN (1) [ RunTime:0.000495s ]
+[ error ] [2]file_get_contents(C:/xampp/htdocs\application\index\ver): failed to open stream: No such file or directory
+---------------------------------------------------------------
+[ 2025-01-21T12:27:48+08:00 ] 0.0.0.0 GET localhost:81/NodCloud-erp-v6/
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000700s ] mysql:host=127.0.0.1;port=3406;dbname=stock;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `is_action` [ RunTime:0.013330s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `pid` <> 0  AND `state` = 1 [ RunTime:0.000330s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'ref',
+  'possible_keys' => 'pid_name_value_state,state',
+  'key' => 'state',
+  'key_len' => '2',
+  'ref' => 'const',
+  'rows' => 2,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `id` IN (1) [ RunTime:0.000166s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ error ] [2]file_get_contents(C:/xampp/htdocs\application\index\ver): failed to open stream: No such file or directory
+---------------------------------------------------------------
+[ 2025-01-21T12:27:50+08:00 ] 0.0.0.0 GET localhost:81/NodCloud-erp-v6/
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000731s ] mysql:host=127.0.0.1;port=3406;dbname=stock;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `is_action` [ RunTime:0.014994s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `pid` <> 0  AND `state` = 1 [ RunTime:0.000300s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'ref',
+  'possible_keys' => 'pid_name_value_state,state',
+  'key' => 'state',
+  'key_len' => '2',
+  'ref' => 'const',
+  'rows' => 2,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `id` IN (1) [ RunTime:0.000218s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ error ] [2]file_get_contents(C:/xampp/htdocs\application\index\ver): failed to open stream: No such file or directory
+---------------------------------------------------------------
+[ 2025-01-21T12:32:45+08:00 ] 0.0.0.0 GET localhost:81/NodCloud-erp-v6/
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000917s ] mysql:host=127.0.0.1;port=3406;dbname=stock;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `is_action` [ RunTime:0.014705s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `pid` <> 0  AND `state` = 1 [ RunTime:0.000314s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'ref',
+  'possible_keys' => 'pid_name_value_state,state',
+  'key' => 'state',
+  'key_len' => '2',
+  'ref' => 'const',
+  'rows' => 2,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `id` IN (1) [ RunTime:0.000127s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ error ] [2]file_get_contents(C:/xampp/htdocs\application\index\ver): failed to open stream: No such file or directory
+---------------------------------------------------------------
+[ 2025-01-21T12:40:46+08:00 ] 0.0.0.0 GET localhost:81/NodCloud-erp-v6/
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001078s ] mysql:host=127.0.0.1;port=3406;dbname=stock;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `is_action` [ RunTime:0.014269s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `pid` <> 0  AND `state` = 1 [ RunTime:0.000397s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'ref',
+  'possible_keys' => 'pid_name_value_state,state',
+  'key' => 'state',
+  'key_len' => '2',
+  'ref' => 'const',
+  'rows' => 2,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `id` IN (1) [ RunTime:0.000210s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ error ] [2]file_get_contents(C:/xampp/htdocs\application\index\ver): failed to open stream: No such file or directory
+---------------------------------------------------------------
+[ 2025-01-21T12:49:45+08:00 ] 0.0.0.0 GET localhost:81/NodCloud-erp-v6/
+[运行时间：0.038815s] [吞吐率：25.76req/s] [内存消耗：2,911.60kb] [文件加载：53]
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run app\index\behavior\Actions @app_init [ RunTime:0.025242s ]
+[ info ] [ LANG ] C:\xampp\htdocs\NodCloud-erp-v6\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost:81',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'sec-ch-ua' => '"Microsoft Edge";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+  'sec-ch-ua-mobile' => '?0',
+  'sec-ch-ua-platform' => '"Windows"',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+  'sec-fetch-site' => 'none',
+  'sec-fetch-mode' => 'navigate',
+  'sec-fetch-user' => '?1',
+  'sec-fetch-dest' => 'document',
+  'accept-encoding' => 'gzip, deflate, br, zstd',
+  'accept-language' => 'ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7',
+  'cookie' => 'ajs_user_id=1yD6q9yc9xUqbGQmPmzox; ph_phc_7F92HoXJPeGnTKmYv0eOw62FurPMRW9Aqr0TPrDzvHh_posthog=%7B%22distinct_id%22%3A%220190f3fa-8dab-7193-be34-c9642f8168f9%22%2C%22%24sesid%22%3A%5B1722253327905%2C%220190fe4c-3e21-7dd6-a3b1-6433e918af3e%22%2C1722253327905%5D%7D; _ga=GA1.1.300359929.1723435103; _ga_4L9RJVPGJT=GS1.1.1723445273.2.0.1723445273.60.0.0; ajs_anonymous_id=67f2ab53-96ca-4f77-a1be-7b50fcb7f071; __stripe_mid=945d37f6-7c83-4c46-809b-934dfa3d80397e1efd; csrftoken=a9ZwfEgjQGfQB99P1tSEVNhYYDViDloj; ph_phc_bQjmPYXmbl76j8gW289Qj9XILuu1STRnIfgCSKlxdgu_posthog=%7B%22distinct_id%22%3A%2201937b9b-cc11-7bbc-ac99-2fa59b52e131%22%2C%22%24sesid%22%3A%5B1733361362111%2C%2201939463-64bf-7907-a896-9781b3d6877c%22%2C1733361362111%5D%7D',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\index\controller\Index->index[ C:\xampp\htdocs\NodCloud-erp-v6\application\index\controller\Index.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000571s ] mysql:host=127.0.0.1;port=3406;dbname=stock;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `is_action` [ RunTime:0.016164s ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `pid` <> 0  AND `state` = 1 [ RunTime:0.000311s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'ref',
+  'possible_keys' => 'pid_name_value_state,state',
+  'key' => 'state',
+  'key_len' => '2',
+  'ref' => 'const',
+  'rows' => 2,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `is_action` WHERE  `id` IN (1) [ RunTime:0.000150s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'is_action',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ error ] [2]file_get_contents(C:/xampp/htdocs\application\index\ver): failed to open stream: No such file or directory[C:\xampp\htdocs\NodCloud-erp-v6\application\common.php:5]

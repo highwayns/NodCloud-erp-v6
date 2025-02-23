@@ -30,12 +30,12 @@ class Supplier extends Acl {
             $arr = Suppliers::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -69,7 +69,7 @@ class Supplier extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -79,7 +79,7 @@ class Supplier extends Acl {
         if(isset_full($input,'id')){
             $resule=Suppliers::where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -98,16 +98,16 @@ class Supplier extends Acl {
             if(!$exist){
             	$info=db('supplier')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
                 foreach ($info as $info_vo) {
-                    push_log('删除供应商信息[ '.$info_vo['name'].' ]');//日志
+                    push_log('サプライヤー情報を削除します[ '.$info_vo['name'].' ]');//日志
                     Hook::listen('del_supplier',$info_vo['id']);//供应商删除行为
                 }
                 Suppliers::where(['id'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-            	$resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+            	$resule=['state'=>'error','info'=>'データ相関,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -128,7 +128,7 @@ class Supplier extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'供应商列表']);
+        array_push($excel,['type'=>'title','info'=>'サプライヤーリスト']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -152,14 +152,14 @@ class Supplier extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出供应商信息');//日志
-        export_excel('供应商列表',$excel);
+        push_log('輸出サプライヤー情報');//日志
+        export_excel('サプライヤーリスト',$excel);
     }
     //导入供应商信息
     public function import_supplier(Request $request){
 		$file=$request->file('file');//获取表单上传文件
 		if (empty($file)){
-		    $resule=['state'=>'error','info'=>'传入数据不完整!'];
+		    $resule=['state'=>'error','info'=>'渡されたデータが不完全です!'];
 		}else{
 		    $nod=$file->validate (['ext'=>'xlsx'])->rule ('uniqid')->move (ROOT_PATH.'skin'.DS.'upload'.DS.'xlsx');//验证且重命名并移动文件
 		    if($nod){
@@ -184,11 +184,11 @@ class Supplier extends Acl {
 		            //数据合法性验证
 		            $vali = $this->validate($sql,'supplier');
 		            if($vali===true){
-		                push_log('导入供应商信息[ '.$sql['name'].' ]');//日志
+		                push_log('インポーター情報[ '.$sql['name'].' ]');//日志
 		                array_push($create_sql,$sql);//加入SQL
 		            }else{
 		                //返回错误信息
-		                return json(['state'=>'error','info'=>'模板文件第[ '.$key.' ]行'.$vali]);
+		                return json(['state'=>'error','info'=>'テンプレートファイル第[ '.$key.' ]行'.$vali]);
 		            }
 		        }
 		        $insert_count=db('supplier')->insertAll($create_sql);

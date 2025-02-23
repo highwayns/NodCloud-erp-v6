@@ -30,7 +30,7 @@ class Goodsclass extends Acl {
                 //更新
                 //所属商品分类不可等于或包含当前所属商品分类
                 if(in_array($input['pid'],find_tree_arr('goodsclass',[$input['id']]))){
-                    $resule=['state'=>'error','info'=>'所属商品分类选择不正确!'];
+                    $resule=['state'=>'error','info'=>'製品分類の選択は正しくありません!'];
                 }else{
                     $update_info=Goodsclasss::update(syn_sql($input,'goodsclass'));
                     Hook::listen('update_goodsclass',$update_info);//商品分类更新行为
@@ -38,7 +38,7 @@ class Goodsclass extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -48,7 +48,7 @@ class Goodsclass extends Acl {
         if(isset_full($input,'id')){
             $resule=Goodsclasss::with('pidinfo')->where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -68,13 +68,13 @@ class Goodsclass extends Acl {
                     Hook::listen('del_goodsclass',$input['id']);//商品分类删除行为
                     $resule=['state'=>'success'];
                 }else{
-                    $resule=['state'=>'exist_data','info'=>'存在子数据,删除失败!'];
+                    $resule=['state'=>'exist_data','info'=>'存在サブダタ,削除失敗!'];
                 }
             }else{
-            	$resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+            	$resule=['state'=>'error','info'=>'データ相関,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

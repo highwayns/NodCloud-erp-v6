@@ -6,17 +6,17 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">表单名称</label>
+                        <label class="layui-form-label">フォーム名</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|name" placeholder="请输入表单名称">
+                            <input type="text" class="layui-input" id="s|name" placeholder="フォーム名を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">表单标识</label>
+                        <label class="layui-form-label">フォーム識別</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|key" placeholder="请输入表单标识">
+                            <input type="text" class="layui-input" id="s|key" placeholder="フォームロゴを入力してください">
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
-            <button class="layui-btn layui-btn-primary" onclick="detail(0);">新增</button>
+            <button class="layui-btn layui-btn-primary" onclick="detail(0);">増加</button>
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>
@@ -39,13 +39,13 @@
 </div>
 <script type="text/html" id="bar_info">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="copy">复制</button>
-        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit">修改</button>
-        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">删除</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="copy">コピー</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit">改訂</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">消去</button>
     </div>
 </script>
 <script type="text/html" id="batch_html">
-    <button class="layui-btn" onclick="delect('batch');" batch>删除</button>
+    <button class="layui-btn" onclick="delect('batch');" batch>消去</button>
 </script>
 <script src="/skin/js/public/tablednd.js" type="text/javascript" charset="utf-8"></script>
 <script src="/skin/js/develop/formfield.js" type="text/javascript" charset="utf-8"></script>

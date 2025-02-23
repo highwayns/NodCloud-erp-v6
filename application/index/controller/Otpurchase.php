@@ -18,7 +18,7 @@ class Otpurchase extends Acl {
         if(isset_full($input,'info')){
             //1.解析数据
             $arr=json_decode(base64_decode($input['info']),true);
-            $data='临时数据|'.substr(md5($input['info'].time()),8,16);
+            $data='一時的なデータ|'.substr(md5($input['info'].time()),8,16);
             //2.数据库插入临时数据
             foreach ($arr as $vo) {
                 $vo['pid']=0;
@@ -46,12 +46,12 @@ class Otpurchase extends Acl {
                 foreach ($input['tab'] as $tab_key=>$tab_vo) {
                     $tab_vali = $this->validate($tab_vo,'Otpurchaseinfo');//详情验证
                     if($tab_vali!==true){
-                        return json(['state'=>'error','info'=>'[ 数据表格 ]第'.($tab_key+1).'行'.$tab_vali]);
+                        return json(['state'=>'error','info'=>'[ データフォーム ]第'.($tab_key+1).'行'.$tab_vali]);
                         exit;
                     }
                 }
             }else{
-                return json(['state'=>'error','info'=>'数据表格不可为空!']);
+                return json(['state'=>'error','info'=>'データテーブルを空にすることはできません!']);
                 exit;
             }
             //验证操作类型
@@ -62,7 +62,7 @@ class Otpurchase extends Acl {
                 if($vali===true){
                     $create_info=Otpurchaseclass::create(syn_sql($input,'otpurchaseclass'));
                     Hook::listen('create_otpurchase',$create_info);//其他入库单新增行为
-                    push_log('新增其他入库单[ '.$create_info['number'].' ]');//日志
+                    push_log('他のデータベースリストを追加しました[ '.$create_info['number'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -73,7 +73,7 @@ class Otpurchase extends Acl {
                 if($vali===true){
                     $update_info=Otpurchaseclass::update(syn_sql($input,'otpurchaseclass'));
                     Hook::listen('update_otpurchase',$update_info);//其他入库单更新行为
-                    push_log('更新其他入库单[ '.$update_info['number'].' ]');//日志
+                    push_log('他の倉庫エントリリストを更新します[ '.$update_info['number'].' ]');//日志
                     Otpurchaseinfo::where(['pid'=>$update_info['id']])->delete();
                     $resule=['state'=>'success'];
                 }else{
@@ -90,7 +90,7 @@ class Otpurchase extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         //兼容自动审核[新增操作]
         if($resule['state']=='success'&&empty($input['id'])){
@@ -139,12 +139,12 @@ class Otpurchase extends Acl {
             $arr = Otpurchaseclass::with('merchantinfo,userinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -159,7 +159,7 @@ class Otpurchase extends Acl {
             $this->assign('info',$info);
             return $this->fetch('main');
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -167,7 +167,7 @@ class Otpurchase extends Acl {
     public function auditing($arr=[],$auto=false){
         (empty($arr))&&($arr=input('post.arr'));//兼容多态审核
         if(empty($arr)){
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }else{
             $class_data=[];//初始化CLASS数据
             $info_data=[];//初始化INFO数据
@@ -183,8 +183,8 @@ class Otpurchase extends Acl {
                             $serial_sql=['code'=>['in',explode(',',$info_vo['serial'])],'type'=>['neq',2]];
                             $serial=Serial::where($serial_sql)->find();//查找串码状态为非不在库
                             if(!empty($serial)){
-                                $auto&&(push_log('自动审核其他入库单[ '.$class['number'].' ]失败,原因:第'.($info_key+1).'行串码状态不正确!'));//日志
-                                return json(['state'=>'error','info'=>'审核-其他入库单[ '.$class['number'].' ]失败,原因:第'.($info_key+1).'行串码状态不正确!']);
+                                $auto&&(push_log('他のライブラリリストを自動的に確認します[ '.$class['number'].' ]失敗,理由:第'.($info_key+1).'文字列コードのステータスが正しくありません!'));//日志
+                                return json(['state'=>'error','info'=>'レビュー-その他のエントリリスト[ '.$class['number'].' ]失敗,理由:第'.($info_key+1).'文字列コードのステータスが正しくありません!']);
                                 exit;
                             }
                         }
@@ -196,7 +196,7 @@ class Otpurchase extends Acl {
                             $serial_sql=['code'=>['in',explode(',',$info_vo['serial'])],'type'=>['neq',0]];
                             $serial=Serial::where($serial_sql)->find();//查找串码状态为非未销售
                             if(!empty($serial)){
-                                return json(['state'=>'error','info'=>'反审核-其他入库单[ '.$class['number'].' ]第'.($info_key+1).'行串码状态不正确!']);
+                                return json(['state'=>'error','info'=>'反レビュー-その他のエントリリスト[ '.$class['number'].' ]第'.($info_key+1).'文字列コードのステータスが正しくありません!']);
                                 exit;
                             }
                         }
@@ -258,7 +258,7 @@ class Otpurchase extends Acl {
                     }
                     Otpurchaseclass::update(['id'=>$arr_vo,'type'=>1,'auditinguser'=>Session('is_user_id'),'auditingtime'=>time()]);//更新CLASS数据
                     set_summary('otpurchase',$arr_vo,true);//更新统计表
-                    push_log(($auto?'自动':'').'审核其他入库单[ '.$class['number'].' ]');
+                    push_log(($auto?'自動':'').'他のライブラリエントリリストを確認します[ '.$class['number'].' ]');
                 }else{
                     //反审核操作
                     foreach ($info as $info_vo){
@@ -281,7 +281,7 @@ class Otpurchase extends Acl {
                     Roominfo::where(['type'=>7,'class'=>$arr_vo])->delete();//删除仓储详情
                     Otpurchaseclass::update(['id'=>$arr_vo,'type'=>0,'auditinguser'=>0,'auditingtime'=>0]);//更新CLASS数据
                     set_summary('otpurchase',$arr_vo,false);//更新统计表
-                    push_log ('反审核其他入库单[ '.$class['number'].' ]');
+                    push_log ('他の倉庫エントリリストの反レビュー[ '.$class['number'].' ]');
                 }
             }
             $resule=['state'=>'success'];
@@ -297,17 +297,17 @@ class Otpurchase extends Acl {
             //数据检验
             if(empty($data)){
                 foreach ($class as $class_vo) {
-                    push_log('删除其他入库单[ '.$class_vo['number'].' ]');//日志
+                    push_log('他のライブラリリストを削除します[ '.$class_vo['number'].' ]');//日志
                     Hook::listen('del_otpurchase',$class_vo['id']);//其他入库单删除行为
                 }
                 Otpurchaseclass::where(['id'=>['in',$input['arr']]])->delete();
                 Otpurchaseinfo::where(['pid'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'error','info'=>'其他入库单[ '.$data[0]['number'].' ]已审核,不可删除!'];
+                $resule=['state'=>'error','info'=>'その他のエントリリスト[ '.$data[0]['number'].' ]レビュー,削除されていません!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -315,7 +315,7 @@ class Otpurchase extends Acl {
     public function exports(){
         $input=input('get.');
         if(isset($input['mode'])){
-            push_log('导出其他入库单数据');//日志
+            push_log('他のデータベースデータをエクスポートします');//日志
             $sql=get_sql($input,[
                 'name'=>'continue',
                 'number'=>'full_like',
@@ -352,7 +352,7 @@ class Otpurchase extends Acl {
                 //开始构造导出数据
                 $excel=[];//初始化导出数据
                 //1.填充标题数据
-                array_push($excel,['type'=>'title','info'=>'其他入库单列表']);
+                array_push($excel,['type'=>'title','info'=>'倉庫の他のリスト']);
                 //2.构造表格数据
                 $table_cell=[];//初始化表头数据
                 //构造表头数据
@@ -376,7 +376,7 @@ class Otpurchase extends Acl {
                 }
                 array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
                 //3.导出execl
-                export_excel('其他入库单列表',$excel);
+                export_excel('倉庫の他のリスト',$excel);
             }else{
                 //详细报表
                 $files=[];//初始化文件列表
@@ -389,14 +389,14 @@ class Otpurchase extends Acl {
                 foreach ($arr as $arr_vo) {
                     $excel=[];//初始化导出数据
                     //1.填充标题数据
-                    array_push($excel,['type'=>'title','info'=>'其他入库单']);
+                    array_push($excel,['type'=>'title','info'=>'その他のエントリリスト']);
                     //2.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '单据日期:'.$arr_vo['time'],
+                        'ドキュメント日:'.$arr_vo['time'],
                         '',
-                        '单据编号:'.$arr_vo['number'],
+                        'ドキュメント番号:'.$arr_vo['number'],
                         '',
-                        '单据类型:'.$arr_vo['pagetype']['name']
+                        'ドキュメントタイプ:'.$arr_vo['pagetype']['name']
                     ]]);
                     //3.构造表格数据
                     $info=Otpurchaseinfo::where(['pid'=>$arr_vo['id']])->select();
@@ -423,17 +423,17 @@ class Otpurchase extends Acl {
                     array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
                     //4.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '制单人:'.$arr_vo['userinfo']['name'],
+                        'シングルハンドの人:'.$arr_vo['userinfo']['name'],
                         '',
-                        '备注信息:'.$arr_vo['data'],
+                        '備考情報:'.$arr_vo['data'],
                     ]]);
                     $path=export_excel($arr_vo['number'],$excel,false);//生成文件
                     array_push($files,$path);//添加文件路径数据
                 }
-                file_to_zip('其他入库单明细',$files);//打包输出数据
+                file_to_zip('その他のデータベース単一の詳細',$files);//打包输出数据
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -463,7 +463,7 @@ class Otpurchase extends Acl {
             $this->assign('print_text',$print_text);
             return $this->fetch();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

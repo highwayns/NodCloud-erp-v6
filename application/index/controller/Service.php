@@ -45,12 +45,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -68,12 +68,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -91,12 +91,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -114,12 +114,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -137,12 +137,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -160,12 +160,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -182,12 +182,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -204,12 +204,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -229,9 +229,9 @@ class Service extends Acl {
             }else{
                 Session('is_merchant_info',explode(',',$input['merchant']));
             }
-            $resule=['state'=>'success','info'=>'设置成功!'];
+            $resule=['state'=>'success','info'=>'正常に設定します!'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -272,12 +272,12 @@ class Service extends Acl {
             }
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -285,7 +285,7 @@ class Service extends Acl {
     public function upload_file(Request $request){
         $file=$request->file('file');//获取表单上传文件
 		if (empty($file)){
-		    $resule=['state'=>'error','info'=>'传入数据不完整!'];
+		    $resule=['state'=>'error','info'=>'渡されたデータが不完全です!'];
 		}else{
             //单文件限制2MB
             $nod=$file->validate (['size'=>6097152,'ext'=>'png,jpg,pdf,zip,7z,rar,doc,docs,xls,xlsx'])->rule ('uniqid')->move (ROOT_PATH .'skin'.DS .'upload'.DS .'file');
@@ -342,7 +342,7 @@ class Service extends Acl {
             foreach ($arr as $key=>$vo) {
                 $arr[$key]['goodsinfo']['img']=empty($vo['goodsinfo']['imgs'])?'/skin/images/main/none.png':$vo['goodsinfo']['imgs'][0];//增加图像信息
                 //根据辅助属性重新赋值价格信息
-                if(!empty($vo['attr']['nod']) && $vo['attr']['name']!='辅助属性丢失'){
+                if(!empty($vo['attr']['nod']) && $vo['attr']['name']!='補助属性損失'){
                     $attr=Attr::where(['pid'=>$vo['goods'],'nod'=>$vo['attr']['nod']])->find();
                     $arr[$key]['goodsinfo']['buy']=$attr['buy'];
                     $arr[$key]['goodsinfo']['sell']=$attr['sell'];
@@ -354,12 +354,12 @@ class Service extends Acl {
             }
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -406,12 +406,12 @@ class Service extends Acl {
             }
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -428,12 +428,12 @@ class Service extends Acl {
             $arr = Serve::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -484,12 +484,12 @@ class Service extends Acl {
             }
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -528,7 +528,7 @@ class Service extends Acl {
         //二次处理数据
         foreach ($arr as $key=>$vo) {
             //根据辅助属性重新赋值价格信息
-            if(!empty($vo['attr']['nod']) && $vo['attr']['name']!='辅助属性丢失'){
+            if(!empty($vo['attr']['nod']) && $vo['attr']['name']!='補助属性損失'){
                 $attr=Attr::where(['pid'=>$vo['goods'],'nod'=>$vo['attr']['nod']])->find();
                 $arr[$key]['goodsinfo']['buy']=$attr['buy'];
                 $arr[$key]['goodsinfo']['sell']=$attr['sell'];
@@ -539,7 +539,7 @@ class Service extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'库存列表']);
+        array_push($excel,['type'=>'title','info'=>'在庫リスト']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -565,11 +565,11 @@ class Service extends Acl {
         //3.添加汇总信息
         $sum_arr=get_sums($table_data,['nums']);
         array_push($excel,['type'=>'node','info'=>[
-            '库存总数量:'.$sum_arr['nums'],
+            '総在庫:'.$sum_arr['nums'],
         ]]);//填充汇总信息
         //4.导出execl
-        push_log('导出库存信息');//日志
-        export_excel('库存列表',$excel);
+        push_log('在庫情報をエクスポートします');//日志
+        export_excel('在庫リスト',$excel);
     }
     //库存详情
     public function roominfo_list(){
@@ -621,12 +621,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -700,10 +700,10 @@ class Service extends Acl {
             }
             array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
             //3.导出execl
-            push_log('导出库存信息');//日志
-            export_excel('库存列表',$excel);
+            push_log('在庫情報をエクスポートします');//日志
+            export_excel('在庫リスト',$excel);
         }else{
-            return json(['state'=>'error','info'=>'传入参数不完整!']);
+            return json(['state'=>'error','info'=>'入力されたパラメーターが不完全です!']);
         }
     }
     //库存预警
@@ -763,12 +763,12 @@ class Service extends Acl {
             $arr = array_slice($arr,$limit*($page-1),$limit);
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -849,8 +849,8 @@ class Service extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出库存预警信息');//日志
-        export_excel('库存预警列表',$excel);
+        push_log('在庫の早期警告情報をエクスポートします');//日志
+        export_excel('在庫警告リスト',$excel);
     }
     //库存盘点查询
     public function roomcheck_list(){
@@ -893,7 +893,7 @@ class Service extends Acl {
                 'rows'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -937,7 +937,7 @@ class Service extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'库存盘点列表']);
+        array_push($excel,['type'=>'title','info'=>'在庫棚卸リスト']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -961,24 +961,24 @@ class Service extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出库存盘点信息');//日志
-        export_excel('库存盘点列表',$excel);
+        push_log('在庫棚卸情報をエクスポートする');//日志
+        export_excel('在庫棚卸リスト',$excel);
     }
     //统计初始化获取单据数量
 	public function  summary_forms(){
 	    Summary::where(['id'=>['gt',0]])->delete();//清空数据表
 	    $form=[
-            'purchase'=>'购货单',
-            'rpurchase'=>'采购入库单',
-            'repurchase'=>'购货退货单',
-            'sale'=>'销货单',
-            'resale'=>'销货退货单',
-            'cashier'=>'零售单',
-            'recashier'=>'零售退货单',
-            'exchange'=>'积分兑换单',
-            'allocation'=>'调拨单',
-            'otpurchase'=>'其他入库单',
-            'otsale'=>'其他出库单'
+            'purchase'=>'請求書を購入します',
+            'rpurchase'=>'エントリリストを購入します',
+            'repurchase'=>'注文の購入と返品',
+            'sale'=>'請求書を売る',
+            'resale'=>'販売返品請求書',
+            'cashier'=>'小売伝票',
+            'recashier'=>'小売返品伝票',
+            'exchange'=>'ポイント交換伝票',
+            'allocation'=>'振替伝票',
+            'otpurchase'=>'その他入庫伝票',
+            'otsale'=>'その他入庫伝票'
         ];
         $resule=[];
         foreach ($form as $key => $vo) {
@@ -1000,7 +1000,7 @@ class Service extends Acl {
             $resule['start']=($input['infocur']-1)*$base+1;
 	        $resule['end']=$resule['start']+count($class)-1;
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
 	}
@@ -1077,12 +1077,12 @@ class Service extends Acl {
             }
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -1138,7 +1138,7 @@ class Service extends Acl {
         foreach ($arr as $key=>$vo) {
             $arr[$key]['goodsinfo']['img']=empty($vo['goodsinfo']['imgs'])?'/skin/images/main/none.png':$vo['goodsinfo']['imgs'][0];//增加图像信息
             //根据辅助属性重新赋值价格信息
-            if(!empty($vo['attr']['nod']) && $vo['attr']['name']!='辅助属性丢失'){
+            if(!empty($vo['attr']['nod']) && $vo['attr']['name']!='補助属性損失'){
                 $attr=Attr::where(['pid'=>$vo['goods'],'nod'=>$vo['attr']['nod']])->find();
                 $arr[$key]['goodsinfo']['buy']=$attr['buy'];
                 $arr[$key]['goodsinfo']['sell']=$attr['sell'];
@@ -1158,7 +1158,7 @@ class Service extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'商品利润表']);
+        array_push($excel,['type'=>'title','info'=>'商品利益状態']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -1184,15 +1184,15 @@ class Service extends Acl {
         //3.添加汇总信息
         $sum_arr=get_sums($table_data,['sale','cashier','sales_revenue','sales_cost','sales_maori']);
         array_push($excel,['type'=>'node','info'=>[
-            '总销货金额:'.$sum_arr['sale'],
-            '总零售金额:'.$sum_arr['cashier'],
-            '总销售收入:'.$sum_arr['sales_revenue'],
-            '总销售成本:'.$sum_arr['sales_cost'],
-            '总销售毛利:'.$sum_arr['sales_maori'],
+            '総売上額:'.$sum_arr['sale'],
+            '総小売金額:'.$sum_arr['cashier'],
+            '総売上収入:'.$sum_arr['sales_revenue'],
+            '総売上コスト:'.$sum_arr['sales_cost'],
+            '総売上総利益:'.$sum_arr['sales_maori'],
         ]]);//填充汇总信息
         //4.导出execl
-        push_log('导出商品利润表');//日志
-        export_excel('商品利润表',$excel);
+        push_log('製品の利益フォームを輸出します');//日志
+        export_excel('商品利益状態',$excel);
     }
     //销售利润表
     public function billprofit_list(){
@@ -1242,12 +1242,12 @@ class Service extends Acl {
             }
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -1298,7 +1298,7 @@ class Service extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'销售利润表']);
+        array_push($excel,['type'=>'title','info'=>'営業利益状態']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -1324,17 +1324,17 @@ class Service extends Acl {
         //3.添加汇总信息
         $sum_arr=get_sums($table_data,['sales_revenue','selling_cost','gross_margin','discount','net_profit','receivable','money']);
         array_push($excel,['type'=>'node','info'=>[
-            '总销售收入:'.$sum_arr['sales_revenue'],
-            '总销售成本:'.$sum_arr['selling_cost'],
-            '总销售毛利:'.$sum_arr['gross_margin'],
-            '总优惠金额:'.$sum_arr['discount'],
-            '总销售净利润:'.$sum_arr['net_profit'],
-            '总应收金额:'.$sum_arr['receivable'],
-            '总实收金额:'.$sum_arr['money'],
+            '総売上収入:'.$sum_arr['sales_revenue'],
+            '総売上コスト:'.$sum_arr['selling_cost'],
+            '総売上総利益:'.$sum_arr['gross_margin'],
+            '総割引額:'.$sum_arr['discount'],
+            '総売上純利益:'.$sum_arr['net_profit'],
+            '総売買額:'.$sum_arr['receivable'],
+            '合計実際の収集量:'.$sum_arr['money'],
         ]]);//填充汇总信息
         //4.导出execl
-        push_log('导出销售利润表');//日志
-        export_excel('销售利润表',$excel);
+        push_log('販売営業利益計算書');//日志
+        export_excel('営業利益状態',$excel);
     }
     //串码跟踪表
     public function serial_list(){
@@ -1357,12 +1357,12 @@ class Service extends Acl {
             $arr = Serial::with('goodsinfo,roominfo')->where($serial_sql)->page($input['page'],$input['limit'])->order('goods desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -1410,8 +1410,8 @@ class Service extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出串码跟踪表');//日志
-        export_excel('串码跟踪表',$excel);
+        push_log('文字列コードトラッキングテーブルをエクスポートします');//日志
+        export_excel('文字列コードトラッキングテーブル',$excel);
     }
     //串码跟踪详情表
     public function serialinfo_list(){
@@ -1428,12 +1428,12 @@ class Service extends Acl {
             $arr = Serialinfo::with('typedata')->where($serialinfo_sql)->page($input['page'],$input['limit'])->order('id desc')->select()->ToArray();//查询分页数据[转数组方便二维数组赋值]
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -1477,10 +1477,10 @@ class Service extends Acl {
             }
             array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
             //3.导出execl
-            push_log('导出串码跟踪详情表');//日志
-            export_excel('串码跟踪详情表',$excel);
+            push_log('文字列コード追跡の詳細をエクスポートします');//日志
+            export_excel('文字列コード追跡の詳細',$excel);
         }else{
-            return json(['state'=>'error','info'=>'传入参数不完整!']);
+            return json(['state'=>'error','info'=>'入力されたパラメーターが不完全です!']);
         }
     }
     //往来单位欠款表
@@ -1511,7 +1511,7 @@ class Service extends Acl {
                     }
                     //转存数据
                     $info=[];
-                    $info['type']='客户';
+                    $info['type']='クライアント';
                     $info['name']=$vo['name'];
                     $info['number']=$vo['number'];
                     $info['money']=$money;
@@ -1549,7 +1549,7 @@ class Service extends Acl {
                     }
                     //转存数据
                     $info=[];
-                    $info['type']='供应商';
+                    $info['type']='サプライヤー';
                     $info['name']=$vo['name'];
                     $info['number']=$vo['number'];
                     $info['money']=$money;
@@ -1564,12 +1564,12 @@ class Service extends Acl {
             $resule=[
                 'state'=>'success',
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -1600,7 +1600,7 @@ class Service extends Acl {
                     }
                     //转存数据
                     $info=[];
-                    $info['type']='客户';
+                    $info['type']='クライアント';
                     $info['name']=$vo['name'];
                     $info['number']=$vo['number'];
                     $info['money']=$money;
@@ -1638,7 +1638,7 @@ class Service extends Acl {
                     }
                     //转存数据
                     $info=[];
-                    $info['type']='供应商';
+                    $info['type']='サプライヤー';
                     $info['name']=$vo['name'];
                     $info['number']=$vo['number'];
                     $info['money']=$money;
@@ -1649,7 +1649,7 @@ class Service extends Acl {
             //开始构造导出数据
             $excel=[];//初始化导出数据
             //1.填充标题数据
-            array_push($excel,['type'=>'title','info'=>'往来单位欠款表']);
+            array_push($excel,['type'=>'title','info'=>'転送ユニットの延滞']);
             //2.构造表格数据
             $table_cell=[];//初始化表头数据
             //构造表头数据
@@ -1675,13 +1675,13 @@ class Service extends Acl {
             //3.添加汇总信息
             $sum_arr=get_sums($table_data,['money']);
             array_push($excel,['type'=>'node','info'=>[
-                '总欠款金额:'.$sum_arr['money'],
+                '総延滞金額:'.$sum_arr['money'],
             ]]);//填充汇总信息
             //4.导出execl
-            push_log('导出往来单位欠款表');//日志
-            export_excel('往来单位欠款表',$excel);
+            push_log('ユニットの延滞をエクスポートします');//日志
+            export_excel('転送ユニットの延滞',$excel);
         }else{
-            return json(['state'=>'error','info'=>'传入参数不完整!']);
+            return json(['state'=>'error','info'=>'入力されたパラメーターが不完全です!']);
         }
     }
 }

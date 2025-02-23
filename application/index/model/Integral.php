@@ -14,7 +14,7 @@ class Integral extends Model{
 	
 	//积分操作_读取器
 	protected function  getSetAttr ($val,$data){
-        $arr=['0'=>'积分减少','1'=>'积分增加'];
+        $arr=['0'=>'ポイント減少','1'=>'ポイント增加'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;
@@ -27,7 +27,7 @@ class Integral extends Model{
     
 	//来源类型_读取器
 	protected function  getTypeAttr ($val,$data){
-        $arr=['1'=>'零售单','2'=>'零售退货单','3'=>'人工操作','4'=>'积分兑换单'];
+        $arr=['1'=>'小売リスト','2'=>'小売返品リスト','3'=>'手動操作','4'=>'積分交換リスト'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

@@ -4,8 +4,8 @@ use think\Validate;
 class Attribute extends Validate{
     //默认创建规则
     protected $rule = [
-        ['name', 'require|RepeatName:create', '辅助属性名称不可为空!|字段数据重复'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['name', 'require|RepeatName:create', '補助属性名は空にできません！|フィールドデータが重複しています！'],
+        ['more', 'array', '拡張情報の形式が正しくありません！']
     ];
     //场景规则
     protected $scene = [
@@ -20,6 +20,6 @@ class Attribute extends Validate{
         $sql['pid']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('attribute')->where($sql)->find();
-        return empty($nod)?true:'辅助属性名称[ '.$val.' ]已存在!';
+        return empty($nod)?true:'補助属性名[ '.$val.' ]已存在!';
     }
 }

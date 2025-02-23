@@ -4,9 +4,9 @@ use think\Validate;
 class Code extends Validate{
     //默认创建规则
     protected $rule = [
-        ['name', 'require|RepeatName:create', '条码名称不可为空!|字段数据重复'],
-        ['code', 'require', '条码内容不可为空!'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['name', 'require|RepeatName:create', 'バーコード名は空にできません！|フィールドデータが重複しています！'],
+        ['code', 'require', 'バーコード内容は空にできません！'],
+        ['more', 'array', '拡張情報の形式が不正です！']
     ];
     //场景规则
     protected $scene = [
@@ -21,6 +21,6 @@ class Code extends Validate{
         $sql['name']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('code')->where($sql)->find();
-        return empty($nod)?true:'条码名称[ '.$val.' ]已存在!';
+        return empty($nod)?true:'バーコード名[ '.$val.' ]存在する!';
     }
 }

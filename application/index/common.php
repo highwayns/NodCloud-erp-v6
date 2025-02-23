@@ -181,7 +181,7 @@ function hook_listen($nod,$params=''){
 //传入表单标识和表单类型
 function get_formfield($key,$type){
     $nod=db('formfield')->where(['key'=>$key])->find();
-    empty($nod)&&(exception('[formfield]表未找到['.$key.']字段信息,请开发者核实!'));//空数据检验
+    empty($nod)&&(exception('[formfield]テーブルはありません['.$key.']フィールド情報,検証する開発者!'));//空数据检验
     $info=arraychange(db('formfieldinfo')->where(['pid'=>$nod['id'],'show'=>1])->order('id asc')->select()->ToArray(),'info');
     //判断表单类型
     if($type=='layui'){
@@ -225,7 +225,7 @@ function get_sys($nod=[]){
     $sql=empty($nod)?[]:['name'=>['in',$nod]];
     $info=db('sys')->where($sql)->field('name,info')->select()->toarray();
     if(empty($info)){
-        $resule="[ error ] 未查询到数据!";
+        $resule="[ error ] クエリなしのデータ!";
     }else{
         if(count($info)==1){
             //单一数据

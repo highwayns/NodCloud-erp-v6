@@ -26,7 +26,7 @@ class Opurchaseclass extends Model{
     
 	//审核状态_读取器
 	protected function  getTypeAttr ($val,$data){
-        $arr=['0'=>'未审核','1'=>'已审核'];
+        $arr=['0'=>'未承認','1'=>'承認済み'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;
@@ -34,7 +34,7 @@ class Opurchaseclass extends Model{
 	
 	//入库状态_读取器
 	protected function  getStorageAttr ($val,$data){
-        $arr=['0'=>'未入库','1'=>'部分入库','2'=>'已入库'];
+        $arr=['0'=>'モデル','1'=>'倉庫への部分的なエントリ','2'=>'倉庫に入った'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

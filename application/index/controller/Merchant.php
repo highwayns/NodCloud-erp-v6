@@ -30,12 +30,12 @@ class Merchant extends Acl {
             $arr = Merchants::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -51,7 +51,7 @@ class Merchant extends Acl {
                     $create_info=Merchants::create(syn_sql($input,'merchant'));
                     
                     Hook::listen('create_merchant',$create_info);//商户新增行为
-                    push_log('新增商户信息[ '.$create_info['name'].' ]');//日志
+                    push_log('新しい商人情報[ '.$create_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -64,14 +64,14 @@ class Merchant extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $update_info=Merchants::update(syn_sql($input,'merchant'));
                     Hook::listen('update_merchant',$update_info);//商户更新行为
-                    push_log('更新客户信息[ '.$update_info['name'].' ]');//日志
+                    push_log('顧客情報を更新します[ '.$update_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -81,7 +81,7 @@ class Merchant extends Acl {
         if(isset_full($input,'id')){
             $resule=Merchants::where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -115,11 +115,11 @@ class Merchant extends Acl {
             if(!$exist){
             	//判断主商户不可删除
                 if(in_array(1,$input['arr'])){
-                    $resule=['state'=>'error','info'=>'主商户不可删除!'];
+                    $resule=['state'=>'error','info'=>'主要な商人を削除することはできません!'];
                 }else{
                     $info=db('merchant')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
                     foreach ($info as $info_vo) {
-                        push_log('删除商户信息[ '.$info_vo['name'].' ]');//日志
+                        push_log('マーチャント情報を削除します[ '.$info_vo['name'].' ]');//日志
                         Hook::listen('del_merchant',$info_vo['id']);//客户删除行为
                     }
                     Merchants::where(['id'=>['in',$input['arr']]])->delete();
@@ -127,10 +127,10 @@ class Merchant extends Acl {
                     $resule=['state'=>'success'];
                 }
             }else{
-            	$resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+            	$resule=['state'=>'error','info'=>'データ相関,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -151,7 +151,7 @@ class Merchant extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'商户列表']);
+        array_push($excel,['type'=>'title','info'=>'マーチャントリスト']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -175,7 +175,7 @@ class Merchant extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出客户信息');//日志
-        export_excel('商户列表',$excel);
+        push_log('顧客データを出力する信息');//日志
+        export_excel('マーチャントリスト',$excel);
     }
 }

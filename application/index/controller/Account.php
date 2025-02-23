@@ -27,12 +27,12 @@ class Account extends Acl {
             $arr = Accounts::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'成功する',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -47,7 +47,7 @@ class Account extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $create_info=Accounts::create(syn_sql($input,'account'));
                     Hook::listen('create_account',$create_info);//资金账户新增行为
-                    push_log('新增资金账户信息[ '.$create_info['name'].' ]');//日志
+                    push_log('新しいファンドアカウント情報[ '.$create_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -59,14 +59,14 @@ class Account extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $update_info=Accounts::update(syn_sql($input,'account'));
                     Hook::listen('update_account',$update_info);//资金账户更新行为
-                    push_log('更新资金账户信息[ '.$update_info['name'].' ]');//日志
+                    push_log('資本アカウント情報を更新します[ '.$update_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -76,7 +76,7 @@ class Account extends Acl {
         if(isset_full($input,'id')){
             $resule=Accounts::where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -110,16 +110,16 @@ class Account extends Acl {
             if(!$exist){
             	$info=db('account')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
                 foreach ($info as $info_vo) {
-                    push_log('删除资金账户信息[ '.$info_vo['name'].' ]');//日志
+                    push_log('ファンドアカウント情報を削除します[ '.$info_vo['name'].' ]');//日志
                     Hook::listen('del_account',$info_vo['id']);//资金账户删除行为
                 }
                 Accounts::where(['id'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-            	$resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+            	$resule=['state'=>'error','info'=>'データ相関,障害を削除します!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -163,8 +163,8 @@ class Account extends Acl {
         $sum_arr=get_sums($table_data,['balance']);
         array_push($excel,['type'=>'node','info'=>['资金余额汇总:'.$sum_arr['balance']]]);//填充汇总信息
         //4.导出execl
-        push_log('导出资金账户信息');//日志
-        export_excel('资金账户列表',$excel);
+        push_log('輸出基金アカウント情報');//日志
+        export_excel('ファンドアカウントのリスト',$excel);
     }
     //---------------(^_^)---------------//
     //资金明细视图
@@ -189,13 +189,13 @@ class Account extends Acl {
             $arr = Accountinfo::with('userinfo,typedata')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'成功する',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
             
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -217,7 +217,7 @@ class Account extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'资金账户['.$info['name'].']明细信息']);
+        array_push($excel,['type'=>'title','info'=>'資本口座['.$info['name'].']詳細情報']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -244,13 +244,13 @@ class Account extends Acl {
         array_push($excel,[
             'type'=>'node',
             'info'=>[
-                '开账日期:',$info['createtime'],
-                '期初余额:',$info['initial'],
-                '剩余资余额:',$info['balance']
+                'アカウント開設日:',$info['createtime'],
+                '予備的な残高:',$info['initial'],
+                '残りのバランスバランス:',$info['balance']
             ]
         ]);
         //4.导出execl
-        push_log('导出资金账户['.$info['name'].']明细信息');//日志
-        export_excel('资金账户['.$info['name'].']明细信息',$excel);
+        push_log('輸出基金口座['.$info['name'].']詳細情報');//日志
+        export_excel('資本口座['.$info['name'].']詳細情報',$excel);
     }
 }

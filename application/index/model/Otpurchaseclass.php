@@ -31,7 +31,7 @@ class Otpurchaseclass extends Model{
 	
     //单据类型_读取器
 	protected function  getPagetypeAttr ($val,$data){
-        $arr=['0'=>'其他入库单','1'=>'盘盈单'];
+        $arr=['0'=>'その他入庫伝票','1'=>'棚卸し差異伝票'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;
@@ -39,7 +39,7 @@ class Otpurchaseclass extends Model{
 	
     //审核状态_读取器
 	protected function  getTypeAttr ($val,$data){
-        $arr=['0'=>'未审核','1'=>'已审核'];
+        $arr=['0'=>'未承認','1'=>'承認済み'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

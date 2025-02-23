@@ -9,16 +9,16 @@ class Goods extends Validate{
     }
     //默认创建规则
     protected $rule = [
-        ['name', 'require|RepeatName:create', '商品名称不可为空!|字段数据重复'],
-        ['number', 'RepeatNumber:create', '字段数据重复'],
-        ['class', 'require', '商品分类不可为空!'],
-        ['buy', 'require|regex:plus', '购货价格不可为空!|购货价格不正确!'],
-        ['sell', 'require|regex:plus', '销货价格不可为空!|销货价格不正确!'],
-        ['retail', 'require|regex:plus', '零售价格不可为空!|零售价格不正确!'],
-        ['integral', 'regex:plus', '兑换积分不正确!'],
-        ['code', 'alphaDash', '条形码不正确!'],
-        ['stocktip', 'regex:plus', '库存阈值不正确!'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['name', 'require|RepeatName:create', '商品名は空にできません！|フィールドデータが重複しています！'],
+        ['number', 'RepeatNumber:create', 'フィールドデータが重複しています！'],
+        ['class', 'require', '商品分類は空にできません！'],
+        ['buy', 'require|regex:plus', '購入価格は空にできません！|購入価格が正しくありません！'],
+        ['sell', 'require|regex:plus', '販売価格は空にできません！|販売価格が正しくありません！'],
+        ['retail', 'require|regex:plus', '小売価格は空にできません！|小売価格が正しくありません！'],
+        ['integral', 'regex:plus', '交換ポイントが正しくありません！'],
+        ['code', 'alphaDash', 'バーコードが正しくありません！'],
+        ['stocktip', 'regex:plus', '在庫しきい値が正しくありません！'],
+        ['more', 'array', '拡張情報の形式が正しくありません！']
     ];
     //场景规则
     protected $scene = [
@@ -40,13 +40,13 @@ class Goods extends Validate{
         $sql['name']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('goods')->where($sql)->find();
-        return empty($nod)?true:'商品名称[ '.$val.' ]已存在!';
+        return empty($nod)?true:'製品名[ '.$val.' ]存在する!';
     }
     //商品编号重复性判断
     protected function RepeatNumber($val,$rule,$data){
         $sql['number']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('goods')->where($sql)->find();
-        return empty($nod)?true:'商品编号[ '.$val.' ]已存在!';
+        return empty($nod)?true:'商品番号[ '.$val.' ]存在する!';
     }
 }

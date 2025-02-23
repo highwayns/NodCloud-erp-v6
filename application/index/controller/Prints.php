@@ -15,7 +15,7 @@ class Prints extends Acl {
             push_log ('保存打印模板[ '.$input['name'].' ]');
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -26,10 +26,10 @@ class Prints extends Acl {
             $type=['0'=>'paper4','1'=>'paper2'];//初始化类型
             $print=printss::where(['name'=>$input['name']])->find();
             printss::where(['id'=>$print['id']])->update([$type[$input['type']]=>$print[$type[$input['type']].'default']]);
-            push_log ('恢复打印模板[ '.$input['name'].' ]');
+            push_log ('印刷テンプレートを復元します[ '.$input['name'].' ]');
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

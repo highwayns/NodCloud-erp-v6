@@ -28,7 +28,7 @@ class Often extends Acl {
             Oftens::insertAll(json_decode($input['arr'],true));//解码兼容空数组
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

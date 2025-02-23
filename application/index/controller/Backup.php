@@ -22,12 +22,12 @@ class Backup extends Acl {
             $arr =array_slice($list,$input['limit']*($input['page']-1),$input['limit']);//匹配分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -36,7 +36,7 @@ class Backup extends Acl {
         $dbinfo=config('database');
 		$backup=new \org\baksql($dbinfo['hostname'],$dbinfo['username'],$dbinfo['password'],$dbinfo['database']);
 		$backup->backup();
-		push_log ('备份系统数据');
+		push_log ('システムデータのバックアップを作成する');
 		return json (['state'=>'success']);
     }
     //恢复备份
@@ -46,14 +46,14 @@ class Backup extends Acl {
             $dbinfo=config('database');
     		$backup=new \org\baksql($dbinfo['hostname'],$dbinfo['username'],$dbinfo['password'],$dbinfo['database']);
     		$backup->restore($input['name']);
-    		push_log('恢复数据备份[ '.$input['name'].' ]');//日志信息
+    		push_log('データバックアップを復元する[ '.$input['name'].' ]');//日志信息
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
-    //删除数据备份
+    //データバックアップを削除する
     public function del_backup(){
         $input=input('post.');
         if(isset_full($input,'arr') && is_array($input['arr'])){
@@ -63,14 +63,14 @@ class Backup extends Acl {
                 //防止恶意请求
                 if(strpos($info_vo,'/')===false && strpos($info_vo,'..')===false){
                     unlink($path.$info_vo);
-                    push_log('删除数据备份[ '.$info_vo.' ]');//日志信息
+                    push_log('データバックアップを削除する[ '.$info_vo.' ]');//日志信息
                 }else{
-                    return json(['state'=>'error','info'=>'传入参数错误!']);
+                    return json(['state'=>'error','info'=>'パラメーターエラー!']);
                 }
             }
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

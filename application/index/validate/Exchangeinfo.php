@@ -4,12 +4,12 @@ use think\Validate;
 class Exchangeinfo extends Validate{
     //默认创建规则
     protected $rule = [
-        ['room', 'require|integer', '仓储数据不可为空!|仓储数据不正确!'],
-        ['goods', 'require|integer', '商品数据不可为空!|商品数据不正确!'],
-        ['warehouse', 'require|integer', '仓库数据不可为空!|仓库数据不正确!'],
-        ['nums', 'require|number', '数量数据不可为空!|数量数据不正确!'],
-        ['integral', 'require|number', '兑换积分数据不可为空!|兑换积分数据不正确!'],
-        ['allintegral', 'require|number', '总积分数据不可为空!|总积分数据不正确!'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['room', 'require|integer', '倉庫データは空にできません！|倉庫データが正しくありません！'],
+        ['goods', 'require|integer', '商品データは空にできません！|商品データが正しくありません！'],
+        ['warehouse', 'require|integer', '倉庫データは空にできません！|倉庫データが正しくありません！'],
+        ['nums', 'require|number', '数量データは空にできません！|数量データが正しくありません！'],
+        ['integral', 'require|number', '交換ポイントデータは空にできません！|交換ポイントデータが正しくありません！'],
+        ['allintegral', 'require|number', '総ポイントデータは空にできません！|総ポイントデータが正しくありません！'],
+        ['more', 'array', '拡張情報の形式が正しくありません！']
     ];
 }

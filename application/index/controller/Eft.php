@@ -22,12 +22,12 @@ class Eft extends Acl {
                 foreach ($input['tab'] as $tab_key=>$tab_vo) {
                     $tab_vali = $this->validate($tab_vo,'Eftinfo');//详情验证
                     if($tab_vali!==true){
-                        return json(['state'=>'error','info'=>'[ 数据表格 ]第'.($tab_key+1).'行'.$tab_vali]);
+                        return json(['state'=>'error','info'=>'[ データフォーム ]第'.($tab_key+1).'行'.$tab_vali]);
                         exit;
                     }
                 }
             }else{
-                return json(['state'=>'error','info'=>'数据表格不可为空!']);
+                return json(['state'=>'error','info'=>'データテーブルを空にすることはできません!']);
                 exit;
             }
             //验证操作类型
@@ -38,7 +38,7 @@ class Eft extends Acl {
                 if($vali===true){
                     $create_info=Eftclass::create(syn_sql($input,'eftclass'));
                     Hook::listen('create_eft',$create_info);//资金调拨单新增行为
-                    push_log('新增资金调拨单[ '.$create_info['number'].' ]');//日志
+                    push_log('新しいファンド配分リスト[ '.$create_info['number'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -49,7 +49,7 @@ class Eft extends Acl {
                 if($vali===true){
                     $update_info=Eftclass::update(syn_sql($input,'eftclass'));
                     Hook::listen('update_eft',$update_info);//资金调拨单更新行为
-                    push_log('更新资金调拨单[ '.$update_info['number'].' ]');//日志
+                    push_log('注文の割り当てファンドを更新します[ '.$update_info['number'].' ]');//日志
                     Eftinfo::where(['pid'=>$update_info['id']])->delete();
                     $resule=['state'=>'success'];
                 }else{
@@ -65,7 +65,7 @@ class Eft extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         //兼容自动审核[新增操作]
         if($resule['state']=='success'&&empty($input['id'])){
@@ -106,12 +106,12 @@ class Eft extends Acl {
             $arr = Eftclass::with('merchantinfo,userinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -126,7 +126,7 @@ class Eft extends Acl {
             $this->assign('info',$info);
             return $this->fetch('main');
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -134,7 +134,7 @@ class Eft extends Acl {
     public function auditing($arr=[],$auto=false){
         (empty($arr))&&($arr=input('post.arr'));//兼容多态审核
         if(empty($arr)){
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }else{
             $class_data=[];//初始化CLASS数据
             $info_data=[];//初始化INFO数据
@@ -161,7 +161,7 @@ class Eft extends Acl {
                         Accountinfo::create (['pid'=>$info_vo['account'],'set'=>1,'money'=>$info_vo['total'],'type'=>14,'time'=>time(),'user'=>Session('is_user_id'),'class'=>$arr_vo]);//新增资金详情
                     }
                     Eftclass::update(['id'=>$arr_vo,'type'=>1,'auditinguser'=>Session('is_user_id'),'auditingtime'=>time()]);//更新CLASS数据
-                    push_log(($auto?'自动':'').'审核资金调拨单[ '.$class['number'].' ]');
+                    push_log(($auto?'自動':'').'ファンドのダイヤルフォーミュラをレビューします[ '.$class['number'].' ]');
                 }else{
                     //反审核操作
                     foreach ($info as $info_vo){
@@ -172,7 +172,7 @@ class Eft extends Acl {
                     }
                     Accountinfo::where(['type'=>['in',[13,14]],'class'=>$arr_vo])->delete();//删除资金账户详情
                     Eftclass::update(['id'=>$arr_vo,'type'=>0,'auditinguser'=>0,'auditingtime'=>0]);//更新CLASS数据
-                    push_log ('反审核资金调拨单[ '.$class['number'].' ]');
+                    push_log ('反レビューファンドダイヤルオーダー[ '.$class['number'].' ]');
                 }
             }
             $resule=['state'=>'success'];
@@ -188,17 +188,17 @@ class Eft extends Acl {
             //数据检验
             if(empty($data)){
                 foreach ($class as $class_vo) {
-                    push_log('删除资金调拨单[ '.$class_vo['number'].' ]');//日志
+                    push_log('ファンドダイヤル注文を削除します[ '.$class_vo['number'].' ]');//日志
                     Hook::listen('del_eft',$class_vo['id']);//资金调拨单删除行为
                 }
                 Eftclass::where(['id'=>['in',$input['arr']]])->delete();
                 Eftinfo::where(['pid'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'error','info'=>'资金调拨单[ '.$data[0]['number'].' ]已审核,不可删除!'];
+                $resule=['state'=>'error','info'=>'ファンドダイヤルオーダー[ '.$data[0]['number'].' ]レビュー,削除されていません!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -206,7 +206,7 @@ class Eft extends Acl {
     public function exports(){
         $input=input('get.');
         if(isset($input['mode'])){
-            push_log('导出资金调拨单数据');//日志
+            push_log('ファンドのダイヤルリストデータをエクスポートします');//日志
             $sql=get_sql($input,[
                 'number'=>'full_like',
                 'start_time'=>'stime',
@@ -235,7 +235,7 @@ class Eft extends Acl {
                 //开始构造导出数据
                 $excel=[];//初始化导出数据
                 //1.填充标题数据
-                array_push($excel,['type'=>'title','info'=>'资金调拨单列表']);
+                array_push($excel,['type'=>'title','info'=>'ファンド配分のリスト']);
                 //2.构造表格数据
                 $table_cell=[];//初始化表头数据
                 //构造表头数据
@@ -259,7 +259,7 @@ class Eft extends Acl {
                 }
                 array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
                 //3.导出execl
-                export_excel('资金调拨单列表',$excel);
+                export_excel('ファンド配分のリスト',$excel);
             }else{
                 //详细报表
                 $files=[];//初始化文件列表
@@ -268,12 +268,12 @@ class Eft extends Acl {
                 foreach ($arr as $arr_vo) {
                     $excel=[];//初始化导出数据
                     //1.填充标题数据
-                    array_push($excel,['type'=>'title','info'=>'资金调拨单']);
+                    array_push($excel,['type'=>'title','info'=>'ファンドダイヤルオーダー']);
                     //2.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '单据日期:'.$arr_vo['time'],
+                        'ドキュメント日:'.$arr_vo['time'],
                         '',
-                        '单据编号:'.$arr_vo['number'],
+                        'ドキュメント番号:'.$arr_vo['number'],
                     ]]);
                     //3.构造表格数据
                     $info=Eftinfo::where(['pid'=>$arr_vo['id']])->select();
@@ -300,17 +300,17 @@ class Eft extends Acl {
                     array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
                     //4.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '制单人:'.$arr_vo['userinfo']['name'],
+                        'シングルハンドの人:'.$arr_vo['userinfo']['name'],
                         '',
-                        '备注信息:'.$arr_vo['data'],
+                        '備考情報:'.$arr_vo['data'],
                     ]]);
                     $path=export_excel($arr_vo['number'],$excel,false);//生成文件
                     array_push($files,$path);//添加文件路径数据
                 }
-                file_to_zip('资金调拨单明细',$files);//打包输出数据
+                file_to_zip('資金配分単一の詳細',$files);//打包输出数据
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -337,7 +337,7 @@ class Eft extends Acl {
             $this->assign('print_text',$print_text);
             return $this->fetch();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

@@ -25,12 +25,12 @@ class Serve extends Acl {
             $arr = Serves::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -45,7 +45,7 @@ class Serve extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $create_info=Serves::create(syn_sql($input,'serve'));
                     Hook::listen('create_serve',$create_info);//服务项目新增行为
-                    push_log('新增服务项目信息[ '.$create_info['name'].' ]');//日志
+                    push_log('新しいサービスプロジェクト情報[ '.$create_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -57,14 +57,14 @@ class Serve extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $update_info=Serves::update(syn_sql($input,'serve'));
                     Hook::listen('update_serve',$update_info);//服务项目更新行为
-                    push_log('更新服务项目信息[ '.$update_info['name'].' ]');//日志
+                    push_log('サービスプロジェクト情報を更新します[ '.$update_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -74,7 +74,7 @@ class Serve extends Acl {
         if(isset_full($input,'id')){
             $resule=Serves::where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -90,16 +90,16 @@ class Serve extends Acl {
             if(!$exist){
             	$info=db('serve')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
                 foreach ($info as $info_vo) {
-                    push_log('删除服务项目信息[ '.$info_vo['name'].' ]');//日志
+                    push_log('サービスプロジェクト情報を削除します[ '.$info_vo['name'].' ]');//日志
                     Hook::listen('del_serve',$info_vo['id']);//服务项目删除行为
                 }
                 Serves::where(['id'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-            	$resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+            	$resule=['state'=>'error','info'=>'データ相関,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -116,7 +116,7 @@ class Serve extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'服务项目列表']);
+        array_push($excel,['type'=>'title','info'=>'サービスアイテムのリスト']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -140,7 +140,7 @@ class Serve extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出服务项目信息');//日志
-        export_excel('服务项目列表',$excel);
+        push_log('輸出サービスプロジェクト情報');//日志
+        export_excel('サービスアイテムのリスト',$excel);
     }
 }

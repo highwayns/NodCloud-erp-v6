@@ -46,7 +46,7 @@ class Rpurchaseclass extends Model{
     
     //审核状态_读取器
 	protected function  getTypeAttr ($val,$data){
-        $arr=['0'=>'未审核','1'=>'已审核'];
+        $arr=['0'=>'未承認','1'=>'承認済み'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;
@@ -54,7 +54,7 @@ class Rpurchaseclass extends Model{
 	
 	//核销类型_读取器
 	protected function  getBilltypeAttr ($val,$data){
-        $arr=['-1'=>'未处理','0'=>'未核销','1'=>'部分核销','2'=>'已核销','3'=>'强制核销'];
+        $arr=['-1'=>'未処理','0'=>'未消込','1'=>'部分消込','2'=>'消込済み','3'=>'強制消込'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

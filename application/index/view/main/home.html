@@ -6,11 +6,11 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md6">
                     <div class="layui-card">
-                        <div class="layui-card-header">常用功能</div>
+                        <div class="layui-card-header">共通機能</div>
                         <div class="layui-card-body">
                             <div class="layui-carousel layadmin-carousel layadmin-shortcut">
                                 {empty name="often"}
-                                    <p style="position: absolute;font-size: 16px;top: 36%;left: 39%;" lay-tips="您可在【常用功能】中配置该内容"><i class="layui-icon layui-icon-component" style="margin-right: 6px;"></i> 这里空空如也~</p>
+                                    <p style="position: absolute;font-size: 16px;top: 36%;left: 39%;" lay-tips="[Common Function]でコンテンツを構成できます"><i class="layui-icon layui-icon-component" style="margin-right: 6px;"></i> ここの空は空です~</p>
                                 {else /}
                                     <div carousel-item>
                                         {volist name="often" id="often_vo"}
@@ -33,44 +33,44 @@
                 </div>
                 <div class="layui-col-md6">
                     <div class="layui-card">
-                        <div class="layui-card-header">汇总信息</div>
+                        <div class="layui-card-header">要約情報</div>
                         <div class="layui-card-body">
                             <div class="layui-carousel layadmin-carousel layadmin-backlog">
                                 <div carousel-item>
                                     <ul class="layui-row layui-col-space10">
                                         <li class="layui-col-xs4">
-                                            <a class="layadmin-backlog-body" lay-text="资金账户" lay-href="/index/account/main.html">
-                                                <h3>资金总数</h3>
+                                            <a class="layadmin-backlog-body" lay-text="資本口座" lay-href="/index/account/main.html">
+                                                <h3>資金の総数</h3>
                                                 <p><cite>{$account}</cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs4">
-                                            <a class="layadmin-backlog-body" lay-text="客户管理" lay-href="/index/customer/main.html">
-                                                <h3>客户总数</h3>
+                                            <a class="layadmin-backlog-body" lay-text="顧客管理" lay-href="/index/customer/main.html">
+                                                <h3>顧客の総数</h3>
                                                 <p><cite>{$customer}</cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs4">
-                                            <a class="layadmin-backlog-body" lay-text="供应商管理" lay-href="/index/supplier/main.html">
-                                                <h3>供应商总数</h3>
+                                            <a class="layadmin-backlog-body" lay-text="サプライヤー管理" lay-href="/index/supplier/main.html">
+                                                <h3>サプライヤーの総数</h3>
                                                 <p><cite>{$supplier}</cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs4">
-                                            <a class="layadmin-backlog-body" lay-text="库存查询" lay-href="/index/main/room.html">
-                                                <h3>库存总数</h3>
+                                            <a class="layadmin-backlog-body" lay-text="在庫クエリ" lay-href="/index/main/room.html">
+                                                <h3>総在庫</h3>
                                                 <p><cite>{$room}</cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs4">
-                                            <a class="layadmin-backlog-body" lay-text="库存预警" lay-href="/index/main/room_warning.html">
-                                                <h3>库存预警</h3>
+                                            <a class="layadmin-backlog-body" lay-text="在庫警告" lay-href="/index/main/room_warning.html">
+                                                <h3>在庫警告</h3>
                                                 <p><cite>{$roomwarning_nums}</cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs4">
-                                            <a class="layadmin-backlog-body" lay-text="职员管理" lay-href="/index/user/main.html">
-                                                <h3>职员总数</h3>
+                                            <a class="layadmin-backlog-body" lay-text="スタッフ管理" lay-href="/index/user/main.html">
+                                                <h3>スタッフの総数</h3>
                                                 <p><cite>{$user}</cite></p>
                                             </a>
                                         </li>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <div class="layui-card-header">数据概览</div>
+                        <div class="layui-card-header">データの概要</div>
                         <div class="layui-card-body">
                             <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-dataview">
                                 <div carousel-item id="LAY-index-dataview">
@@ -101,17 +101,17 @@
         </div>
         <div class="layui-col-md3">
             <div class="layui-card">
-                <div class="layui-card-header">公告信息<i class="layui-icon layui-icon-tips" lay-tips="您可在【系统参数】中设置公告" lay-offset="5"></i></div>
+                <div class="layui-card-header">情報を発表します<i class="layui-icon layui-icon-tips" lay-tips="[システムパラメーター]で発表を設定できます" lay-offset="5"></i></div>
                 <div class="layui-card-body layui-text">
                     {empty name="sys.notice"}
-                        <p style="text-align: center;font-size: 16px;line-height: 67px;"><i class="layui-icon layui-icon-component" style="margin-right: 6px;"></i> 这里空空如也~</p>
+                        <p style="text-align: center;font-size: 16px;line-height: 67px;"><i class="layui-icon layui-icon-component" style="margin-right: 6px;"></i> ここの空は空です~</p>
                     {else /}
                         <p>{$sys.notice|nl2br}</p>
                     {/empty}
                 </div>
             </div>
             <div class="layui-card">
-                <div class="layui-card-header">负载监测</div>
+                <div class="layui-card-header">ロード監視</div>
                 <div class="layui-card-body layadmin-takerates">
                     {php}
                         $cache_max_size=128;
@@ -119,7 +119,7 @@
                         $cache_Percentage=round($cache_now_size*100/$cache_max_size,2);
                     {/php}
                     <div class="layui-progress" lay-showPercent="yes">
-                        <h3 lay-tips="缓存量大于80%建议清理" lay-offset="5">系统缓存量[{$cache_now_size}M]</h3>
+                        <h3 lay-tips="キャッシュボリュームは80％を超えています" lay-offset="5">システムキャッシュ量[{$cache_now_size}M]</h3>
                         <div class="layui-progress-bar" lay-percent="{$cache_Percentage}%"></div>
                     </div>
                     {php}
@@ -128,13 +128,13 @@
                         $mysql_Percentage=round($mysql_now_size*100/$mysql_max_size,2);
                     {/php}
                     <div class="layui-progress" lay-showPercent="yes">
-                        <h3 lay-tips="数据量{$mysql_max_size}M下可获得优质体验" lay-offset="5">存储数据量[{$mysql_now_size}M]</h3>
+                        <h3 lay-tips="データボリューム{$mysql_max_size}Mで高品質のエクスペリエンスを得ることができます" lay-offset="5">ストレージデータ量[{$mysql_now_size}M]</h3>
                         <div class="layui-progress-bar" lay-percent="{$mysql_Percentage}%"></div>
                     </div>
                 </div>
             </div>
             <div class="layui-card">
-                <div class="layui-card-header">环境信息</div>
+                <div class="layui-card-header">環境情報</div>
                 <div class="layui-card-body layui-text">
                     <table class="layui-table">
                         <colgroup>
@@ -142,11 +142,11 @@
                         </colgroup>
                         <tbody>
                             <tr>
-                                <td>系统类型</td>
+                                <td>システム</td>
                                 <td>{php}echo PHP_OS;{/php}</td>
                             </tr>
                             <tr>
-                                <td>解译引擎</td>
+                                <td>通訳エンジン</td>
                                 <td>{php}echo $_SERVER['SERVER_SOFTWARE'];{/php}</td>
                             </tr>
                             <tr>
@@ -158,11 +158,11 @@
                                 <td>{php}echo \think\db::query("select VERSION() as ver")[0]['ver'];{/php}</td>
                             </tr>
                             <tr>
-                                <td>通信协议</td>
+                                <td>通信プロトコル</td>
                                 <td>{php}echo $_SERVER['SERVER_PROTOCOL'];{/php}</td>
                             </tr>
                             <tr>
-                                <td>程序版本</td>
+                                <td>プログラム</td>
                                 <td>{php}echo get_ver();{/php}</td>
                             </tr>
                         </tbody>

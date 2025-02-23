@@ -5,7 +5,7 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3" style="display:none">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">串码标识[隐藏域]</label>
+                        <label class="layui-form-label">スキューコード[隐藏域]</label>
                         <div class="layui-input-block">
                             <input type="text" class="layui-input" id="s|pid" value="{$Think.get.id}">
                         </div>
@@ -13,21 +13,21 @@
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">单据类型</label>
+                        <label class="layui-form-label">ドキュメントタイプ</label>
                         <div class="layui-input-block">
                             <select id="s|type">
-                                <option value="0">全部类型</option>
-                                <option value="1">购货单</option>
-                                <option value="2">销货单</option>
-                                <option value="3">购货退货单</option>
-                                <option value="4">销货退货单</option>
-                                <option value="5">调拨单</option>
-                                <option value="6">其他入库单</option>
-                                <option value="7">其他出库单</option>
-                                <option value="8">零售单</option>
-                                <option value="9">零售退货单</option>
-                                <option value="10">采购入库单</option>
-                                <option value="11">积分兑换单</option>
+                                <option value="0">すべてのタイプ</option>
+                                <option value="1">購買伝票</option>
+                                <option value="2">販売伝票</option>
+                                <option value="3">購買返品伝票</option>
+                                <option value="4">販売返品伝票</option>
+                                <option value="5">振替伝票</option>
+                                <option value="6">その他の入庫伝票</option>
+                                <option value="7">その他の出庫伝票</option>
+                                <option value="8">小売伝票</option>
+                                <option value="9">小売返品伝票</option>
+                                <option value="10">購入入庫伝票</option>
+                                <option value="11">ポイント交換伝票</option>
                             </select>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
-            <button class="layui-btn layui-btn-primary" onclick="exports();">导出</button>
+            <button class="layui-btn layui-btn-primary" onclick="exports();">輸出</button>
             <button class="layui-btn layui-btn-primary" onclick="replace();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>

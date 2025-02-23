@@ -2,47 +2,47 @@
 <link rel="stylesheet" href="/skin/css/sys/sys.css" type="text/css" media="all" />
 <div class="layui-tab layui-tab-brief">
     <ul class="layui-tab-title">
-        <li nod="basics" class="layui-this">基础信息</li>
-        <li nod="function">功能设置</li>
-        <li nod="cashier">零售配置</li>
-        <li nod="home">首页配置</li>
+        <li nod="basics" class="layui-this">基本情報</li>
+        <li nod="function">機能設定</li>
+        <li nod="cashier">小売設定</li>
+        <li nod="home">ホームページ設定</li>
     </ul>
     <div class="layui-tab-content layui-form layui-form-pane">
         <div class="layui-tab-item layui-show">
             <div class="layui-form-item">
-                <label class="layui-form-label">系统名称</label>
+                <label class="layui-form-label">システム名</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="sys_name" placeholder="请输入系统名称" class="layui-input">
+                    <input type="text" id="sys_name" placeholder="システム名を入力してください" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">公司名称</label>
+                <label class="layui-form-label">会社名</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="company_name" placeholder="请输入公司名称" class="layui-input">
+                    <input type="text" id="company_name" placeholder="会社名を入力してください" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">公司电话</label>
+                <label class="layui-form-label">会社電話</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="company_tel" placeholder="请输入公司电话" class="layui-input">
+                    <input type="text" id="company_tel" placeholder="会社電話を入力してください" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">公司地址</label>
+                <label class="layui-form-label">会社住所</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="company_add" placeholder="请输入公司地址" class="layui-input">
+                    <input type="text" id="company_add" placeholder="会社住所を入力してください" class="layui-input">
                 </div>
             </div>
         </div>
         <div class="layui-tab-item">
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="商品管理页面的库存默认阀值">库存默认阀值</label>
+                <label class="layui-form-label" nod-tips="商品管理ページの在庫デフォルトしきい値">在庫デフォルトしきい値</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="room_threshold" placeholder="请输入默认阀值" class="layui-input">
+                    <input type="text" id="room_threshold" placeholder="デフォルトしきい値を入力してください" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="全局打印纸张设置<br/>【A4】210mm×297mm<br/>【241-2】210mm×140mm">默认打印纸张</label>
+                <label class="layui-form-label" nod-tips="全体の印刷用紙設定<br/>【A4】210mm×297mm<br/>【241-2】210mm×140mm">デフォルト印刷用紙</label>
                 <div class="layui-input-inline">
                     <select id="print_paper">
                         <option value="0">A4</option>
@@ -51,95 +51,95 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="单据页面制单人是否可选">制单人可选</label>
+                <label class="layui-form-label" nod-tips="伝票ページの作成者を選択可能にするか">作成者選択可</label>
                 <div class="layui-input-inline">
                     <select id="user_opt">
-                        <option value="0">否</option>
-                        <option value="1">是</option>
+                        <option value="0">いいえ</option>
+                        <option value="1">はい</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="启用后将自动审核单据">单据自动审核</label>
+                <label class="layui-form-label" nod-tips="有効にすると伝票を自動的に審査する">伝票自動審査</label>
                 <div class="layui-input-inline">
                     <select id="auto_auditing">
-                        <option value="0">否</option>
-                        <option value="1">是</option>
+                        <option value="0">いいえ</option>
+                        <option value="1">はい</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="是否启用批次功能">启用批次功能</label>
+                <label class="layui-form-label" nod-tips="ロット機能を有効にするか">ロット機能を有効化</label>
                 <div class="layui-input-inline">
                     <select id="enable_batch">
-                        <option value="0">否</option>
-                        <option value="1">是</option>
+                        <option value="0">いいえ</option>
+                        <option value="1">はい</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="是否启用串码功能">启用串码功能</label>
+                <label class="layui-form-label" nod-tips="シリアルコード機能を有効にするか">シリアルコード機能を有効化</label>
                 <div class="layui-input-inline">
                     <select id="enable_serial">
-                        <option value="0">否</option>
-                        <option value="1">是</option>
+                        <option value="0">いいえ</option>
+                        <option value="1">はい</option>
                     </select>
                 </div>
             </div>
         </div>
         <div class="layui-tab-item">
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="零售页面标题信息">零售标题</label>
+                <label class="layui-form-label" nod-tips="小売ページのタイトル情報">小売タイトル</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="cashier_title" placeholder="请输入零售标题" class="layui-input">
+                    <input type="text" id="cashier_title" placeholder="小売タイトルを入力してください" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="例：【比例1为1元等于1积分，比例2为1元等于2积分】">积分比例</label>
+                <label class="layui-form-label" nod-tips="例：【割合1は1円=1ポイント、割合2は1円=2ポイント】">ポイント割合</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="integral_proportion" placeholder="请输入积分比例" class="layui-input">
+                    <input type="text" id="integral_proportion" placeholder="ポイント割合を入力してください" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="预设零售页面客户信息">默认客户</label>
+                <label class="layui-form-label" nod-tips="小売ページのデフォルト顧客情報">デフォルト顧客</label>
                 <div class="layui-input-inline">
                     <div id="cashier_customer_page" class="selectpage"></div>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="预设零售页面资金账户">默认资金账户</label>
+                <label class="layui-form-label" nod-tips="小売ページのデフォルト資金アカウント">デフォルト資金アカウント</label>
                 <div class="layui-input-inline">
                     <div id="cashier_account_page" class="selectpage"></div>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="提交零售单后自动打印小票">自动打印小票</label>
+                <label class="layui-form-label" nod-tips="小売伝票を送信後自動的にレシートを印刷する">レシート自動印刷</label>
                 <div class="layui-input-inline">
                     <select id="cashier_print">
-                        <option value="0">否</option>
-                        <option value="1">是</option>
+                        <option value="0">いいえ</option>
+                        <option value="1">はい</option>
                     </select>
                 </div>
             </div>
         </div>
         <div class="layui-tab-item">
             <div class="layui-form-item">
-                <label class="layui-form-label" nod-tips="首页数据图表天数">图表天数</label>
+                <label class="layui-form-label" nod-tips="ホームページのデータグラフの日数">グラフ日数</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="form_day" placeholder="请输入数据图表天数" class="layui-input">
+                    <input type="text" id="form_day" placeholder="データグラフの日数を入力してください" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label" nod-tips="首页公告模块显示的内容">公告信息</label>
+                <label class="layui-form-label" nod-tips="ホームページのお知らせモジュールに表示される内容">お知らせ情報</label>
                 <div class="layui-input-block">
-                    <textarea id="notice" placeholder="请输入公告信息" class="layui-textarea"></textarea>
+                    <textarea id="notice" placeholder="お知らせ情報を入力してください" class="layui-textarea"></textarea>
                 </div>
             </div>
         </div>
     </div>
     {if condition="(get_root('senior_add'))"}
         <div class="set_btn">
-            <button class="layui-btn" onclick="save();">保存设置</button>
+            <button class="layui-btn" onclick="save();">設定を保存</button>
         </div>
     {/if}
 </div>

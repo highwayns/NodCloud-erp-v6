@@ -25,12 +25,12 @@ class Unit extends Acl {
             $arr = Units::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -45,7 +45,7 @@ class Unit extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $create_info=Units::create(syn_sql($input,'unit'));
                     Hook::listen('create_unit',$create_info);//计量单位新增行为
-                    push_log('新增计量单位信息[ '.$create_info['name'].' ]');//日志
+                    push_log('新しい計量ユニット情報[ '.$create_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -57,14 +57,14 @@ class Unit extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $update_info=Units::update(syn_sql($input,'unit'));
                     Hook::listen('update_unit',$update_info);//计量单位更新行为
-                    push_log('更新计量单位信息[ '.$update_info['name'].' ]');//日志
+                    push_log('計量ユニット情報を更新します[ '.$update_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -74,7 +74,7 @@ class Unit extends Acl {
         if(isset_full($input,'id')){
             $resule=Units::where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -90,16 +90,16 @@ class Unit extends Acl {
             if(!$exist){
             	$info=db('unit')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
                 foreach ($info as $info_vo) {
-                    push_log('删除计量单位信息[ '.$info_vo['name'].' ]');//日志
+                    push_log('測定単位情報を削除します[ '.$info_vo['name'].' ]');//日志
                     Hook::listen('del_unit',$info_vo['id']);//计量单位删除行为
                 }
                 Units::where(['id'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-            	$resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+            	$resule=['state'=>'error','info'=>'データ相関,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

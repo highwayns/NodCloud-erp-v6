@@ -3,7 +3,7 @@
     <div class="layui-row">
         <div class="layui-col-xs3 layui-col-xs-offset9 layui-btn-group btn_group_right">
             {if condition="(get_root('senior_add'))"}
-                <button class="layui-btn layui-btn-primary" onclick="new_backup();">备份</button>
+                <button class="layui-btn layui-btn-primary" onclick="new_backup();">バックアップ</button>
             {/if}
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
@@ -18,16 +18,16 @@
 <script type="text/html" id="bar_info">
     <div class="layui-btn-group">
         {if condition="(get_root('senior_edit'))"}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="restore">恢复</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="restore">復元</button>
         {/if}
         {if condition="(get_root('senior_del'))"}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">删除</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">消去</button>
         {/if}
     </div>
 </script>
 <script type="text/html" id="batch_html">
     {if condition="(get_root('senior_del'))"}
-        <button class="layui-btn" onclick="delect('batch');" batch>删除</button>
+        <button class="layui-btn" onclick="delect('batch');" batch>消去</button>
     {/if}
 </script>
 <script type="text/javascript" charset="utf-8">

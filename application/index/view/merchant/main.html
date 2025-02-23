@@ -5,25 +5,25 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商户名称</label>
+                        <label class="layui-form-label">商人名</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|name" placeholder="请输入商户名称">
+                            <input type="text" class="layui-input" id="s|name" placeholder="商人の名前を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商户编号</label>
+                        <label class="layui-form-label">商人番号</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|number" placeholder="请输入商户编号">
+                            <input type="text" class="layui-input" id="s|number" placeholder="商人番号を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">联系人员</label>
+                        <label class="layui-form-label">連絡担当者</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|contacts" placeholder="请输入联系人员">
+                            <input type="text" class="layui-input" id="s|contacts" placeholder="連絡先スタッフを入力してください">
                         </div>
                     </div>
                 </div>
@@ -35,25 +35,25 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">联系电话</label>
+                        <label class="layui-form-label">電話番号に連絡してください</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|tel" placeholder="请输入联系电话">
+                            <input type="text" class="layui-input" id="s|tel" placeholder="連絡先番号を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">商户地址</label>
+                        <label class="layui-form-label">マーチャントアドレス</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|add" placeholder="请输入商户地址">
+                            <input type="text" class="layui-input" id="s|add" placeholder="商人の住所を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">备注信息</label>
+                        <label class="layui-form-label">備考情報</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|data" placeholder="请输入备注信息">
+                            <input type="text" class="layui-input" id="s|data" placeholder="備考情報を入力してください">
                         </div>
                     </div>
                 </div>
@@ -61,9 +61,9 @@
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
             {if condition="(get_root('basics_add'))"}
-                <button class="layui-btn layui-btn-primary" onclick="detail(0);">新增</button>
+                <button class="layui-btn layui-btn-primary" onclick="detail(0);">増加</button>
             {/if}
-            <button class="layui-btn layui-btn-primary" onclick="exports();">导出</button>
+            <button class="layui-btn layui-btn-primary" onclick="exports();">輸出</button>
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>
@@ -77,16 +77,16 @@
 <script type="text/html" id="bar_info">
     <div class="layui-btn-group">
         {if condition="(get_root('basics_edit'))"}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit">修改</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit">改訂</button>
         {/if}
         {if condition="(get_root('basics_del'))"}
-            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">删除</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delect">消去</button>
         {/if}
     </div>
 </script>
 <script type="text/html" id="batch_html">
     {if condition="(get_root('basics_del'))"}
-        <button class="layui-btn" onclick="delect('batch');" batch>删除</button>
+        <button class="layui-btn" onclick="delect('batch');" batch>消去</button>
     {/if}
 </script>
 <script type="text/html" id="more_html">{php}hook_listen('formmore');{/php}</script>

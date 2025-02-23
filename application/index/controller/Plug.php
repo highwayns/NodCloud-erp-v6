@@ -18,13 +18,13 @@ class Plug extends Acl {
                     $fun=$info[2];//执行方法
                     return $plug->$fun();
                 }else{
-                    return json (['state'=>'error','info'=>'插件命名空间不存在!']);
+                    return json (['state'=>'error','info'=>'プラグイン命名スペースは存在しません!']);
                 }
             }else{
-                return json (['state'=>'error','info'=>'插件信息错误!']);
+                return json (['state'=>'error','info'=>'プラグイン情報エラー!']);
             }
         }else{
-            return json (['state'=>'error','info'=>'传入参数不完整!']);
+            return json (['state'=>'error','info'=>'入力されたパラメーターが不完全です!']);
         }
     }
 }

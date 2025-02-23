@@ -4,8 +4,8 @@ use think\Validate;
 class Otpaymentinfo extends Validate{
     //默认创建规则
     protected $rule = [
-        ['account', 'require|integer', '资金账户数据不可为空!|资金账户数据不正确!'],
-        ['total', 'require|number', '结算金额数据不可为空!|结算金额数据不正确!'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['account', 'require|integer', '資金アカウントのデータは空にできません！|資金アカウントのデータが正しくありません！'],
+        ['total', 'require|number', '決済金額のデータは空にできません！|決済金額のデータが正しくありません！'],
+        ['more', 'array', '拡張情報の形式が正しくありません！']
     ];
 }

@@ -26,12 +26,12 @@ class Code extends Acl {
             $arr = Codes::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -47,7 +47,7 @@ class Code extends Acl {
                     $create_info=Codes::create(syn_sql($input,'code'));
                     
                     Hook::listen('create_code',$create_info);//条码新增行为
-                    push_log('新增条码信息[ '.$create_info['name'].' ]');//日志
+                    push_log('新しいバーコード情報[ '.$create_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -59,14 +59,14 @@ class Code extends Acl {
                     $input['py']=zh2py($input['name']);//首拼信息
                     $update_info=Codes::update(syn_sql($input,'code'));
                     Hook::listen('update_code',$update_info);//条码更新行为
-                    push_log('更新条码信息[ '.$update_info['name'].' ]');//日志
+                    push_log('バーコード情報を更新します[ '.$update_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -76,7 +76,7 @@ class Code extends Acl {
         if(isset_full($input,'id')){
             $resule=Codes::where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -86,13 +86,13 @@ class Code extends Acl {
         if(isset_full($input,'arr') && is_array($input['arr'])){
             $info=db('code')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
             foreach ($info as $info_vo) {
-                push_log('删除条码信息[ '.$info_vo['name'].' ]');//日志
+                push_log('バーコード情報を削除します[ '.$info_vo['name'].' ]');//日志
                 Hook::listen('del_code',$info_vo['id']);//条码删除行为
             }
             Codes::where(['id'=>['in',$input['arr']]])->delete();
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -148,14 +148,14 @@ class Code extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出条码信息');//日志
-        export_excel('条码列表',$excel);
+        push_log('バーコード情報をエクスポートします');//日志
+        export_excel('バーコードリスト',$excel);
     }
     //导入条码信息
     public function import_code(Request $request){
 		$file=$request->file('file');//获取表单上传文件
 		if (empty($file)){
-		    $resule=['state'=>'error','info'=>'传入数据不完整!'];
+		    $resule=['state'=>'error','info'=>'渡されたデータが不完全です!'];
 		}else{
 		    $nod=$file->validate (['ext'=>'xlsx'])->rule ('uniqid')->move (ROOT_PATH.'skin'.DS.'upload'.DS.'xlsx');//验证且重命名并移动文件
 		    if($nod){
@@ -163,7 +163,7 @@ class Code extends Acl {
 		        $arr=get_xlsx($path);
 		        unset($arr[1]);//删除标题行
 		        $create_sql=[];//初始化SQL
-		        $type_arr=['0'=>'条形码','1'=>'二维码'];
+		        $type_arr=['0'=>'バーコード','1'=>'QRコード'];
 		        foreach ($arr as $key=>$vo) {
 		            $sql=[];//初始化数据SQL
 		            $sql['name']=$vo['A'];
@@ -175,17 +175,17 @@ class Code extends Acl {
 		                $sql['type']=$type_search;
 		            }else{
 		                //返回错误信息
-		                return json(['state'=>'error','info'=>'模板文件第[ '.$key.' ]行条码类型可选项为[条形码|二维码]']);
+		                return json(['state'=>'error','info'=>'テンプレートファイル[ '.$key.' ]行コードタイプはオプションです[バーコード|QRコード]']);
 		            }
 		            $sql['data']=$vo['D'];
 		            //数据合法性验证
 		            $vali = $this->validate($sql,'code');
 		            if($vali===true){
-		                push_log('导入条码信息[ '.$sql['name'].' ]');//日志
+		                push_log('バーコード情報をインポートします[ '.$sql['name'].' ]');//日志
 		                array_push($create_sql,$sql);//加入SQL
 		            }else{
 		                //返回错误信息
-		                return json(['state'=>'error','info'=>'模板文件第[ '.$key.' ]行'.$vali]);
+		                return json(['state'=>'error','info'=>'テンプレートファイル[ '.$key.' ]行'.$vali]);
 		            }
 		        }
 		        $insert_count=db('code')->insertAll($create_sql);
@@ -208,7 +208,7 @@ class Code extends Acl {
                 ewm($input['text']);
             }
         }else{
-            return json(['state'=>'error','info'=>'传入参数不完整!']);
+            return json(['state'=>'error','info'=>'入力されたパラメーターが不完全です!']);
         }
     }
 }

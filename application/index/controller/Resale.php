@@ -27,12 +27,12 @@ class Resale extends Acl {
                 foreach ($input['tab'] as $tab_key=>$tab_vo) {
                     $tab_vali = $this->validate($tab_vo,'Resaleinfo');//详情验证
                     if($tab_vali!==true){
-                        return json(['state'=>'error','info'=>'[ 数据表格 ]第'.($tab_key+1).'行'.$tab_vali]);
+                        return json(['state'=>'error','info'=>'[ データフォーム ]第'.($tab_key+1).'行'.$tab_vali]);
                         exit;
                     }
                 }
             }else{
-                return json(['state'=>'error','info'=>'数据表格不可为空!']);
+                return json(['state'=>'error','info'=>'データテーブルを空にすることはできません!']);
                 exit;
             }
             //验证操作类型
@@ -43,7 +43,7 @@ class Resale extends Acl {
                 if($vali===true){
                     $create_info=Resaleclass::create(syn_sql($input,'resaleclass'));
                     Hook::listen('create_resale',$create_info);//销货退货单新增行为
-                    push_log('新增销货退货单[ '.$create_info['number'].' ]');//日志
+                    push_log('売上返品伝票を追加する[ '.$create_info['number'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -54,7 +54,7 @@ class Resale extends Acl {
                 if($vali===true){
                     $update_info=Resaleclass::update(syn_sql($input,'resaleclass'));
                     Hook::listen('update_resale',$update_info);//销货退货单更新行为
-                    push_log('更新销货退货单[ '.$update_info['number'].' ]');//日志
+                    push_log('売上返品伝票を更新する[ '.$update_info['number'].' ]');//日志
                     Resaleinfo::where(['pid'=>$update_info['id']])->delete();
                     $resule=['state'=>'success'];
                 }else{
@@ -71,7 +71,7 @@ class Resale extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         //兼容自动审核[新增操作]
         if($resule['state']=='success'&&empty($input['id'])){
@@ -121,12 +121,12 @@ class Resale extends Acl {
             $arr = Resaleclass::with('merchantinfo,customerinfo,userinfo,accountinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -145,7 +145,7 @@ class Resale extends Acl {
             $this->assign('info',$info);
             return $this->fetch('main');
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -153,7 +153,7 @@ class Resale extends Acl {
     public function auditing($arr=[],$auto=false){
         (empty($arr))&&($arr=input('post.arr'));//兼容多态审核
         if(empty($arr)){
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }else{
             $class_data=[];//初始化CLASS数据
             $info_data=[];//初始化INFO数据
@@ -231,13 +231,13 @@ class Resale extends Acl {
                     //操作核销信息
                     if (!empty($class['money'])){
                         //新增对账单
-                        $bill=Resalebill::create(['pid'=>$arr_vo,'account'=>$class['account'],'money'=>$class['money'],'data'=>'系统自动生成','user'=>Session('is_user_id'),'time'=>time()]);
+                        $bill=Resalebill::create(['pid'=>$arr_vo,'account'=>$class['account'],'money'=>$class['money'],'data'=>'システムは自動的に生成されます','user'=>Session('is_user_id'),'time'=>time()]);
                         Account::where (['id'=>$class['account']])->setDec('balance',$class['money']);//操作资金账户[-]
                         Accountinfo::create (['pid'=>$class['account'],'set'=>0,'money'=>$class['money'],'type'=>4,'time'=>time(),'user'=>Session('is_user_id'),'class'=>$arr_vo,'bill'=>$bill['id']]);//新增资金详情
                     }
                     Resaleclass::update(['id'=>$arr_vo,'type'=>1,'auditinguser'=>Session('is_user_id'),'auditingtime'=>time(),'billtype'=>$billtype]);//更新CLASS数据
                     set_summary('resale',$arr_vo,true);//更新统计表
-                    push_log(($auto?'自动':'').'审核销货退货单[ '.$class['number'].' ]');
+                    push_log(($auto?'自動':'').'売上返品伝票を承認する[ '.$class['number'].' ]');
                 }else{
                     //反审核操作
                     foreach ($info as $info_vo){
@@ -263,7 +263,7 @@ class Resale extends Acl {
                     }
                     Resaleclass::update(['id'=>$arr_vo,'type'=>0,'money'=>0,'auditinguser'=>0,'auditingtime'=>0,'billtype'=>-1]);//更新CLASS数据
                     set_summary('resale',$arr_vo,false);//更新统计表
-                    push_log ('反审核销货退货单[ '.$class['number'].' ]');
+                    push_log ('売上返品伝票の承認を取り消す[ '.$class['number'].' ]');
                 }
             }
             $resule=['state'=>'success'];
@@ -279,17 +279,17 @@ class Resale extends Acl {
             //数据检验
             if(empty($data)){
                 foreach ($class as $class_vo) {
-                    push_log('删除销货退货单[ '.$class_vo['number'].' ]');//日志
+                    push_log('売上返品伝票を削除する[ '.$class_vo['number'].' ]');//日志
                     Hook::listen('del_resale',$class_vo['id']);//销货退货单删除行为
                 }
                 Resaleclass::where(['id'=>['in',$input['arr']]])->delete();
                 Resaleinfo::where(['pid'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'error','info'=>'销货退货单[ '.$data[0]['number'].' ]已审核,不可删除!'];
+                $resule=['state'=>'error','info'=>'販売返品請求書[ '.$data[0]['number'].' ]レビュー、削除できません！'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -297,7 +297,7 @@ class Resale extends Acl {
     public function exports(){
         $input=input('get.');
         if(isset($input['mode'])){
-            push_log('导出销货退货单数据');//日志
+            push_log('販売および返品リストの輸出からのデータ');//日志
             $sql=get_sql($input,[
                 'name'=>'continue',
                 'number'=>'full_like',
@@ -335,7 +335,7 @@ class Resale extends Acl {
                 //开始构造导出数据
                 $excel=[];//初始化导出数据
                 //1.填充标题数据
-                array_push($excel,['type'=>'title','info'=>'销货退货单列表']);
+                array_push($excel,['type'=>'title','info'=>'販売リターンのリスト']);
                 //2.构造表格数据
                 $table_cell=[];//初始化表头数据
                 //构造表头数据
@@ -361,12 +361,12 @@ class Resale extends Acl {
                 //3.添加汇总信息
                 $sum_arr=get_sums($table_data,['total','actual','money']);
                 array_push($excel,['type'=>'node','info'=>[
-                    '单据总金额:'.$sum_arr['total'],
-                    '实际总金额:'.$sum_arr['actual'],
-                    '实付总金额:'.$sum_arr['money'],
+                    'ドキュメントの総量:'.$sum_arr['total'],
+                    '実際の総額:'.$sum_arr['actual'],
+                    '実際の支払いの総額:'.$sum_arr['money'],
                 ]]);//填充汇总信息
                 //4.导出execl
-                export_excel('销货退货单列表',$excel);
+                export_excel('販売リターンのリスト',$excel);
             }else{
                 //详细报表
                 $files=[];//初始化文件列表
@@ -382,11 +382,11 @@ class Resale extends Acl {
                     array_push($excel,['type'=>'title','info'=>'销货退货单']);
                     //2.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '客户:'.$arr_vo['customerinfo']['name'],
+                        'クライアント:'.$arr_vo['customerinfo']['name'],
                         '',
-                        '单据日期:'.$arr_vo['time'],
+                        'ドキュメント日:'.$arr_vo['time'],
                         '',
-                        '单据编号:'.$arr_vo['number'],
+                        'ドキュメント番号:'.$arr_vo['number'],
                     ]]);
                     //3.构造表格数据
                     $info=Resaleinfo::where(['pid'=>$arr_vo['id']])->select();
@@ -413,27 +413,27 @@ class Resale extends Acl {
                     array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
                     //4.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '单据金额:'.$arr_vo['total'],
+                        'ドキュメント量:'.$arr_vo['total'],
                         '',
-                        '实际金额:'.$arr_vo['actual'],
+                        '実際の金額:'.$arr_vo['actual'],
                         '',
-                        '实付金额:'.$arr_vo['money'],
+                        '実際の支払い額:'.$arr_vo['money'],
                     ]]);
                     //5.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '制单人:'.$arr_vo['userinfo']['name'],
+                        'シングルハンドの人:'.$arr_vo['userinfo']['name'],
                         '',
-                        '结算账户:'.$arr_vo['accountinfo']['name'],
+                        '決済口座:'.$arr_vo['accountinfo']['name'],
                         '',
-                        '备注信息:'.$arr_vo['data'],
+                        '備考情報:'.$arr_vo['data'],
                     ]]);
                     $path=export_excel($arr_vo['number'],$excel,false);//生成文件
                     array_push($files,$path);//添加文件路径数据
                 }
-                file_to_zip('销货退货单明细',$files);//打包输出数据
+                file_to_zip('単一の詳細を販売して返す',$files);//打包输出数据
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -463,7 +463,7 @@ class Resale extends Acl {
             $this->assign('print_text',$print_text);
             return $this->fetch();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -500,12 +500,12 @@ class Resale extends Acl {
             $arr = Resaleclass::with('merchantinfo,customerinfo,userinfo,accountinfo')->where($sql)->whereor($whereor)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -515,7 +515,7 @@ class Resale extends Acl {
         if(isset_full($input,'id')){
             $resule=Resalebill::with('accountinfo,userinfo')->where(['pid'=>$input['id']])->order('id desc')->select();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -526,7 +526,7 @@ class Resale extends Acl {
             $class=Resaleclass::where(['id'=>$input['pid']])->find();//获取CLASS数据
             $plus=bcadd($class['money'],$input['money'],config('decimal'));//初始化新金额[高精度]
             if($plus>$class['actual']){
-                $resule=['state'=>'error','info'=>'结算金额不可超出未结算金额!'];
+                $resule=['state'=>'error','info'=>'和解額は不快な和解の金額を超えてはなりません!'];
             }else{
                 //1.操作CLASS数据
                 $billtype=($plus==$class['actual'])?2:1;//获取核销状态
@@ -540,12 +540,12 @@ class Resale extends Acl {
                 Account::where (['id'=>$input['account']])->setDec('balance',$input['money']);//操作资金账户[-]
                 Accountinfo::create (['pid'=>$input['account'],'set'=>0,'money'=>$input['money'],'type'=>4,'time'=>time(),'user'=>Session('is_user_id'),'class'=>$class['id'],'bill'=>$create_info['id']]);//新增资金详情
                 //4.返回数据
-                push_log('添加销货退货核销单信息[ '.$class['number'].' ]');//日志
+                push_log('売上返品取り消し伝票情報を追加する[ '.$class['number'].' ]');//日志
                 $bill=Resalebill::with('accountinfo,userinfo')->where(['id'=>$create_info['id']])->find();
                 $resule=['state'=>'success','info'=>$bill];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -566,10 +566,10 @@ class Resale extends Acl {
             $billtype=($reduce>0)?1:0;//获取核销状态
             Resaleclass::where(['id'=>$bill['pid']])->update(['billtype'=>$billtype,'money'=>$reduce]);//更新CLASS数据
             //4.返回数据
-            push_log('删除销货退货核销单信息[ '.$class['number'].' ]');//日志
+            push_log('売上返品取り消し伝票情報を削除する[ '.$class['number'].' ]');//日志
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -581,10 +581,10 @@ class Resale extends Acl {
             $class=Resaleclass::where(['id'=>$input['id']])->find();//获取CLASS数据
             Resaleclass::where(['id'=>$input['id']])->update(['billtype'=>3]);//更新CLASS数据
             //2.返回数据
-            push_log('强制核销销货退货核销单[ '.$class['number'].' ]');//日志
+            push_log('売上返品取り消し伝票を強制的に取り消す[ '.$class['number'].' ]');//日志
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -593,7 +593,7 @@ class Resale extends Acl {
         $input=input('post.');
         if(isset_full($input,'arr') && isset_full($input,'account') && isset_full($input,'money')){
             $number_arr=[];//初始化单据号数组
-            $tip='批量核销销货退货单[ '.date('YmdHi',time()).' ]';
+            $tip='売上返品伝票を一括で取り消す[ '.date('YmdHi',time()).' ]';
             $account=$input['account'];//获取结算账户
             $money=$input['money'];//初始获取总结算金额
             $data=isset_full($input,'data')?$input['data']:$tip;
@@ -631,11 +631,11 @@ class Resale extends Acl {
                 }
             }
             if(!empty($number_arr)){
-                push_log($tip.' - 批量核销总金额为[ '.$input['money'].' ] - 实际核销单据号为[ '.implode(' | ',$number_arr).' ]');//日志
+                push_log($tip.' - 一括取り消しの総金額は[ '.$input['money'].' ] - 実際の取り消し伝票番号は[ '.implode(' | ',$number_arr).' ]');//日志
             }
         	$resule=['state'=>'success','info'=>$number_arr];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -666,7 +666,7 @@ class Resale extends Acl {
         //开始构造导出数据
         $excel=[];//初始化导出数据
         //1.填充标题数据
-        array_push($excel,['type'=>'title','info'=>'销货退货核销单信息']);
+        array_push($excel,['type'=>'title','info'=>'売上返品取り消し伝票情報']);
         //2.构造表格数据
         $table_cell=[];//初始化表头数据
         //构造表头数据
@@ -692,12 +692,12 @@ class Resale extends Acl {
         //3.添加汇总信息
         $sum_arr=get_sums($table_data,['total','actual','money']);
         array_push($excel,['type'=>'node','info'=>[
-            '单据总金额:'.$sum_arr['total'],
-            '实际总金额:'.$sum_arr['actual'],
-            '实付总金额:'.$sum_arr['money'],
+            'ドキュメントの総量:'.$sum_arr['total'],
+            '実際の総額:'.$sum_arr['actual'],
+            '実際の支払いの総額:'.$sum_arr['money'],
         ]]);//填充汇总信息
         //4.导出execl
-        push_log('导出销货退货核销单信息');//日志
-        export_excel('销货退货核销单信息',$excel);
+        push_log('売上返品取り消し伝票情報をエクスポートする');//日志
+        export_excel('売上返品取り消し伝票情報',$excel);
     }
 }

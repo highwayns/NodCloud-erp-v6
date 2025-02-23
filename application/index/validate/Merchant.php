@@ -4,9 +4,9 @@ use think\Validate;
 class Merchant extends Validate{
     //默认创建规则
     protected $rule = [
-        ['name', 'require|RepeatName:create', '商户名称不可为空!|字段数据重复'],
-        ['number', 'RepeatNumber:create', '字段数据重复'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['name', 'require|RepeatName:create', '商店名は空にできません！|フィールドデータが重複しています！'],
+        ['number', 'RepeatNumber:create', 'フィールドデータが重複しています！'],
+        ['more', 'array', '拡張情報の形式が正しくありません！']
     ];
     //场景规则
     protected $scene = [
@@ -21,14 +21,14 @@ class Merchant extends Validate{
         $sql['name']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('merchant')->where($sql)->find();
-        return empty($nod)?true:'商户名称[ '.$val.' ]已存在!';
+        return empty($nod)?true:'商人名[ '.$val.' ]存在する!';
     }
     //商户编号重复性判断
     protected function RepeatNumber($val,$rule,$data){
         $sql['number']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('merchant')->where($sql)->find();
-        return empty($nod)?true:'商户编号[ '.$val.' ]已存在!';
+        return empty($nod)?true:'商人番号[ '.$val.' ]存在する!';
     }
     
     

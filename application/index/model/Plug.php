@@ -6,7 +6,7 @@ class Plug extends Model{
     
     //启用状态_读取器
 	protected function  getStateAttr ($val,$data){
-        $arr=['0'=>'停用','1'=>'正常'];
+        $arr=['0'=>'使用中止','1'=>'正常'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

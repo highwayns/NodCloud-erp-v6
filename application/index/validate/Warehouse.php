@@ -4,10 +4,10 @@ use think\Validate;
 class Warehouse extends Validate{
     //默认创建规则
     protected $rule = [
-        ['name', 'require|RepeatName:create', '仓库名称不可为空!|字段数据重复'],
-        ['number', 'RepeatNumber:create', '字段数据重复'],
-        ['tel', 'CheckTel', '字段格式错误'],
-        ['more', 'array', '扩展信息格式不正确!']
+        ['name', 'require|RepeatName:create', '倉庫名は空にできません！|フィールドデータが重複しています！'],
+        ['number', 'RepeatNumber:create', 'フィールドデータが重複しています！'],
+        ['tel', 'CheckTel', 'フィールド形式が正しくありません！'],
+        ['more', 'array', '拡張情報の形式が正しくありません！']
     ];
     //场景规则
     protected $scene = [
@@ -23,21 +23,21 @@ class Warehouse extends Validate{
         $sql['name']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('warehouse')->where($sql)->find();
-        return empty($nod)?true:'仓库名称[ '.$val.' ]已存在!';
+        return empty($nod)?true:'倉庫名[ '.$val.' ]存在する!';
     }
     //仓库编号重复性判断
     protected function RepeatNumber($val,$rule,$data){
         $sql['number']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('warehouse')->where($sql)->find();
-        return empty($nod)?true:'仓库编号[ '.$val.' ]已存在!';
+        return empty($nod)?true:'倉庫番号[ '.$val.' ]存在する!';
     }
     //联系电话格式判断
     protected function CheckTel($val,$rule,$data){
         preg_match(get_regex('tel'), $val, $tel, PREG_OFFSET_CAPTURE, 0);//手机号正则判断
         preg_match(get_regex('phone'), $val, $phone, PREG_OFFSET_CAPTURE, 0);//座机正则判断
         if(empty($tel) && empty($phone)){
-            return '联系电话[ '.$val.' ]格式不正确!';
+            return '電話番号に連絡してください[ '.$val.' ]誤った形式!';
         }else{
             return true;
         }

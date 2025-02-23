@@ -45,12 +45,12 @@ class Goods extends Acl {
             $arr = Goodss::with('classinfo,unitinfo,brandinfo,warehouseinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'成功する',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -67,7 +67,7 @@ class Goods extends Acl {
                         foreach ($input['attr'] as $attr_vo) {
                             $attr_vali = $this->validate($attr_vo,'Attr');//辅助属性验证
                             if($attr_vali!==true){
-                                return json(['state'=>'error','info'=>'[ 辅助属性 ]第'.($attr_key+1).'行'.$attr_vali]);
+                                return json(['state'=>'error','info'=>'[ 補助属性 ]第'.($attr_key+1).'行'.$attr_vali]);
                                 exit;
                             }
                         }
@@ -77,7 +77,7 @@ class Goods extends Acl {
                     isset($input['imgs'])||($input['imgs']=[]);//图像信息
                     $create_info=Goodss::create(syn_sql($input,'goods'));
                     Hook::listen('create_goods',$create_info);//商品新增行为
-                    push_log('新增商品信息[ '.$create_info['name'].' ]');//日志
+                    push_log('新製品情報[ '.$create_info['name'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$goods_vali];
@@ -91,7 +91,7 @@ class Goods extends Acl {
                         foreach ($input['attr'] as $attr_key=>$attr_vo) {
                             $attr_vali = $this->validate($attr_vo,'Attr');//辅助属性验证
                             if($attr_vali!==true){
-                                return json(['state'=>'error','info'=>'[ 辅助属性 ]第'.($attr_key+1).'行'.$attr_vali]);
+                                return json(['state'=>'error','info'=>'[ 補助属性 ]第'.($attr_key+1).'行'.$attr_vali]);
                                 exit;
                             }
                         }
@@ -100,7 +100,7 @@ class Goods extends Acl {
                     isset($input['imgs'])||($input['imgs']=[]);//图像信息
                     $update_info=Goodss::update(syn_sql($input,'goods'));
                     Hook::listen('update_goods',$update_info);//商品更新行为
-                    push_log('更新商品信息[ '.$update_info['name'].' ]');//日志
+                    push_log('製品情報を更新します[ '.$update_info['name'].' ]');//日志
                     Attr::where(['pid'=>$update_info['id']])->delete();
                     $resule=['state'=>'success'];
                 }else{
@@ -116,7 +116,7 @@ class Goods extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -126,7 +126,7 @@ class Goods extends Acl {
         if(isset_full($input,'id')){
             $resule=Goodss::with('classinfo,unitinfo,brandinfo,warehouseinfo,attrinfo')->where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -155,17 +155,17 @@ class Goods extends Acl {
             if(!$exist){
             	$info=db('goods')->where(['id'=>['in',$input['arr']]])->select();//获取删除信息
                 foreach ($info as $info_vo) {
-                    push_log('删除商品信息[ '.$info_vo['name'].' ]');//日志
+                    push_log('製品情報を削除します[ '.$info_vo['name'].' ]');//日志
                     Hook::listen('del_goods',$info_vo['id']);//商品删除行为
                 }
                 Goodss::where(['id'=>['in',$input['arr']]])->delete();
                 Attr::where(['pid'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-            	$resule=['state'=>'error','info'=>'存在数据关联,删除失败!'];
+            	$resule=['state'=>'error','info'=>'データ相関,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -173,7 +173,7 @@ class Goods extends Acl {
     public function upload_img(Request $request){
 		$file=$request->file('file');//获取表单上传文件
 		if (empty($file)){
-		    $resule=['state'=>'error','info'=>'传入数据不完整!'];
+		    $resule=['state'=>'error','info'=>'渡されたデータが不完全です!'];
 		}else{
             //单文件限制2MB
             $nod=$file->validate (['size'=>2097152,'ext'=>'png,gif,jpg,jpeg,bmp'])->rule ('uniqid')->move (ROOT_PATH .'skin'.DS .'upload'.DS .'goods'.DS .'img');
@@ -230,14 +230,14 @@ class Goods extends Acl {
         }
         array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
         //3.导出execl
-        push_log('导出商品信息');//日志
-        export_excel('商品列表',$excel);
+        push_log('製品情報のエクスポート');//日志
+        export_excel('製品リスト',$excel);
     }
     //导入商品信息
     public function import_goods(Request $request){
 		$file=$request->file('file');//获取表单上传文件
 		if (empty($file)){
-		    $resule=['state'=>'error','info'=>'传入数据不完整!'];
+		    $resule=['state'=>'error','info'=>'渡されたデータが不完全です!'];
 		}else{
 		    $nod=$file->validate (['ext'=>'xlsx'])->rule ('uniqid')->move (ROOT_PATH.'skin'.DS.'upload'.DS.'xlsx');//验证且重命名并移动文件
 		    if($nod){
@@ -266,18 +266,18 @@ class Goods extends Acl {
 		            //数据合法性验证
 		            $vali = $this->validate($sql,'Goods');
 		            if($vali===true){
-		                push_log('导入商品信息[ '.$sql['name'].' ]');//日志
+		                push_log('製品リスト[ '.$sql['name'].' ]');//日志
 		                array_push($create_sql,$sql);//加入SQL
 		            }else{
 		                //返回错误信息
-		                return json(['state'=>'error','info'=>'模板文件第[ '.$key.' ]行'.$vali]);
+		                return json(['state'=>'error','info'=>'テンプレートファイル第[ '.$key.' ]行'.$vali]);
 		            }
 		        }
 		        foreach ($create_sql as $create_key=>$create_vo) {
 		            //商品分类判断
 		            $class=Goodsclass::where(['name'=>$create_vo['class']])->find();
 		            if(empty($class)){
-		                $class=Goodsclass::create(['pid'=>0,'name'=>$create_vo['class'],'data'=>'批量导入']);
+		                $class=Goodsclass::create(['pid'=>0,'name'=>$create_vo['class'],'data'=>'バッチインポート']);
 		            }
 		            $create_sql[$create_key]['class']=$class['id'];
 		            //商品品牌
@@ -286,7 +286,7 @@ class Goods extends Acl {
 		            }else{
 		                $brand=Brand::where(['name'=>$create_vo['brand']])->find();
 		                if(empty($brand)){
-		                    $brand=Brand::create(['name'=>$create_vo['brand'],'data'=>'批量导入']);
+		                    $brand=Brand::create(['name'=>$create_vo['brand'],'data'=>'バッチインポート']);
 		                }
 		            }
 		            $create_sql[$create_key]['brand']=$brand['id'];
@@ -296,7 +296,7 @@ class Goods extends Acl {
 		            }else{
 		                $unit=Unit::where(['name'=>$create_vo['unit']])->find();
 		                if(empty($unit)){
-		                    $unit=Unit::create(['name'=>$create_vo['unit'],'data'=>'批量导入']);
+		                    $unit=Unit::create(['name'=>$create_vo['unit'],'data'=>'バッチインポート']);
 		                }
 		            }
 		            $create_sql[$create_key]['unit']=$unit['id'];
@@ -306,7 +306,7 @@ class Goods extends Acl {
 		            }else{
 		                $warehouse=Warehouse::where(['name'=>$create_vo['warehouse']])->find();
 		                if(empty($warehouse)){
-		                    $warehouse=Warehouse::create(['name'=>$create_vo['warehouse'],'data'=>'批量导入']);
+		                    $warehouse=Warehouse::create(['name'=>$create_vo['warehouse'],'data'=>'バッチインポート']);
 		                }
 		            }
 		            $create_sql[$create_key]['warehouse']=$warehouse['id'];

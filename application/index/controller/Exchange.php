@@ -26,12 +26,12 @@ class Exchange extends Acl {
                 foreach ($input['tab'] as $tab_key=>$tab_vo) {
                     $tab_vali = $this->validate($tab_vo,'Exchangeinfo');//详情验证
                     if($tab_vali!==true){
-                        return json(['state'=>'error','info'=>'[ 数据表格 ]第'.($tab_key+1).'行'.$tab_vali]);
+                        return json(['state'=>'error','info'=>'[ データフォーム ]第'.($tab_key+1).'行'.$tab_vali]);
                         exit;
                     }
                 }
             }else{
-                return json(['state'=>'error','info'=>'数据表格不可为空!']);
+                return json(['state'=>'error','info'=>'データテーブルを空にすることはできません!']);
                 exit;
             }
             //验证操作类型
@@ -42,7 +42,7 @@ class Exchange extends Acl {
                 if($vali===true){
                     $create_info=Exchangeclass::create(syn_sql($input,'exchangeclass'));
                     Hook::listen('create_exchange',$create_info);//积分兑换单新增行为
-                    push_log('新增积分兑换单[ '.$create_info['number'].' ]');//日志
+                    push_log('ポイント償還命令を追加しました[ '.$create_info['number'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -53,7 +53,7 @@ class Exchange extends Acl {
                 if($vali===true){
                     $update_info=Exchangeclass::update(syn_sql($input,'exchangeclass'));
                     Hook::listen('update_exchange',$update_info);//积分兑换单更新行为
-                    push_log('更新积分兑换单[ '.$update_info['number'].' ]');//日志
+                    push_log('ポイント償還リストを更新します[ '.$update_info['number'].' ]');//日志
                     Exchangeinfo::where(['pid'=>$update_info['id']])->delete();
                     $resule=['state'=>'success'];
                 }else{
@@ -70,7 +70,7 @@ class Exchange extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         //兼容自动审核[新增操作]
         if($resule['state']=='success'&&empty($input['id'])){
@@ -119,12 +119,12 @@ class Exchange extends Acl {
             $arr = Exchangeclass::with('merchantinfo,customerinfo,userinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -143,7 +143,7 @@ class Exchange extends Acl {
             $this->assign('info',$info);
             return $this->fetch('main');
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -151,7 +151,7 @@ class Exchange extends Acl {
     public function auditing($arr=[],$auto=false){
         (empty($arr))&&($arr=input('post.arr'));//兼容多态审核
         if(empty($arr)){
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }else{
             $class_data=[];//初始化CLASS数据
             $info_data=[];//初始化INFO数据
@@ -167,8 +167,8 @@ class Exchange extends Acl {
                             $serial_sql=['code'=>['in',explode(',',$info_vo['serial'])],'type'=>['neq',0]];
                             $serial=Serial::where($serial_sql)->find();//查找串码状态为非未销售
                             if(!empty($serial)){
-                                $auto&&(push_log('自动审核积分兑换单[ '.$class['number'].' ]失败,原因:第'.($info_key+1).'行串码状态不正确!'));//日志
-                                return json(['state'=>'error','info'=>'审核-积分兑换单[ '.$class['number'].' ]失败,原因:第'.($info_key+1).'行串码状态不正确!']);
+                                $auto&&(push_log('ポイント償還フォームを自動的に確認します[ '.$class['number'].' ]失敗,理由:第'.($info_key+1).'文字列コードのステータスが正しくありません!'));//日志
+                                return json(['state'=>'error','info'=>'レビュー-積分交換リスト[ '.$class['number'].' ]失敗,理由:第'.($info_key+1).'文字列コードのステータスが正しくありません!']);
                                 exit;
                             }
                         }
@@ -180,7 +180,7 @@ class Exchange extends Acl {
                             $serial_sql=['code'=>['in',explode(',',$info_vo['serial'])],'type'=>['neq',1]];
                             $serial=Serial::where($serial_sql)->find();//查找串码状态为非已销售
                             if(!empty($serial)){
-                                return json(['state'=>'error','info'=>'反审核-积分兑换单[ '.$class['number'].' ]第'.($info_key+1).'行串码状态不正确!']);
+                                return json(['state'=>'error','info'=>'反レビュー-積分交換リスト[ '.$class['number'].' ]第'.($info_key+1).'文字列コードのステータスが正しくありません!']);
                                 exit;
                             }
                         }
@@ -225,7 +225,7 @@ class Exchange extends Acl {
                     }
                     Exchangeclass::update(['id'=>$arr_vo,'type'=>1,'auditinguser'=>Session('is_user_id'),'auditingtime'=>time()]);//更新CLASS数据
                     set_summary('exchange',$arr_vo,true);//更新统计表
-                    push_log(($auto?'自动':'').'审核积分兑换单[ '.$class['number'].' ]');
+                    push_log(($auto?'自動':'').'ポイント交換注文を調べます[ '.$class['number'].' ]');
                 }else{
                     //反审核操作
                     foreach ($info as $info_vo){
@@ -247,7 +247,7 @@ class Exchange extends Acl {
                     }
                     Exchangeclass::update(['id'=>$arr_vo,'type'=>0,'auditinguser'=>0,'auditingtime'=>0]);//更新CLASS数据
                     set_summary('exchange',$arr_vo,false);//更新统计表
-                    push_log ('反审核积分兑换单[ '.$class['number'].' ]');
+                    push_log ('反レビューポイント償還命令[ '.$class['number'].' ]');
                 }
             }
             $resule=['state'=>'success'];
@@ -263,17 +263,17 @@ class Exchange extends Acl {
             //数据检验
             if(empty($data)){
                 foreach ($class as $class_vo) {
-                    push_log('删除积分兑换单[ '.$class_vo['number'].' ]');//日志
+                    push_log('ポイント償還リストを削除します[ '.$class_vo['number'].' ]');//日志
                     Hook::listen('del_exchange',$class_vo['id']);//积分兑换单删除行为
                 }
                 Exchangeclass::where(['id'=>['in',$input['arr']]])->delete();
                 Exchangeinfo::where(['pid'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'error','info'=>'积分兑换单[ '.$data[0]['number'].' ]已审核,不可删除!'];
+                $resule=['state'=>'error','info'=>'積分交換リスト[ '.$data[0]['number'].' ]レビュー、削除できません!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -281,7 +281,7 @@ class Exchange extends Acl {
     public function exports(){
         $input=input('get.');
         if(isset($input['mode'])){
-            push_log('导出积分兑换单数据');//日志
+            push_log('エクスポートポイント交換リストデータ');//日志
             $sql=get_sql($input,[
                 'name'=>'continue',
                 'number'=>'full_like',
@@ -344,12 +344,12 @@ class Exchange extends Acl {
                 //3.添加汇总信息
                 $sum_arr=get_sums($table_data,['total','actual','integral']);
                 array_push($excel,['type'=>'node','info'=>[
-                    '单据总积分:'.$sum_arr['total'],
-                    '实际总积分:'.$sum_arr['actual'],
-                    '实收总积分:'.$sum_arr['integral'],
+                    'ドキュメントの合計ポイント:'.$sum_arr['total'],
+                    '実際の合計ポイント:'.$sum_arr['actual'],
+                    '収益の合計ポイント:'.$sum_arr['integral'],
                 ]]);//填充汇总信息
                 //4.导出execl
-                export_excel('积分兑换单列表',$excel);
+                export_excel('ポイント交換リストリスト',$excel);
             }else{
                 //详细报表
                 $files=[];//初始化文件列表
@@ -362,14 +362,14 @@ class Exchange extends Acl {
                 foreach ($arr as $arr_vo) {
                     $excel=[];//初始化导出数据
                     //1.填充标题数据
-                    array_push($excel,['type'=>'title','info'=>'积分兑换单']);
+                    array_push($excel,['type'=>'title','info'=>'積分交換リスト']);
                     //2.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '客户:'.$arr_vo['customerinfo']['name'],
+                        'クライアント:'.$arr_vo['customerinfo']['name'],
                         '',
-                        '单据日期:'.$arr_vo['time'],
+                        'ドキュメント日:'.$arr_vo['time'],
                         '',
-                        '单据编号:'.$arr_vo['number'],
+                        'ドキュメント番号:'.$arr_vo['number'],
                     ]]);
                     //3.构造表格数据
                     $info=Exchangeinfo::where(['pid'=>$arr_vo['id']])->select();
@@ -396,27 +396,27 @@ class Exchange extends Acl {
                     array_push($excel,['type'=>'table','info'=>['cell'=>$table_cell,'data'=>$table_data]]);//填充表内数据
                     //4.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '单据积分:'.$arr_vo['total'],
+                        'ドキュメントポイント:'.$arr_vo['total'],
                         '',
-                        '实际积分:'.$arr_vo['actual'],
+                        '実際のポイント:'.$arr_vo['actual'],
                         '',
-                        '实收积分:'.$arr_vo['integral'],
+                        '実際の収集ポイント:'.$arr_vo['integral'],
                     ]]);
                     //5.添加基础字段
                     array_push($excel,['type'=>'node','info'=>[
-                        '客户积分:'.$arr_vo['customerinfo']['integral'],
+                        '顧客ポイント:'.$arr_vo['customerinfo']['integral'],
                         '',
-                        '制单人:'.$arr_vo['userinfo']['name'],
+                        'シングルハンドの人:'.$arr_vo['userinfo']['name'],
                         '',
-                        '备注信息:'.$arr_vo['data'],
+                        '備考情報:'.$arr_vo['data'],
                     ]]);
                     $path=export_excel($arr_vo['number'],$excel,false);//生成文件
                     array_push($files,$path);//添加文件路径数据
                 }
-                file_to_zip('积分兑换单明细',$files);//打包输出数据
+                file_to_zip('ポイント単一の詳細を交換します',$files);//打包输出数据
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -446,7 +446,7 @@ class Exchange extends Acl {
             $this->assign('print_text',$print_text);
             return $this->fetch();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

@@ -5,7 +5,7 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3" style="display:none">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">仓储标识[隐藏域]</label>
+                        <label class="layui-form-label">倉庫ロゴ[隠されたドメイン]</label>
                         <div class="layui-input-block">
                             <input type="text" class="layui-input" id="s|pid" value="{$Think.get.id}">
                         </div>
@@ -13,15 +13,15 @@
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">单据编号</label>
+                        <label class="layui-form-label">ドキュメント番号</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|number" placeholder="请输入单据编号">
+                            <input type="text" class="layui-input" id="s|number" placeholder="ドキュメント番号を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">制单人</label>
+                        <label class="layui-form-label">シングルハンドの人</label>
                         <div class="layui-input-block">
                             <div id="userpage" class="selectpage"></div>
                         </div>
@@ -29,22 +29,22 @@
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">单据类型</label>
+                        <label class="layui-form-label">ドキュメントタイプ</label>
                         <div class="layui-input-block">
                             <select id="s|type">
-                                <option value="0">全部类型</option>
-                                <option value="1">购货单</option>
-                                <option value="2">销货单</option>
-                                <option value="3">购货退货单</option>
-                                <option value="4">销货退货单</option>
-                                <option value="5">调拨单-出</option>
-                                <option value="6">调拨单-入</option>
-                                <option value="7">其他入库单</option>
-                                <option value="8">其他出库单</option>
-                                <option value="9">零售单</option>
-                                <option value="10">零售退货单</option>
-                                <option value="11">采购入库单</option>
-                                <option value="12">积分兑换单</option>
+                                <option value="0">すべてのタイプ</option>
+                                <option value="1">購買伝票</option>
+                                <option value="2">販売伝票</option>
+                                <option value="3">購買返品伝票</option>
+                                <option value="4">販売返品伝票</option>
+                                <option value="5">振替伝票-出</option>
+                                <option value="6">振替伝票-入</option>
+                                <option value="7">その他の入庫伝票</option>
+                                <option value="8">その他の出庫伝票</option>
+                                <option value="9">小売伝票</option>
+                                <option value="10">小売返品伝票</option>
+                                <option value="11">購入入庫伝票</option>
+                                <option value="12">ポイント交換伝票</option>
                             </select>
                         </div>
                     </div>
@@ -57,32 +57,32 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">开始日期</label>
+                        <label class="layui-form-label">開始日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|start_time" placeholder="请选择开始日期">
+                            <input type="text" class="layui-input" id="s|start_time" placeholder="開始日を選択してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">结束日期</label>
+                        <label class="layui-form-label">終了日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|end_time" placeholder="请选择结束日期">
+                            <input type="text" class="layui-input" id="s|end_time" placeholder="終了日を選択してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">备注信息</label>
+                        <label class="layui-form-label">備考情報</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|data" placeholder="请输入备注信息">
+                            <input type="text" class="layui-input" id="s|data" placeholder="備考情報を入力してください">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
-            <button class="layui-btn layui-btn-primary" onclick="exports();">导出</button>
+            <button class="layui-btn layui-btn-primary" onclick="exports();">輸出</button>
             <button class="layui-btn layui-btn-primary" onclick="replace();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>

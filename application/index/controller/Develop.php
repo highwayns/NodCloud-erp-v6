@@ -33,7 +33,7 @@ class Develop extends Acl {
                 //更新
                 //所属菜单不可等于或包含当前所属菜单
                 if(in_array($input['pid'],find_tree_arr('menu',[$input['id']]))){
-                    $resule=['state'=>'error','info'=>'所属菜单选择不正确!'];
+                    $resule=['state'=>'error','info'=>'メニューの選択が正しくありません!'];
                 }else{
                     $update_info=Menu::update(syn_sql($input,'menu'));
                     Hook::listen('update_menu',$update_info);//菜单更新行为
@@ -41,7 +41,7 @@ class Develop extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -51,7 +51,7 @@ class Develop extends Acl {
         if(isset_full($input,'id')){
             $resule=Menu::with('pidinfo')->where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -65,10 +65,10 @@ class Develop extends Acl {
                 Hook::listen('del_menu',$input['id']);//菜单删除行为
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'exist_data','info'=>'存在子数据,删除失败!'];
+                $resule=['state'=>'exist_data','info'=>'存在サブダタ,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -98,7 +98,7 @@ class Develop extends Acl {
             }
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -108,7 +108,7 @@ class Develop extends Acl {
         if(isset_full($input,'id')){
             $resule=Action::with('pidinfo')->where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -122,10 +122,10 @@ class Develop extends Acl {
                 Hook::listen('del_action',$input['id']);//行为删除行为
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'exist_data','info'=>'存在子数据,删除失败!'];
+                $resule=['state'=>'exist_data','info'=>'存在サブダタ,削除失敗!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -146,7 +146,7 @@ class Develop extends Acl {
                 $plug = new $class;
                 $data = $plug->info();//获取插件基本信息
                 $find=Plug::where(['only'=>$data['only']])->find();
-                $data['state']=empty($find)?['nod'=>-1,'name'=>'未安装']:$find['state'];
+                $data['state']=empty($find)?['nod'=>-1,'name'=>'インストールされていません']:$find['state'];
                 $data['set']=$plug->set;
                 array_push($list,$data);
             }
@@ -159,11 +159,11 @@ class Develop extends Acl {
             $limit=$input['limit'];
             $arr = array_slice($list,$limit*($page-1),$limit);
             $resule['code']=0;
-        	$resule['msg']='获取成功';
+        	$resule['msg']='取得成功';
         	$resule['count']=$count;
         	$resule['data']=$arr;
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json ($resule);
         
@@ -182,7 +182,7 @@ class Develop extends Acl {
                 }else{
                     $resule=[
                         'state'=>'error',
-                        'info'=>'插件安装失败,请联系插件作者解决!'
+                        'info'=>'プラグインのインストールに失敗しました。プラグインの著者に連絡して、解決してください!'
                     ];
                 }
             }elseif($input['event']=='discont'){
@@ -203,7 +203,7 @@ class Develop extends Acl {
                 }else{
                     $resule=[
                         'state'=>'error',
-                        'info'=>'插件卸载失败,请联系插件作者解决!'
+                        'info'=>'プラグインのアンインストールに失敗しました。プラグインの著者に連絡して、解決してください!'
                     ];
                 }
             }elseif($input['event']=='delect'){
@@ -221,20 +221,20 @@ class Develop extends Acl {
                     }else{
                         $resule=[
                             'state'=>'error',
-                            'info'=>'插件删除失败,请检查插件目录权限!'
+                            'info'=>'プラグインの削除に失敗しました。プラグインディレクトリの権限を確認してください!'
                         ];
                     }
                 }else{
                     $resule=[
                         'state'=>'error',
-                        'info'=>'插件删除失败,存在残留数据!'
+                        'info'=>'プラグイン切断に失敗し、残留データがあります!'
                     ];
                 }
             }else{
-                $resule=['state'=>'error','info'=>'参数识别失败!'];
+                $resule=['state'=>'error','info'=>'パラメーター認識が失敗しました!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json ($resule);
     }
@@ -260,7 +260,7 @@ class Develop extends Acl {
             }
             $resule=['state'=>'success','code'=>$code];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json ($resule);
     }
@@ -282,12 +282,12 @@ class Develop extends Acl {
             $arr = Formfield::where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'取得成功',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -327,7 +327,7 @@ class Develop extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -337,7 +337,7 @@ class Develop extends Acl {
         if(isset_full($input,'id')){
             $resule=Formfield::with('subinfo')->where(['id'=>$input['id']])->find();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -349,7 +349,7 @@ class Develop extends Acl {
             Formfieldinfo::where(['pid'=>['in',$input['arr']]])->delete();
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -362,7 +362,7 @@ class Develop extends Acl {
             $formfieldinfo=Formfieldinfo::where(['pid'=>$input['id']])->order('id asc')->select();
             //2.新增新数据
             $create_info=Formfield::create([
-                'name'=>$formfield['name'].'|自动复制',
+                'name'=>$formfield['name'].'|自動レプリケーション',
                 'key'=>$formfield['key'],
                 'data'=>$formfield['data']
             ]);
@@ -375,7 +375,7 @@ class Develop extends Acl {
             }
             $resule=['state'=>'success'];
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

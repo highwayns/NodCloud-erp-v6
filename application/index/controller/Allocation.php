@@ -24,12 +24,12 @@ class Allocation extends Acl {
                 foreach ($input['tab'] as $tab_key=>$tab_vo) {
                     $tab_vali = $this->validate($tab_vo,'Allocationinfo');//详情验证
                     if($tab_vali!==true){
-                        return json(['state'=>'error','info'=>'[ 数据表格 ]第'.($tab_key+1).'行'.$tab_vali]);
+                        return json(['state'=>'error','info'=>'[ データフォーム ]第'.($tab_key+1).'行'.$tab_vali]);
                         exit;
                     }
                 }
             }else{
-                return json(['state'=>'error','info'=>'数据表格不可为空!']);
+                return json(['state'=>'error','info'=>'データテーブルを空にすることはできません!']);
                 exit;
             }
             //验证操作类型
@@ -40,7 +40,7 @@ class Allocation extends Acl {
                 if($vali===true){
                     $create_info=Allocationclass::create(syn_sql($input,'allocationclass'));
                     Hook::listen('create_allocation',$create_info);//调拨单新增行为
-                    push_log('新增调拨单[ '.$create_info['number'].' ]');//日志
+                    push_log('新しい調整リスト[ '.$create_info['number'].' ]');//日志
                     $resule=['state'=>'success'];
                 }else{
                     $resule=['state'=>'error','info'=>$vali];
@@ -51,7 +51,7 @@ class Allocation extends Acl {
                 if($vali===true){
                     $update_info=Allocationclass::update(syn_sql($input,'allocationclass'));
                     Hook::listen('update_allocation',$update_info);//调拨单更新行为
-                    push_log('更新调拨单[ '.$update_info['number'].' ]');//日志
+                    push_log('ダイヤル注文を更新します[ '.$update_info['number'].' ]');//日志
                     Allocationinfo::where(['pid'=>$update_info['id']])->delete();
                     $resule=['state'=>'success'];
                 }else{
@@ -68,7 +68,7 @@ class Allocation extends Acl {
                 }
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         //兼容自动审核[新增操作]
         if($resule['state']=='success'&&empty($input['id'])){
@@ -122,12 +122,12 @@ class Allocation extends Acl {
             $arr = Allocationclass::with('merchantinfo,userinfo')->where($sql)->page($input['page'],$input['limit'])->order('id desc')->select();//查询分页数据
             $resule=[
                 'code'=>0,
-                'msg'=>'获取成功',
+                'msg'=>'成功する',
                 'count'=>$count,
                 'data'=>$arr
             ];//返回数据
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -146,7 +146,7 @@ class Allocation extends Acl {
             $this->assign('info',$info);
             return $this->fetch('main');
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -154,7 +154,7 @@ class Allocation extends Acl {
     public function auditing($arr=[],$auto=false){
         (empty($arr))&&($arr=input('post.arr'));//兼容多态审核
         if(empty($arr)){
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }else{
             $class_data=[];//初始化CLASS数据
             $info_data=[];//初始化INFO数据
@@ -170,8 +170,8 @@ class Allocation extends Acl {
                             $serial_sql=['code'=>['in',explode(',',$info_vo['serial'])],'type'=>['neq',0]];
                             $serial=Serial::where($serial_sql)->find();//查找串码状态为非未销售
                             if(!empty($serial)){
-                                $auto&&(push_log('自动审核调拨单[ '.$class['number'].' ]失败,原因:第'.($info_key+1).'行串码状态不正确!'));//日志
-                                return json(['state'=>'error','info'=>'审核-调拨单[ '.$class['number'].' ]失败,原因:第'.($info_key+1).'行串码状态不正确!']);
+                                $auto&&(push_log('自動レビューとダイヤル注文[ '.$class['number'].' ]失敗,理由:第'.($info_key+1).'文字列コードのステータスが正しくありません!'));//日志
+                                return json(['state'=>'error','info'=>'レビュー-ダイヤル[ '.$class['number'].' ]失敗,理由:第'.($info_key+1).'文字列コードのステータスが正しくありません!']);
                                 exit;
                             }
                         }
@@ -183,7 +183,7 @@ class Allocation extends Acl {
                             $serial_sql=['code'=>['in',explode(',',$info_vo['serial'])],'type'=>['neq',0]];
                             $serial=Serial::where($serial_sql)->find();//查找串码状态为非已销售
                             if(!empty($serial)){
-                                return json(['state'=>'error','info'=>'反审核-调拨单[ '.$class['number'].' ]第'.($info_key+1).'行串码状态不正确!']);
+                                return json(['state'=>'error','info'=>'レビュー-ダイヤル[ '.$class['number'].' ]第'.($info_key+1).'行串码状态不正确!']);
                                 exit;
                             }
                         }
@@ -246,7 +246,7 @@ class Allocation extends Acl {
                     }
                     Allocationclass::update(['id'=>$arr_vo,'type'=>1,'auditinguser'=>Session('is_user_id'),'auditingtime'=>time()]);//更新CLASS数据
                     set_summary('allocation',$arr_vo,true);//更新统计表
-                    push_log(($auto?'自动':'').'审核调拨单[ '.$class['number'].' ]');
+                    push_log(($auto?'自动':'').'監査ダイヤルフォーム[ '.$class['number'].' ]');
                 }else{
                     //反审核操作
                     foreach ($info as $info_vo){
@@ -269,7 +269,7 @@ class Allocation extends Acl {
                     Roominfo::where(['type'=>['in',[5,6]],'class'=>$arr_vo])->delete();//删除仓储详情
                     Allocationclass::update(['id'=>$arr_vo,'type'=>0,'auditinguser'=>0,'auditingtime'=>0]);//更新CLASS数据
                     set_summary('allocation',$arr_vo,false);//更新统计表
-                    push_log ('反审核调拨单[ '.$class['number'].' ]');
+                    push_log ('監査ダイヤルフォーム[ '.$class['number'].' ]');
                 }
             }
             $resule=['state'=>'success'];
@@ -285,17 +285,17 @@ class Allocation extends Acl {
             //数据检验
             if(empty($data)){
                 foreach ($class as $class_vo) {
-                    push_log('删除调拨单[ '.$class_vo['number'].' ]');//日志
+                    push_log('消去ダイヤル[ '.$class_vo['number'].' ]');//日志
                     Hook::listen('del_allocation',$class_vo['id']);//调拨单删除行为
                 }
                 Allocationclass::where(['id'=>['in',$input['arr']]])->delete();
                 Allocationinfo::where(['pid'=>['in',$input['arr']]])->delete();
                 $resule=['state'=>'success'];
             }else{
-                $resule=['state'=>'error','info'=>'调拨单[ '.$data[0]['number'].' ]已审核,不可删除!'];
+                $resule=['state'=>'error','info'=>'ダイヤル[ '.$data[0]['number'].' ]レビュー,削除されていません!'];
             }
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }
@@ -303,7 +303,7 @@ class Allocation extends Acl {
     public function exports(){
         $input=input('get.');
         if(isset($input['mode'])){
-            push_log('导出调拨单数据');//日志
+            push_log('ダイヤリングダイヤルデータをエクスポートします');//日志
             $sql=get_sql($input,[
                 'name'=>'continue',
                 'number'=>'full_like',
@@ -454,7 +454,7 @@ class Allocation extends Acl {
             $this->assign('print_text',$print_text);
             return $this->fetch();
         }else{
-            $resule=['state'=>'error','info'=>'传入参数不完整!'];
+            $resule=['state'=>'error','info'=>'入力されたパラメーターが不完全です!'];
         }
         return json($resule);
     }

@@ -36,7 +36,7 @@ class Paymentclass extends Model{
     
     //审核状态_读取器
 	protected function getTypeAttr ($val,$data){
-        $arr=['0'=>'未审核','1'=>'已审核'];
+        $arr=['0'=>'未承認','1'=>'承認済み'];
         $re['name']=$arr[$val];
         $re['nod']=$val;
         return $re;

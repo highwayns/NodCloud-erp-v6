@@ -4,8 +4,8 @@ use think\Validate;
 class Formfield extends Validate{
     //默认创建规则
     protected $rule = [
-        ['name', 'require', '表单名称不可为空!'],
-        ['key', 'require|RepeatKey:create', '表单标识不可为空!|字段数据重复'],
+        ['name', 'require', 'フォーム名は空にできません！'],
+        ['key', 'require|RepeatKey:create', 'フォーム識別子は空にできません！|フィールドデータが重複しています！']
     ];
     //场景规则
     protected $scene = [
@@ -18,7 +18,7 @@ class Formfield extends Validate{
         $sql['key']=$val;
         $rule=='update'&&($sql['id']=['neq',$data['id']]);
         $nod=db('formfield')->where($sql)->find();
-        return empty($nod)?true:'表单标识[ '.$val.' ]已存在!';
+        return empty($nod)?true:'フォーム識別[ '.$val.' ]存在する!';
     }
     
     

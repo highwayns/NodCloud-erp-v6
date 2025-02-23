@@ -5,30 +5,30 @@
             <div class="layui-row layui-col-space3">
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">单据编号</label>
+                        <label class="layui-form-label">ドキュメント番号</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|number" placeholder="请输入单据编号">
+                            <input type="text" class="layui-input" id="s|number" placeholder="ドキュメント番号を入力してください">
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">客户</label>
+                        <label class="layui-form-label">クライアント</label>
                         <div class="layui-input-block">
-                            <div id="nod_customer" class="selectpage" nod="s|customer" tip="全部客户" url="/index/service/customer_list" checkbox></div>
+                            <div id="nod_customer" class="selectpage" nod="s|customer" tip="すべての顧客" url="/index/service/customer_list" checkbox></div>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">核销状态</label>
+                        <label class="layui-form-label">決済ステータス</label>
                         <div class="layui-input-block">
                             <select id="s|billtype">
-                                <option value="0">全部状态</option>
-                                <option value="1">未核销</option>
-                                <option value="2">部分核销</option>
-                                <option value="3">已核销</option>
-                                <option value="4">强制核销</option>
+                                <option value="0">すべてのステータス</option>
+                                <option value="1">未決済</option>
+                                <option value="2">部分決済</option>
+                                <option value="3">決済済み</option>
+                                <option value="4">強制決済</option>
                             </select>
                         </div>
                     </div>
@@ -41,25 +41,25 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">开始日期</label>
+                        <label class="layui-form-label">開始日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|start_time" placeholder="请选择开始日期" >
+                            <input type="text" class="layui-input" id="s|start_time" placeholder="開始日を選択してください" >
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">结束日期</label>
+                        <label class="layui-form-label">終了日</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|end_time" placeholder="请选择结束日期" >
+                            <input type="text" class="layui-input" id="s|end_time" placeholder="終了日を選択してください" >
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">结算账户</label>
+                        <label class="layui-form-label">決済口座</label>
                         <div class="layui-input-block">
-                            <div id="nod_account" class="selectpage" nod="s|account" tip="全部结算账户" url="/index/service/account_list" checkbox></div>
+                            <div id="nod_account" class="selectpage" nod="s|account" tip="すべての決済口座" url="/index/service/account_list" checkbox></div>
                         </div>
                     </div>
                 </div>
@@ -67,24 +67,24 @@
             <div class="layui-row layui-col-space3" show>
                 <div class="layui-col-xs3">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">制单人</label>
+                        <label class="layui-form-label">シングルハンドの人</label>
                         <div class="layui-input-block">
-                            <div id="nod_user" class="selectpage" nod="s|user" tip="全部制单人" url="/index/service/user_list" checkbox></div>
+                            <div id="nod_user" class="selectpage" nod="s|user" tip="すべての独身者" url="/index/service/user_list" checkbox></div>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-xs6">
                     <div class="layui-form-item remove_margin reset_item">
-                        <label class="layui-form-label">备注信息</label>
+                        <label class="layui-form-label">備考情報</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="s|data" placeholder="请输入备注信息">
+                            <input type="text" class="layui-input" id="s|data" placeholder="備考情報を入力してください">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="layui-col-xs3 layui-btn-group btn_group_right">
-            <button class="layui-btn layui-btn-primary" onclick="exports();">导出</button>
+            <button class="layui-btn layui-btn-primary" onclick="exports();">輸出</button>
             <button class="layui-btn layui-btn-primary" onclick="reload();"><i class="layui-icon layui-icon-refresh"></i></button>
         </div>
     </div>
@@ -97,12 +97,12 @@
 </div>
 <script type="text/html" id="bar_info">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="view">查看</button>
-        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="set_bill">操作</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="view">チェック</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="set_bill">動作します</button>
     </div>
 </script>
 <script type="text/html" id="batch_html">
-    <button class="layui-btn" onclick="set_bills();" batch>批量操作</button>
+    <button class="layui-btn" onclick="set_bills();" batch>バッチ操作</button>
 </script>
 <script type="text/javascript" charset="utf-8">
     var formfield={php}echo get_formfield('itemorderbill_form','layui');{/php};
