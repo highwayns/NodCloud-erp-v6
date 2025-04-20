@@ -193,6 +193,19 @@
 2. 如果您愿意，可以附上您的联系方式（如邮箱或GitHub用户名），以便我们在需要时与您取得联系。
 3. 我们鼓励大家不仅提交BUG，也欢迎提出改进建议或新功能请求，共同推动[点可云ERP-V6.0]的发展。
 
+# ECS Docker部署
+## 登录 ECR（替换区域与账户）
+aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin <account_id>.dkr.ecr.ap-northeast-1.amazonaws.com
+
+# 构建镜像
+docker build -t php-app .
+
+## 打 tag
+docker tag php-app:latest <account_id>.dkr.ecr.ap-northeast-1.amazonaws.com/php-app-repo:latest
+
+## 推送镜像
+docker push <account_id>.dkr.ecr.ap-northeast-1.amazonaws.com/php-app-repo:latest
+
 **结语**：
 
 每一次的反馈都是对我们工作的鞭策和激励。我们相信，通过大家的共同努力，[点可云ERP-V6.0]将会变得更加出色。期待您的参与，让我们携手共创更加美好的开源世界！

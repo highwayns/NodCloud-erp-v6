@@ -1,10 +1,10 @@
 <?php
 return [
     'type'            => 'mysql',// 数据库类型
-    'hostname'        => '127.0.0.1',// 服务器地址
-    'database'        => 'stock',// 数据库名
-    'username'        => 'stock',// 用户名
-    'password'        => 'stock',// 密码
+    'hostname'        => 'db',// 服务器地址
+    'database'        => 'mydb',// 数据库名
+    'username'        => 'user',// 用户名
+    'password'        => 'password',// 密码
     'hostport'        => '3406',// 端口
     'dsn'             => '',// 连接dsn
     'params'          => [],// 数据库连接参数
