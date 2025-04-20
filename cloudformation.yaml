@@ -67,10 +67,10 @@ Resources:
   ECSCluster:
     Type: AWS::ECS::Cluster
 
-  ECRRepository:
-    Type: AWS::ECR::Repository
-    Properties:
-      RepositoryName: php-app-repo
+#  ECRRepository:
+#    Type: AWS::ECR::Repository
+#    Properties:
+#      RepositoryName: php-app-repo
 
   TaskExecutionRole:
     Type: AWS::IAM::Role
@@ -102,7 +102,7 @@ Resources:
       ExecutionRoleArn: !GetAtt TaskExecutionRole.Arn
       ContainerDefinitions:
         - Name: php-container
-          Image: <你的ECR镜像地址>
+          Image: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/php-app-repo:latest"
           PortMappings:
             - ContainerPort: 80
           Environment:

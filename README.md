@@ -195,16 +195,16 @@
 
 # ECS Docker部署
 ## 登录 ECR（替换区域与账户）
-aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin <account_id>.dkr.ecr.ap-northeast-1.amazonaws.com
+aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 596163652190.dkr.ecr.ap-northeast-1.amazonaws.com
 
 # 构建镜像
 docker build -t php-app .
 
 ## 打 tag
-docker tag php-app:latest <account_id>.dkr.ecr.ap-northeast-1.amazonaws.com/php-app-repo:latest
+docker tag php-app:latest 596163652190.dkr.ecr.ap-northeast-1.amazonaws.com/php-app-repo:latest
 
 ## 推送镜像
-docker push <account_id>.dkr.ecr.ap-northeast-1.amazonaws.com/php-app-repo:latest
+docker push 596163652190.dkr.ecr.ap-northeast-1.amazonaws.com/php-app-repo:latest
 
 **结语**：
 
